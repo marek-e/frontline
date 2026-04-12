@@ -1,0 +1,124 @@
+.match-score {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 160px;
+}
+
+.match-score__header {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #6b5a4a;
+  text-transform: uppercase;
+}
+
+.match-score__record {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.match-score__player {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.match-score__name {
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  min-width: 36px;
+}
+
+.match-score__player--red  .match-score__name { color: #cc2200; }
+.match-score__player--blue .match-score__name { color: #1155cc; }
+
+.match-score__wins {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2a1a0a;
+}
+
+.match-score__pts {
+  font-size: 11px;
+  color: #888;
+  margin-left: auto;
+}
+
+.match-score__vs {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #aaa;
+  align-self: center;
+}
+
+.match-score__history {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.match-score__history-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  margin-bottom: 2px;
+}
+
+.match-score__round {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  color: #555;
+}
+
+.match-score__round-winner {
+  font-weight: 700;
+  flex: 1;
+}
+
+.match-score__round--red  .match-score__round-winner { color: #cc2200; }
+.match-score__round--blue .match-score__round-winner { color: #1155cc; }
+
+.match-score__format {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #888;
+  margin-top: auto;
+}
+
+.match-score__format-btn {
+  padding: 4px 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.15s ease;
+}
+
+.match-score__format-btn:hover {
+  border-color: #888;
+  color: #333;
+}
+
+.match-score__format-btn--active {
+  border-color: #b58863;
+  background: #b58863;
+  color: white;
+}
