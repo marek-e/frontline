@@ -1,0 +1,79 @@
+apps/web/src/components/Piece/pieceColors.ts
+  722f128a7938df2c 1-4
+apps/web/src/components/Piece/PieceSvgs.tsx
+  722f128a7938df2c 1-78
+apps/web/src/components/Board/Board.tsx
+  722f128a7938df2c 1-173
+apps/web/src/assets/vite.svg
+  722f128a7938df2c 1
+apps/web/src/components/GameInfo/GameInfo.tsx
+  722f128a7938df2c 1-195
+apps/web/src/components/Piece/Piece.css
+  722f128a7938df2c 1-27
+apps/web/package.json
+  722f128a7938df2c 1-33
+apps/web/src/components/MatchScore/MatchScore.css
+  722f128a7938df2c 1-124
+apps/web/src/components/PromotionPicker/PromotionPicker.tsx
+  722f128a7938df2c 1-58
+apps/web/eslint.config.js
+  722f128a7938df2c 1-23
+apps/web/src/components/PromotionPicker/PromotionPicker.css
+  722f128a7938df2c 1-94
+apps/web/public/favicon.svg
+  722f128a7938df2c 1
+apps/web/src/components/WinModal/WinModal.tsx
+  722f128a7938df2c 1-80
+apps/web/src/components/Piece/Piece.tsx
+  722f128a7938df2c 1-38
+apps/web/src/components/MatchScore/MatchScore.tsx
+  722f128a7938df2c 1-59
+apps/web/index.html
+  722f128a7938df2c 1-13
+apps/web/src/index.css
+  722f128a7938df2c 1-11
+apps/web/tsconfig.json
+  722f128a7938df2c 1-16
+apps/web/src/components/Board/Square.tsx
+  722f128a7938df2c 1-58
+apps/web/src/assets/react.svg
+  722f128a7938df2c 1
+apps/web/src/components/Board/Board.css
+  722f128a7938df2c 1-50
+apps/web/vite.config.ts
+  722f128a7938df2c 1-7
+apps/web/src/components/Board/Square.css
+  722f128a7938df2c 1-59
+apps/web/public/icons.svg
+  722f128a7938df2c 1-24
+apps/web/src/main.tsx
+  722f128a7938df2c 1-10
+apps/web/src/components/GameInfo/GameInfo.css
+  722f128a7938df2c 1-256
+apps/web/src/App.tsx
+  722f128a7938df2c 1-64
+apps/web/src/components/WinModal/WinModal.css
+  722f128a7938df2c 1-105
+apps/web/src/App.css
+  722f128a7938df2c 1-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "aeaa68d35b9caee47aa095f2d76fe75371120838",
+  "prompts": {
+    "722f128a7938df2c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3b02314a-90db-4bf0-b233-3cd6bb132067",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1814,
+      "overriden_lines": 0
+    }
+  }
+}
