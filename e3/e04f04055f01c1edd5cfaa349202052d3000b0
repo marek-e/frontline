@@ -1,0 +1,25 @@
+apps/web/src/components/NotFound.tsx
+  992c488978624ccf 1-8
+apps/web/src/routes/__root.tsx
+  992c488978624ccf 7,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "e3e04f04055f01c1edd5cfaa349202052d3000b0",
+  "prompts": {
+    "992c488978624ccf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0f0432c-e4ba-4b6f-970f-edc6ace4241a",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 76,
+      "total_deletions": 9,
+      "accepted_lines": 25,
+      "overriden_lines": 0
+    }
+  }
+}
