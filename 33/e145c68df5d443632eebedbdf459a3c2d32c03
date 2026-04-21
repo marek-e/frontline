@@ -1,0 +1,43 @@
+.gitignore
+  08b3109e62380608 17-21
+.env.example
+  08b3109e62380608 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "33e145c68df5d443632eebedbdf459a3c2d32c03",
+  "prompts": {
+    "08b3109e62380608": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7b8cb6e7-19fc-4db3-b367-1f20c6f5d6a7",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 337,
+      "total_deletions": 133,
+      "accepted_lines": 230,
+      "overriden_lines": 2
+    },
+    "279fdc60278f2c9d": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "1d19ee5b-ca18-4835-8d5a-db3bb6f42f3e",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 8,
+      "accepted_lines": 2,
+      "overriden_lines": 1
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
