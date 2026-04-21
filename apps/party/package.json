@@ -1,0 +1,19 @@
+{
+  "name": "@frontline/party",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "partykit dev",
+    "deploy": "partykit deploy",
+    "lint": "oxlint --deny-warnings src",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "partykit": "^0.0.109"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "~6.0.3"
+  }
+}

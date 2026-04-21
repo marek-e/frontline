@@ -1,0 +1,5 @@
+{
+  "name": "frontline-party",
+  "main": "src/GameRoom.ts",
+  "compatibilityDate": "2024-11-18"
+}
