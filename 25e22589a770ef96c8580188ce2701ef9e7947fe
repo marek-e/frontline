@@ -1,0 +1,21 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "25e22589a770ef96c8580188ce2701ef9e7947fe",
+  "prompts": {
+    "722f128a7938df2c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3b02314a-90db-4bf0-b233-3cd6bb132067",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 3293,
+      "total_deletions": 95,
+      "accepted_lines": 3231,
+      "overriden_lines": 0
+    }
+  }
+}
