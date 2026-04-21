@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
-import type { Board as BoardType, Square as SquareType } from '../../game/types'
-import type { GameAction } from '../../game/gameReducer'
-import { getLegalMoves, getWarlordPursuitMoves } from '../../game/moves'
-import { getPiece, squaresEqual, findPiece } from '../../game/board'
-import type { Color } from '../../game/types'
+import type { Board as BoardType, Square as SquareType, GameAction, Color } from '@frontline/rules'
+import { getLegalMoves, getWarlordPursuitMoves, getPiece, squaresEqual, findPiece } from '@frontline/rules'
 import { Square } from './Square'
 import './Board.css'
 

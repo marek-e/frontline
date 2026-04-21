@@ -1,4 +1,4 @@
-import type { Piece as PieceData, Square as SquareType } from '../../game/types'
+import type { Piece as PieceData, Square as SquareType } from '@frontline/rules'
 import { Piece } from '../Piece/Piece'
 import './Square.css'
 

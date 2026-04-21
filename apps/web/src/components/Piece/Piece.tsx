@@ -1,4 +1,4 @@
-import type { Piece as PieceData, Square } from '../../game/types'
+import type { Piece as PieceData, Square } from '@frontline/rules'
 import { CommanderSvg, GuardSvg, CannonSvg, StrikerSvg, FlankerSvg, WarlordSvg } from './PieceSvgs'
 import { PIECE_COLORS } from './pieceColors'
 import './Piece.css'

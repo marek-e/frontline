@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import type { Color, GamePhase, Piece, PieceType, Square } from '../../game/types'
-import type { GameAction } from '../../game/gameReducer'
+import type { Color, GamePhase, Piece, PieceType, Square, GameAction } from '@frontline/rules'
+import { PIECE_VALUES } from '@frontline/rules'
 import { CommanderSvg, GuardSvg, CannonSvg, StrikerSvg, FlankerSvg, WarlordSvg } from '../Piece/PieceSvgs'
 import { PIECE_COLORS } from '../Piece/pieceColors'
-import { PIECE_VALUES } from '../../game/constants'
 import './GameInfo.css'
 
 interface Props {

@@ -1,5 +1,5 @@
 import { useReducer } from 'react'
-import { gameReducer, createInitialState } from './game/gameReducer'
+import { gameReducer, createInitialState } from '@frontline/rules'
 import { Board } from './components/Board/Board'
 import { GameInfo } from './components/GameInfo/GameInfo'
 import { MatchScore } from './components/MatchScore/MatchScore'

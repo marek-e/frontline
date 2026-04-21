@@ -1,5 +1,4 @@
-import type { MatchState } from '../../game/types'
-import type { GameAction } from '../../game/gameReducer'
+import type { MatchState, GameAction } from '@frontline/rules'
 import './MatchScore.css'
 
 interface Props {

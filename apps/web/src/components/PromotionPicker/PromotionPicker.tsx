@@ -1,8 +1,7 @@
-import type { Color, PieceType } from '../../game/types'
-import type { GameAction } from '../../game/gameReducer'
+import type { Color, PieceType, GameAction } from '@frontline/rules'
+import { PIECE_VALUES } from '@frontline/rules'
 import { CannonSvg, StrikerSvg, FlankerSvg, WarlordSvg } from '../Piece/PieceSvgs'
 import { PIECE_COLORS } from '../Piece/pieceColors'
-import { PIECE_VALUES } from '../../game/constants'
 import './PromotionPicker.css'
 
 type PromotablePiece = Exclude<PieceType, 'commander' | 'guard'>

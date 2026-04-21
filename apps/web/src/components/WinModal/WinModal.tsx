@@ -1,5 +1,4 @@
-import type { Color, GamePhase, RoundScore } from '../../game/types'
-import type { GameAction } from '../../game/gameReducer'
+import type { Color, GamePhase, RoundScore, GameAction } from '@frontline/rules'
 import './WinModal.css'
 
 interface Props {
