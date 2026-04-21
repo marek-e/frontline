@@ -1,0 +1,23 @@
+packages/rules/src/moves.test.ts
+  722f128a7938df2c 1-449
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "44a14cb0136581c8bae31a6315281566019996b3",
+  "prompts": {
+    "722f128a7938df2c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3b02314a-90db-4bf0-b233-3cd6bb132067",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 2300,
+      "overriden_lines": 0
+    }
+  }
+}
