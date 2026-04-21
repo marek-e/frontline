@@ -11,36 +11,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
-    name: Typecheck / Lint / Test / Build
+  typecheck:
+    name: Typecheck
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm typecheck
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm lint
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm format:check
 
-      - name: Install dependencies
-        run: pnpm install
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm test
 
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Format check
-        run: pnpm format:check
-
-      - name: Test
-        run: pnpm test
-
-      - name: Build
-        run: pnpm build
+  build:
+    name: Build
+    needs: [typecheck, lint, format, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm build
