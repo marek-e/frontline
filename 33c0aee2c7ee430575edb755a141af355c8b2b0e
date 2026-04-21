@@ -1,0 +1,69 @@
+src/components/Piece/pieceColors.ts
+  0ecfeafeecdbb704 1-4
+src/game/gameReducer.ts
+  dc4e05aa27f8f55f 9-11,27-28,50-86,89,92,106-107,126,132,141,152-169,171-187,189-199,201,203-216,222-239,241-242,244-246,248-267,269-271,277-282,295,299
+src/game/moves.ts
+  dc4e05aa27f8f55f 1,4-17,36,45,50,56-70,74,81-121,124-133,136-140,161-162,165,171,185,193-198,202,213-214,225-226,233-252,268
+src/components/PromotionPicker/PromotionPicker.css
+  dc4e05aa27f8f55f 1-94
+src/components/Board/Board.tsx
+  dc4e05aa27f8f55f 1,4,23,29-31,35,44-53,56,59,67,86-92,101-109,117,123,134,140,145,153
+src/components/Board/Board.css
+  dc4e05aa27f8f55f 34-39
+src/App.tsx
+  dc4e05aa27f8f55f 7,23,26,38,47-50,56
+src/components/GameInfo/GameInfo.css
+  dc4e05aa27f8f55f 4,9,15-16,30,33,38-39,46,52,54,58-95,98,100,103,106-107,109-110,118-123,125-128,131-132,135-233,235-255
+src/game/types.ts
+  dc4e05aa27f8f55f 3,23-25,30-31,44-45,47-50
+src/components/PromotionPicker/PromotionPicker.tsx
+  0ecfeafeecdbb704 4
+  dc4e05aa27f8f55f 1-3,5-59
+src/components/Piece/PieceSvgs.tsx
+  dc4e05aa27f8f55f 1-78
+src/game/constants.ts
+  dc4e05aa27f8f55f 4-8,13,23-24
+src/components/Piece/Piece.tsx
+  dc4e05aa27f8f55f 1-2,15,32-35
+  0ecfeafeecdbb704 3
+README.md
+  dc4e05aa27f8f55f 5,9-13,18-20,24-27,32,34-37,39-45,47-49,51-54,56-58,60-62,66-73,79-81,84,88-90,93-97,99-112,118-121,124-126,132-135
+src/components/WinModal/WinModal.css
+  dc4e05aa27f8f55f 104-105
+src/components/GameInfo/GameInfo.tsx
+  0ecfeafeecdbb704 5
+  dc4e05aa27f8f55f 1-4,6,13,16,19-134,136,142,158,160,167,174-175,178-184,192-193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "33c0aee2c7ee430575edb755a141af355c8b2b0e",
+  "prompts": {
+    "0ecfeafeecdbb704": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "34495c31-db8b-4e55-af19-b4731d307883",
+        "model": "claude-opus-4-7-thinking-high"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 7,
+      "total_deletions": 7,
+      "accepted_lines": 7,
+      "overriden_lines": 0
+    },
+    "dc4e05aa27f8f55f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "43d93f84-94d1-4067-a467-d38124aa196e",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 1197,
+      "total_deletions": 513,
+      "accepted_lines": 1047,
+      "overriden_lines": 0
+    }
+  }
+}
