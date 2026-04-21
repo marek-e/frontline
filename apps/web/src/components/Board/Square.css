@@ -6,8 +6,12 @@
   aspect-ratio: 1;
 }
 
-.square--light { background-color: #f0d9b5; }
-.square--dark  { background-color: #b58863; }
+.square--light {
+  background-color: #f0d9b5;
+}
+.square--dark {
+  background-color: #b58863;
+}
 
 .square--checked {
   background-color: rgba(220, 50, 30, 0.55) !important;
@@ -15,8 +19,12 @@
 }
 
 @keyframes checkFlash {
-  from { background-color: rgba(220, 50, 30, 0.45) !important; }
-  to   { background-color: rgba(220, 50, 30, 0.7)  !important; }
+  from {
+    background-color: rgba(220, 50, 30, 0.45) !important;
+  }
+  to {
+    background-color: rgba(220, 50, 30, 0.7) !important;
+  }
 }
 
 .square--selected::after {

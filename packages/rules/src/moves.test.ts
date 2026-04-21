@@ -2,23 +2,10 @@ import { describe, it, expect } from 'vitest'
 import fc from 'fast-check'
 import { createInitialBoard, PIECE_VALUES } from './constants'
 import { getPiece, isInBounds, findPiece, applyMove } from './board'
-import {
-  getLegalMoves,
-  getWarlordPursuitMoves,
-  isInCheck,
-  hasNoLegalMoves,
-} from './moves'
+import { getLegalMoves, getWarlordPursuitMoves, isInCheck, hasNoLegalMoves } from './moves'
 import type { GameAction } from './gameReducer'
 import { createInitialState, gameReducer } from './gameReducer'
-import type {
-  Board,
-  Color,
-  GameState,
-  Move,
-  Piece,
-  PieceType,
-  Square,
-} from './types'
+import type { Board, Color, GameState, Move, Piece, PieceType, Square } from './types'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -31,7 +18,7 @@ function enumerateLegalMoves(
   board: Board,
   color: Color,
   movedPieceIds: string[],
-  enPassantTarget: Square | null,
+  enPassantTarget: Square | null
 ): { from: Square; to: Square; piece: Piece }[] {
   const out: { from: Square; to: Square; piece: Piece }[] = []
   const ctx = { movedPieceIds, enPassantTarget }
@@ -71,7 +58,7 @@ function playRandomGame(seed: number, maxPlies = 200): GameState {
         {
           movedPieceIds: state.round.movedPieceIds,
           enPassantTarget: state.round.enPassantTarget,
-        },
+        }
       )
       // Randomly skip or pursue
       if (pursuitTargets.length === 0 || rng() < 0.3) {
@@ -87,7 +74,7 @@ function playRandomGame(seed: number, maxPlies = 200): GameState {
       state.round.board,
       state.round.turn,
       state.round.movedPieceIds,
-      state.round.enPassantTarget,
+      state.round.enPassantTarget
     )
     if (moves.length === 0) break
     const chosen = moves[Math.floor(rng() * moves.length)]
@@ -99,9 +86,7 @@ function playRandomGame(seed: number, maxPlies = 200): GameState {
     const next = gameReducer(state, action)
     // Invariant: a legal move must always advance state.
     if (next === state) {
-      throw new Error(
-        `Legal move was rejected by reducer: ${JSON.stringify(chosen)}`,
-      )
+      throw new Error(`Legal move was rejected by reducer: ${JSON.stringify(chosen)}`)
     }
     state = next
   }
@@ -169,14 +154,14 @@ describe('legal moves — invariants', () => {
           state.round.board,
           state.round.turn,
           state.round.movedPieceIds,
-          state.round.enPassantTarget,
+          state.round.enPassantTarget
         )
         for (const m of moves) {
           expect(isInBounds(m.to)).toBe(true)
           expect(isInBounds(m.from)).toBe(true)
         }
       }),
-      { numRuns: 25 },
+      { numRuns: 25 }
     )
   })
 
@@ -189,15 +174,13 @@ describe('legal moves — invariants', () => {
           state.round.board,
           state.round.turn,
           state.round.movedPieceIds,
-          state.round.enPassantTarget,
+          state.round.enPassantTarget
         )
         for (const m of moves) {
           const piece = getPiece(state.round.board, m.from)!
           const target = getPiece(state.round.board, m.to)
           const isSwap =
-            piece.type === 'commander' &&
-            target?.color === piece.color &&
-            target?.type === 'cannon'
+            piece.type === 'commander' && target?.color === piece.color && target?.type === 'cannon'
           const dir = piece.color === 'red' ? -1 : 1
           const isEnPassant =
             piece.type === 'guard' &&
@@ -205,9 +188,7 @@ describe('legal moves — invariants', () => {
             m.to.row === state.round.enPassantTarget.row &&
             m.to.col === state.round.enPassantTarget.col &&
             !target
-          const epSq = isEnPassant
-            ? { row: m.to.row - dir, col: m.to.col }
-            : undefined
+          const epSq = isEnPassant ? { row: m.to.row - dir, col: m.to.col } : undefined
           const mv: Move = {
             from: m.from,
             to: m.to,
@@ -215,7 +196,9 @@ describe('legal moves — invariants', () => {
             capturedPiece: isSwap
               ? null
               : isEnPassant
-                ? (epSq ? getPiece(state.round.board, epSq) : null)
+                ? epSq
+                  ? getPiece(state.round.board, epSq)
+                  : null
                 : target,
             isSwap: isSwap || undefined,
             isEnPassant: isEnPassant || undefined,
@@ -229,11 +212,11 @@ describe('legal moves — invariants', () => {
             isInCheck(after, piece.color, {
               movedPieceIds: newMovedIds,
               enPassantTarget: null,
-            }),
+            })
           ).toBe(false)
         }
       }),
-      { numRuns: 25 },
+      { numRuns: 25 }
     )
   })
 
@@ -244,7 +227,7 @@ describe('legal moves — invariants', () => {
         const state = playRandomGame(seed, 60)
         expect(state).toBeDefined()
       }),
-      { numRuns: 25 },
+      { numRuns: 25 }
     )
   })
 
@@ -255,7 +238,7 @@ describe('legal moves — invariants', () => {
         const state = playRandomGame(seed, 100)
         expect(countPieces(state.round.board)).toBeLessThanOrEqual(start)
       }),
-      { numRuns: 20 },
+      { numRuns: 20 }
     )
   })
 
@@ -276,7 +259,7 @@ describe('legal moves — invariants', () => {
         expect(red).toBe(1)
         expect(blue).toBe(1)
       }),
-      { numRuns: 25 },
+      { numRuns: 25 }
     )
   })
 })
@@ -352,7 +335,7 @@ describe('checkmate detection', () => {
 })
 
 describe('en passant', () => {
-  it("a guard that just double-stepped can be captured en passant", () => {
+  it('a guard that just double-stepped can be captured en passant', () => {
     const state0 = createInitialState(3)
     // Red plays a2→a4 (double step). Red guard at (6,0) → (4,0).
     const s1 = gameReducer(state0, {
@@ -399,10 +382,14 @@ describe('commander swap', () => {
     const state0 = createInitialState(3)
     // Red cannon at (7,0), commander at (7,4). Path (7,1),(7,2),(7,3) occupied by
     // flanker/striker/warlord. So swap blocked from start.
-    const moves = getLegalMoves(state0.round.board, { row: 7, col: 4 }, {
-      movedPieceIds: [],
-      enPassantTarget: null,
-    })
+    const moves = getLegalMoves(
+      state0.round.board,
+      { row: 7, col: 4 },
+      {
+        movedPieceIds: [],
+        enPassantTarget: null,
+      }
+    )
     // Commander has no moves from start position.
     expect(moves.length).toBe(0)
   })
@@ -413,10 +400,14 @@ describe('commander swap', () => {
     board[7][1] = null
     board[7][2] = null
     board[7][3] = null
-    const moves = getLegalMoves(board, { row: 7, col: 4 }, {
-      movedPieceIds: [],
-      enPassantTarget: null,
-    })
+    const moves = getLegalMoves(
+      board,
+      { row: 7, col: 4 },
+      {
+        movedPieceIds: [],
+        enPassantTarget: null,
+      }
+    )
     // Swap to (7,0) is legal
     expect(moves.some((m) => m.row === 7 && m.col === 0)).toBe(true)
   })

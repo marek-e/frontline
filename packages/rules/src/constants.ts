@@ -1,11 +1,11 @@
 import type { Board, Color, Piece, PieceType } from './types'
 
 export const PIECE_VALUES: Record<PieceType, number> = {
-  guard:     1,
-  flanker:   3,
-  striker:   3,
-  cannon:    5,
-  warlord:   7,
+  guard: 1,
+  flanker: 3,
+  striker: 3,
+  cannon: 5,
+  warlord: 7,
   commander: Infinity,
 }
 
@@ -21,7 +21,16 @@ export function createInitialBoard(): Board {
   const board: Board = Array.from({ length: 8 }, () => Array(8).fill(null))
 
   // Back row: Cannon, Flanker, Striker, Warlord, Commander, Striker, Flanker, Cannon
-  const backRow: PieceType[] = ['cannon', 'flanker', 'striker', 'warlord', 'commander', 'striker', 'flanker', 'cannon']
+  const backRow: PieceType[] = [
+    'cannon',
+    'flanker',
+    'striker',
+    'warlord',
+    'commander',
+    'striker',
+    'flanker',
+    'cannon',
+  ]
 
   // Row 0 = rank 8 = blue back rank
   backRow.forEach((type, col) => {

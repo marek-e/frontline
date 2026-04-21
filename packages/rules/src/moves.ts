@@ -1,9 +1,19 @@
 import type { Board, Color, Move, Square } from './types'
 import { getPiece, isInBounds, applyMove, findPiece } from './board'
 
-const DIAGONALS   = [[-1, -1], [-1, 1], [1, -1], [1, 1]] as const
-const ORTHOGONALS = [[-1, 0], [1, 0], [0, -1], [0, 1]] as const
-const ALL_DIRS    = [...DIAGONALS, ...ORTHOGONALS] as const
+const DIAGONALS = [
+  [-1, -1],
+  [-1, 1],
+  [1, -1],
+  [1, 1],
+] as const
+const ORTHOGONALS = [
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+] as const
+const ALL_DIRS = [...DIAGONALS, ...ORTHOGONALS] as const
 
 // Flanker: all squares at Chebyshev distance exactly 2
 // (outer ring of a 5×5 area: 16 squares)
@@ -36,8 +46,11 @@ function isEnemy(board: Board, sq: Square, color: Color): boolean {
 // ─── Piece move generators (raw, no check filtering) ─────────────────────────
 
 function getGuardMoves(
-  board: Board, from: Square, color: Color,
-  hasMoved: boolean, enPassantTarget: Square | null,
+  board: Board,
+  from: Square,
+  color: Color,
+  hasMoved: boolean,
+  enPassantTarget: Square | null
 ): Square[] {
   const dir = color === 'red' ? -1 : 1
   const moves: Square[] = []
@@ -128,9 +141,9 @@ function getStrikerMoves(board: Board, from: Square, color: Color): Square[] {
  * 16 possible target squares. Can jump over pieces.
  */
 function getFlankerMoves(board: Board, from: Square, color: Color): Square[] {
-  return FLANKER_OFFSETS
-    .map(([dr, dc]) => ({ row: from.row + dr, col: from.col + dc }))
-    .filter(sq => isInBounds(sq) && !isFriendly(board, sq, color))
+  return FLANKER_OFFSETS.map(([dr, dc]) => ({ row: from.row + dr, col: from.col + dc })).filter(
+    (sq) => isInBounds(sq) && !isFriendly(board, sq, color)
+  )
 }
 
 /**
@@ -152,8 +165,11 @@ function getWarlordMoves(board: Board, from: Square, color: Color): Square[] {
 }
 
 function getCommanderMoves(
-  board: Board, from: Square, color: Color,
-  commanderHasMoved: boolean, movedPieceIds: string[],
+  board: Board,
+  from: Square,
+  color: Color,
+  commanderHasMoved: boolean,
+  movedPieceIds: string[]
 ): Square[] {
   const moves: Square[] = []
 
@@ -173,7 +189,10 @@ function getCommanderMoves(
       const step = col > from.col ? 1 : -1
       let blocked = false
       for (let c = from.col + step; c !== col; c += step) {
-        if (getPiece(board, { row: from.row, col: c })) { blocked = true; break }
+        if (getPiece(board, { row: from.row, col: c })) {
+          blocked = true
+          break
+        }
       }
       if (!blocked) moves.push(target)
     }
@@ -190,19 +209,25 @@ function getRawMoves(board: Board, from: Square, ctx: MoveContext): Square[] {
   const hasMoved = ctx.movedPieceIds.includes(piece.id)
 
   switch (piece.type) {
-    case 'guard':     return getGuardMoves(board, from, piece.color, hasMoved, ctx.enPassantTarget)
-    case 'cannon':    return getCannonMoves(board, from, piece.color)
-    case 'striker':   return getStrikerMoves(board, from, piece.color)
-    case 'flanker':   return getFlankerMoves(board, from, piece.color)
-    case 'warlord':   return getWarlordMoves(board, from, piece.color)
-    case 'commander': return getCommanderMoves(board, from, piece.color, hasMoved, ctx.movedPieceIds)
+    case 'guard':
+      return getGuardMoves(board, from, piece.color, hasMoved, ctx.enPassantTarget)
+    case 'cannon':
+      return getCannonMoves(board, from, piece.color)
+    case 'striker':
+      return getStrikerMoves(board, from, piece.color)
+    case 'flanker':
+      return getFlankerMoves(board, from, piece.color)
+    case 'warlord':
+      return getWarlordMoves(board, from, piece.color)
+    case 'commander':
+      return getCommanderMoves(board, from, piece.color, hasMoved, ctx.movedPieceIds)
   }
 }
 
 // ─── Check detection ─────────────────────────────────────────────────────────
 
 export function isInCheck(board: Board, color: Color, ctx: MoveContext): boolean {
-  const commanderSq = findPiece(board, p => p.type === 'commander' && p.color === color)
+  const commanderSq = findPiece(board, (p) => p.type === 'commander' && p.color === color)
   if (!commanderSq) return false
 
   const opponent: Color = color === 'red' ? 'blue' : 'red'
@@ -213,7 +238,7 @@ export function isInCheck(board: Board, color: Color, ctx: MoveContext): boolean
       const p = board[row][col]
       if (!p || p.color !== opponent) continue
       const moves = getRawMoves(board, { row, col }, rawCtx)
-      if (moves.some(sq => sq.row === commanderSq.row && sq.col === commanderSq.col)) return true
+      if (moves.some((sq) => sq.row === commanderSq.row && sq.col === commanderSq.col)) return true
     }
   }
   return false
@@ -236,20 +261,23 @@ export function hasNoLegalMoves(board: Board, color: Color, ctx: MoveContext): b
  * Returns the valid 1-square non-capturing steps the Warlord can take after a capture.
  * Check-filtered: can't pursue into a square that leaves own Commander in check.
  */
-export function getWarlordPursuitMoves(board: Board, from: Square, color: Color, ctx: MoveContext): Square[] {
+export function getWarlordPursuitMoves(
+  board: Board,
+  from: Square,
+  color: Color,
+  ctx: MoveContext
+): Square[] {
   const piece = getPiece(board, from)
   if (!piece) return []
 
-  return ALL_DIRS
-    .map(([dr, dc]) => ({ row: from.row + dr, col: from.col + dc }))
-    .filter(to => {
-      if (!isInBounds(to)) return false
-      if (getPiece(board, to)) return false // non-capturing only
-      // Check-filter the pursuit step
-      const move: Move = { from, to, piece, capturedPiece: null }
-      const newBoard = applyMove(board, move)
-      return !isInCheck(newBoard, color, ctx)
-    })
+  return ALL_DIRS.map(([dr, dc]) => ({ row: from.row + dr, col: from.col + dc })).filter((to) => {
+    if (!isInBounds(to)) return false
+    if (getPiece(board, to)) return false // non-capturing only
+    // Check-filter the pursuit step
+    const move: Move = { from, to, piece, capturedPiece: null }
+    const newBoard = applyMove(board, move)
+    return !isInCheck(newBoard, color, ctx)
+  })
 }
 
 // ─── Legal moves (check-filtered) ────────────────────────────────────────────
@@ -260,7 +288,7 @@ export function getLegalMoves(board: Board, from: Square, ctx: MoveContext): Squ
 
   const raw = getRawMoves(board, from, ctx)
 
-  return raw.filter(to => {
+  return raw.filter((to) => {
     const targetPiece = getPiece(board, to)
     const isSwap =
       piece.type === 'commander' &&
@@ -280,10 +308,16 @@ export function getLegalMoves(board: Board, from: Square, ctx: MoveContext): Squ
       : undefined
 
     const move: Move = {
-      from, to, piece,
+      from,
+      to,
+      piece,
       capturedPiece: isEnPassant
-        ? (epCaptureSquare ? getPiece(board, epCaptureSquare) : null)
-        : (isSwap ? null : targetPiece),
+        ? epCaptureSquare
+          ? getPiece(board, epCaptureSquare)
+          : null
+        : isSwap
+          ? null
+          : targetPiece,
       isEnPassant: isEnPassant || undefined,
       isSwap: isSwap || undefined,
       enPassantCaptureSquare: epCaptureSquare,

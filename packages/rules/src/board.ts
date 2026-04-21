@@ -13,7 +13,7 @@ export function getPiece(board: Board, sq: Square): Piece | null {
 }
 
 export function cloneBoard(board: Board): Board {
-  return board.map(row => [...row])
+  return board.map((row) => [...row])
 }
 
 export function applyMove(board: Board, move: Move): Board {
@@ -22,8 +22,8 @@ export function applyMove(board: Board, move: Move): Board {
   if (move.isSwap) {
     // Commander and Rook swap positions
     const rook = next[move.to.row][move.to.col]
-    next[move.to.row][move.to.col] = move.piece       // commander goes to rook's square
-    next[move.from.row][move.from.col] = rook         // rook goes to commander's square
+    next[move.to.row][move.to.col] = move.piece // commander goes to rook's square
+    next[move.from.row][move.from.col] = rook // rook goes to commander's square
   } else {
     next[move.to.row][move.to.col] = move.piece
     next[move.from.row][move.from.col] = null

@@ -13,7 +13,7 @@
   width: min(90vmin, 600px);
   height: min(90vmin, 600px);
   border: 3px solid #3a2a1a;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
 .board-ranks {

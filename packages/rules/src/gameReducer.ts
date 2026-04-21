@@ -56,17 +56,17 @@ function resolveTurnEnd(
   capturedByBlue: Piece[],
   moveHistory: typeof round.moveHistory,
   movedPieceIds: string[],
-  enPassantTarget: Square | null,
+  enPassantTarget: Square | null
 ): Partial<RoundState> {
   const nextTurn: Color = moverColor === 'red' ? 'blue' : 'red'
   const nextCtx = { movedPieceIds, enPassantTarget }
 
-  const nextInCheck    = isInCheck(board, nextTurn, nextCtx)
+  const nextInCheck = isInCheck(board, nextTurn, nextCtx)
   const nextHasNoMoves = hasNoLegalMoves(board, nextTurn, nextCtx)
 
-  const checkmate   = nextInCheck && nextHasNoMoves
-  const stalemate   = !nextInCheck && nextHasNoMoves
-  const roundOver   = checkmate || stalemate
+  const checkmate = nextInCheck && nextHasNoMoves
+  const stalemate = !nextInCheck && nextHasNoMoves
+  const roundOver = checkmate || stalemate
   const winner: Color | null = checkmate ? moverColor : null
 
   return {
@@ -86,7 +86,6 @@ function resolveTurnEnd(
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
-
     case 'MOVE_PIECE': {
       const { round } = state
       if (round.phase !== 'playing' || round.warlordPursuit || round.pendingPromotion) return state
@@ -96,7 +95,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
       const ctx = { movedPieceIds: round.movedPieceIds, enPassantTarget: round.enPassantTarget }
       const legal = getLegalMoves(round.board, action.from, ctx)
-      if (!legal.some(sq => squaresEqual(sq, action.to))) return state
+      if (!legal.some((sq) => squaresEqual(sq, action.to))) return state
 
       const targetPiece = getPiece(round.board, action.to)
       const dir = piece.color === 'red' ? -1 : 1
@@ -116,14 +115,16 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         ? { row: action.to.row - dir, col: action.to.col }
         : undefined
 
-      const enPassantCaptured: Piece | null = isEnPassant && enPassantCaptureSquare
-        ? getPiece(round.board, enPassantCaptureSquare)
-        : null
+      const enPassantCaptured: Piece | null =
+        isEnPassant && enPassantCaptureSquare ? getPiece(round.board, enPassantCaptureSquare) : null
 
-      const capturedPiece = isSwap ? null : (isEnPassant ? enPassantCaptured : targetPiece)
+      const capturedPiece = isSwap ? null : isEnPassant ? enPassantCaptured : targetPiece
 
       const move: Move = {
-        from: action.from, to: action.to, piece, capturedPiece,
+        from: action.from,
+        to: action.to,
+        piece,
+        capturedPiece,
         isEnPassant: isEnPassant || undefined,
         isSwap: isSwap || undefined,
         enPassantCaptureSquare,
@@ -191,10 +192,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         round: {
           ...round,
           ...resolveTurnEnd(
-            round, newBoard, piece.color,
-            capturedByRed, capturedByBlue,
+            round,
+            newBoard,
+            piece.color,
+            capturedByRed,
+            capturedByBlue,
             [...round.moveHistory, move],
-            newMovedIds, newEnPassantTarget,
+            newMovedIds,
+            newEnPassantTarget
           ),
         },
       }
@@ -212,7 +217,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         color,
       }
       const newBoard = round.board.map((row, r) =>
-        r !== square.row ? row : row.map((p, c) => c === square.col ? promoted : p)
+        r !== square.row ? row : row.map((p, c) => (c === square.col ? promoted : p))
       )
 
       return {
@@ -221,10 +226,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           ...round,
           pendingPromotion: null,
           ...resolveTurnEnd(
-            round, newBoard, color,
-            round.capturedByRed, round.capturedByBlue,
+            round,
+            newBoard,
+            color,
+            round.capturedByRed,
+            round.capturedByBlue,
             round.moveHistory,
-            round.movedPieceIds, round.enPassantTarget,
+            round.movedPieceIds,
+            round.enPassantTarget
           ),
         },
       }
@@ -239,10 +248,17 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (!warlord || warlord.type !== 'warlord') return state
 
       const to = action.to
-      if (!squaresEqual({ row: warlordSq.row, col: warlordSq.col }, { row: warlordSq.row, col: warlordSq.col })) return state
+      if (
+        !squaresEqual(
+          { row: warlordSq.row, col: warlordSq.col },
+          { row: warlordSq.row, col: warlordSq.col }
+        )
+      )
+        return state
 
       // Validate: 1 square away, empty
-      if (Math.max(Math.abs(to.row - warlordSq.row), Math.abs(to.col - warlordSq.col)) !== 1) return state
+      if (Math.max(Math.abs(to.row - warlordSq.row), Math.abs(to.col - warlordSq.col)) !== 1)
+        return state
       if (getPiece(round.board, to)) return state
 
       const ctx = { movedPieceIds: round.movedPieceIds, enPassantTarget: round.enPassantTarget }
@@ -257,10 +273,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         round: {
           ...round,
           ...resolveTurnEnd(
-            round, newBoard, warlord.color,
-            round.capturedByRed, round.capturedByBlue,
+            round,
+            newBoard,
+            warlord.color,
+            round.capturedByRed,
+            round.capturedByBlue,
             [...round.moveHistory, move],
-            round.movedPieceIds, null,
+            round.movedPieceIds,
+            null
           ),
         },
       }
@@ -275,10 +295,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         round: {
           ...round,
           ...resolveTurnEnd(
-            round, round.board, round.turn,
-            round.capturedByRed, round.capturedByBlue,
+            round,
+            round.board,
+            round.turn,
+            round.capturedByRed,
+            round.capturedByBlue,
             round.moveHistory,
-            round.movedPieceIds, round.enPassantTarget,
+            round.movedPieceIds,
+            round.enPassantTarget
           ),
         },
       }

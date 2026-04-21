@@ -20,7 +20,7 @@ function PieceIcon({ type, color }: { type: PromotablePiece; color: Color }) {
   const p = { fill, stroke }
   return (
     <div className="promotion-picker__icon">
-      {type === 'cannon'  && <CannonSvg  {...p} />}
+      {type === 'cannon' && <CannonSvg {...p} />}
       {type === 'striker' && <StrikerSvg {...p} />}
       {type === 'flanker' && <FlankerSvg {...p} />}
       {type === 'warlord' && <WarlordSvg {...p} />}
@@ -40,7 +40,7 @@ export function PromotionPicker({ color, dispatch }: Props) {
         <div className="promotion-modal__title">PROMOTE GUARD</div>
         <div className="promotion-modal__sub">Choose a piece to promote to</div>
         <div className="promotion-modal__choices">
-          {CHOICES.map(type => (
+          {CHOICES.map((type) => (
             <button
               key={type}
               className="promotion-choice"

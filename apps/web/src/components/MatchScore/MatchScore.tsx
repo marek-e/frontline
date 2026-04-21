@@ -11,20 +11,22 @@ export function MatchScore({ match, dispatch }: Props) {
 
   return (
     <div className="match-score">
-      <div className="match-score__header">
-        MATCH — BO{match.format}
-      </div>
+      <div className="match-score__header">MATCH — BO{match.format}</div>
 
       <div className="match-score__record">
         <div className="match-score__player match-score__player--red">
           <span className="match-score__name">RED</span>
-          <span className="match-score__wins">{match.roundWins.red} / {winsNeeded}</span>
+          <span className="match-score__wins">
+            {match.roundWins.red} / {winsNeeded}
+          </span>
           <span className="match-score__pts">{match.redMatchPoints.toFixed(2)} pts</span>
         </div>
         <div className="match-score__vs">VS</div>
         <div className="match-score__player match-score__player--blue">
           <span className="match-score__name">BLUE</span>
-          <span className="match-score__wins">{match.roundWins.blue} / {winsNeeded}</span>
+          <span className="match-score__wins">
+            {match.roundWins.blue} / {winsNeeded}
+          </span>
           <span className="match-score__pts">{match.blueMatchPoints.toFixed(2)} pts</span>
         </div>
       </div>
@@ -44,7 +46,7 @@ export function MatchScore({ match, dispatch }: Props) {
 
       <div className="match-score__format">
         <span>Format:</span>
-        {([3, 5] as const).map(f => (
+        {([3, 5] as const).map((f) => (
           <button
             key={f}
             className={`match-score__format-btn${match.format === f ? ' match-score__format-btn--active' : ''}`}

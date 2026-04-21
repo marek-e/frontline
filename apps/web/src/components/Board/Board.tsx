@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react'
 import type { Board as BoardType, Square as SquareType, GameAction, Color } from '@frontline/rules'
-import { getLegalMoves, getWarlordPursuitMoves, getPiece, squaresEqual, findPiece } from '@frontline/rules'
+import {
+  getLegalMoves,
+  getWarlordPursuitMoves,
+  getPiece,
+  squaresEqual,
+  findPiece,
+} from '@frontline/rules'
 import { Square } from './Square'
 import './Board.css'
 
@@ -24,10 +30,17 @@ interface Props {
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
 export function Board({
-  board, turn, phase, inCheck, movedPieceIds, enPassantTarget, warlordPursuit, dispatch,
+  board,
+  turn,
+  phase,
+  inCheck,
+  movedPieceIds,
+  enPassantTarget,
+  warlordPursuit,
+  dispatch,
 }: Props) {
   const checkedCommanderSq = inCheck
-    ? findPiece(board, p => p.type === 'commander' && p.color === turn)
+    ? findPiece(board, (p) => p.type === 'commander' && p.color === turn)
     : null
 
   const [drag, setDrag] = useState<DragState>({
@@ -46,14 +59,18 @@ export function Board({
     } else {
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [warlordPursuit])
 
   function selectSquare(sq: SquareType) {
     if (warlordPursuit) return // during pursuit, only the warlord is locked in
     const piece = getPiece(board, sq)
     if (piece && piece.color === turn) {
-      setDrag({ selectedSquare: sq, legalMoves: getLegalMoves(board, sq, ctx), dragOverSquare: null })
+      setDrag({
+        selectedSquare: sq,
+        legalMoves: getLegalMoves(board, sq, ctx),
+        dragOverSquare: null,
+      })
     } else {
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
     }
@@ -66,21 +83,21 @@ export function Board({
   }
 
   function handleDragEnd() {
-    setDrag(d => ({ ...d, dragOverSquare: null }))
+    setDrag((d) => ({ ...d, dragOverSquare: null }))
   }
 
   function handleDragOver(sq: SquareType) {
-    setDrag(d => ({ ...d, dragOverSquare: sq }))
+    setDrag((d) => ({ ...d, dragOverSquare: sq }))
   }
 
   function handleDragLeave() {
-    setDrag(d => ({ ...d, dragOverSquare: null }))
+    setDrag((d) => ({ ...d, dragOverSquare: null }))
   }
 
   function handleDrop(to: SquareType) {
-    setDrag(d => ({ ...d, dragOverSquare: null }))
+    setDrag((d) => ({ ...d, dragOverSquare: null }))
     if (!drag.selectedSquare) return
-    if (!drag.legalMoves.some(sq => squaresEqual(sq, to))) {
+    if (!drag.legalMoves.some((sq) => squaresEqual(sq, to))) {
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
       return
     }
@@ -97,7 +114,7 @@ export function Board({
 
     // Pursuit mode: only the warlord can move
     if (warlordPursuit) {
-      if (drag.legalMoves.some(s => squaresEqual(s, sq))) {
+      if (drag.legalMoves.some((s) => squaresEqual(s, sq))) {
         dispatch({ type: 'WARLORD_PURSUE', to: sq })
         setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
       }
@@ -105,13 +122,16 @@ export function Board({
     }
 
     if (drag.selectedSquare) {
-      if (drag.legalMoves.some(s => squaresEqual(s, sq))) {
+      if (drag.legalMoves.some((s) => squaresEqual(s, sq))) {
         dispatch({ type: 'MOVE_PIECE', from: drag.selectedSquare, to: sq })
         setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
         return
       }
       const piece = getPiece(board, sq)
-      if (piece && piece.color === turn) { selectSquare(sq); return }
+      if (piece && piece.color === turn) {
+        selectSquare(sq)
+        return
+      }
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
       return
     }
@@ -124,7 +144,9 @@ export function Board({
     <div className="board-wrapper">
       <div className="board-ranks">
         {Array.from({ length: 8 }, (_, i) => (
-          <div key={i} className="board-label">{8 - i}</div>
+          <div key={i} className="board-label">
+            {8 - i}
+          </div>
         ))}
       </div>
 
@@ -133,8 +155,9 @@ export function Board({
           row.map((piece, colIdx) => {
             const sq: SquareType = { row: rowIdx, col: colIdx }
             const isSelected = !!(drag.selectedSquare && squaresEqual(drag.selectedSquare, sq))
-            const isLegal = drag.legalMoves.some(s => squaresEqual(s, sq))
-            const isSwapTarget = !warlordPursuit && isLegal && piece !== null && piece.color === turn
+            const isLegal = drag.legalMoves.some((s) => squaresEqual(s, sq))
+            const isSwapTarget =
+              !warlordPursuit && isLegal && piece !== null && piece.color === turn
             const isCapture = isLegal && piece !== null && !isSwapTarget
             const isDragOver = !!(drag.dragOverSquare && squaresEqual(drag.dragOverSquare, sq))
             const isLight = (rowIdx + colIdx) % 2 === 0
@@ -166,7 +189,11 @@ export function Board({
       </div>
 
       <div className="board-files">
-        {FILES.map(f => <div key={f} className="board-label">{f}</div>)}
+        {FILES.map((f) => (
+          <div key={f} className="board-label">
+            {f}
+          </div>
+        ))}
       </div>
     </div>
   )

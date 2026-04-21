@@ -32,14 +32,14 @@ export function updateMatchState(match: MatchState, score: RoundScore): MatchSta
   const roundWins = { ...match.roundWins }
   roundWins[score.winner] += 1
 
-  const redMatchPoints = match.redMatchPoints + (score.winner === 'red' ? score.winnerPoints : score.loserPoints)
-  const blueMatchPoints = match.blueMatchPoints + (score.winner === 'blue' ? score.winnerPoints : score.loserPoints)
+  const redMatchPoints =
+    match.redMatchPoints + (score.winner === 'red' ? score.winnerPoints : score.loserPoints)
+  const blueMatchPoints =
+    match.blueMatchPoints + (score.winner === 'blue' ? score.winnerPoints : score.loserPoints)
 
   const winsNeeded = Math.ceil(match.format / 2)
   const matchWinner: Color | null =
-    roundWins.red >= winsNeeded ? 'red' :
-    roundWins.blue >= winsNeeded ? 'blue' :
-    null
+    roundWins.red >= winsNeeded ? 'red' : roundWins.blue >= winsNeeded ? 'blue' : null
 
   return {
     ...match,

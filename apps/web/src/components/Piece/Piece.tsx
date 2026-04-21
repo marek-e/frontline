@@ -28,11 +28,11 @@ export function Piece({ piece, isSelected, onDragStart, onDragEnd, square }: Pro
       title={`${piece.color} ${piece.type}`}
     >
       {piece.type === 'commander' && <CommanderSvg {...svgProps} />}
-      {piece.type === 'guard'     && <GuardSvg     {...svgProps} />}
-      {piece.type === 'cannon'    && <CannonSvg    {...svgProps} />}
-      {piece.type === 'striker'   && <StrikerSvg   {...svgProps} />}
-      {piece.type === 'flanker'   && <FlankerSvg   {...svgProps} />}
-      {piece.type === 'warlord'   && <WarlordSvg   {...svgProps} />}
+      {piece.type === 'guard' && <GuardSvg {...svgProps} />}
+      {piece.type === 'cannon' && <CannonSvg {...svgProps} />}
+      {piece.type === 'striker' && <StrikerSvg {...svgProps} />}
+      {piece.type === 'flanker' && <FlankerSvg {...svgProps} />}
+      {piece.type === 'warlord' && <WarlordSvg {...svgProps} />}
     </div>
   )
 }

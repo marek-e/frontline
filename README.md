@@ -2,7 +2,7 @@
 
 **Frontline** is a deterministic, turn-based strategy game inspired by chess — and the online platform to play it.
 
-Think *chess.com for Frontline*: play online against humans, play locally with a friend, solve puzzles, and train against an AI bot.
+Think _chess.com for Frontline_: play online against humans, play locally with a friend, solve puzzles, and train against an AI bot.
 
 ---
 
@@ -26,13 +26,13 @@ A full online gaming platform at `frontline.com` (domain TBC):
 
 ## Project docs
 
-| Doc | What's in it |
-|-----|--------------|
-| [docs/GAME.md](./docs/GAME.md) | The Frontline game: pieces, rules, notation, match format |
-| [docs/ROADMAP.md](./docs/ROADMAP.md) | Phased delivery plan from current state to v1 |
-| [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Tech stack, monorepo layout, open decisions |
-| [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) | Design tokens, components, motion, a11y |
-| [TODO.md](./TODO.md) | Live checkbox task tracker |
+| Doc                                              | What's in it                                              |
+| ------------------------------------------------ | --------------------------------------------------------- |
+| [docs/GAME.md](./docs/GAME.md)                   | The Frontline game: pieces, rules, notation, match format |
+| [docs/ROADMAP.md](./docs/ROADMAP.md)             | Phased delivery plan from current state to v1             |
+| [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)   | Tech stack, monorepo layout, open decisions               |
+| [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) | Design tokens, components, motion, a11y                   |
+| [TODO.md](./TODO.md)                             | Live checkbox task tracker                                |
 
 ## Current status
 

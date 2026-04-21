@@ -10,8 +10,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .win-modal {
@@ -20,18 +24,28 @@
   padding: 36px 44px;
   min-width: 300px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   animation: slideUp 0.25s ease;
   border-top: 6px solid currentColor;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(24px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.win-modal--red  { color: #cc2200; }
-.win-modal--blue { color: #1155cc; }
+.win-modal--red {
+  color: #cc2200;
+}
+.win-modal--blue {
+  color: #1155cc;
+}
 
 .win-modal__emoji {
   font-size: 40px;
@@ -52,7 +66,7 @@
 }
 
 .win-modal__score-breakdown {
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   padding: 10px 16px;
   margin-bottom: 20px;
@@ -67,8 +81,12 @@
   color: #333;
 }
 
-.win-modal__pts--red  { color: #cc2200; }
-.win-modal__pts--blue { color: #1155cc; }
+.win-modal__pts--red {
+  color: #cc2200;
+}
+.win-modal__pts--blue {
+  color: #1155cc;
+}
 
 .win-modal__score-sub {
   font-size: 11px;
@@ -98,8 +116,20 @@
   opacity: 0.85;
 }
 
-.win-modal--red  .win-modal__btn { color: #cc2200; }
-.win-modal--blue .win-modal__btn { color: #1155cc; }
+.win-modal--red .win-modal__btn {
+  color: #cc2200;
+}
+.win-modal--blue .win-modal__btn {
+  color: #1155cc;
+}
 
-.win-modal--red  .win-modal__btn--primary { background: #cc2200; color: white; border-color: #cc2200; }
-.win-modal--blue .win-modal__btn--primary { background: #1155cc; color: white; border-color: #1155cc; }
+.win-modal--red .win-modal__btn--primary {
+  background: #cc2200;
+  color: white;
+  border-color: #cc2200;
+}
+.win-modal--blue .win-modal__btn--primary {
+  background: #1155cc;
+  color: white;
+  border-color: #1155cc;
+}

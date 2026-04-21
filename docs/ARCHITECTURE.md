@@ -8,30 +8,30 @@ Target stack, repo layout, and data flow for the Frontline platform.
 
 ## Stack
 
-| Layer                | Pick                                        | Notes                                                                          |
-| -------------------- | ------------------------------------------- | ------------------------------------------------------------------------------ |
-| Language             | TypeScript end-to-end                       | Rules, bot, server, web — one language, one set of types                       |
-| Monorepo             | pnpm workspaces + Turborepo                 | Shared `@frontline/rules` package, cached/parallel task runs                   |
-| Web framework        | **TanStack Start** on Vite                  | SSR + SSG per route, deploys to Cloudflare Workers, SEO-capable                |
-| Router               | TanStack Router                             | Type-safe routes and search params (analysis URLs, puzzle filters)             |
-| Styling              | Tailwind v4 (`@theme` tokens)               | Tokens defined in [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)                       |
-| Client server state  | TanStack Query                              | REST/HTTP data; websocket state handled by `partysocket` directly              |
-| Realtime             | **PartyKit** (Cloudflare Durable Objects)   | One DO per game room = authoritative, low-latency, no extra infra             |
-| HTTP API             | Cloudflare Workers (Hono)                   | REST endpoints for non-room state (profiles, leaderboards, puzzles)            |
-| DB                   | Postgres (Neon)                             | Serverless, branchable, Hyperdrive-compatible with Cloudflare                  |
-| ORM                  | Drizzle                                     | SQL-first, edge-compatible, minimal cold-start                                 |
-| Auth                 | **better-auth** (self-hosted, in Postgres)  | No vendor lock, session lives next to user data                                |
-| File storage         | Cloudflare R2                               | Avatars, piece-set cosmetics; zero egress fees                                 |
-| Bot engine           | TypeScript (Web Worker + Node)              | Rust/WASM hot-path is a later optimization, not a day-1 requirement            |
-| Puzzle generation    | Node worker pool, bot self-play             | Mine positions where `eval_delta > threshold` after a forcing line             |
-| Rating               | Glicko-2 (revisit: OpenSkill)               | Glicko-2 for 1v1 ship; OpenSkill if we add free-for-all modes later            |
-| Anti-cheat           | Server-authoritative moves + move-time stats + engine correlation | Non-negotiable for rated play                      |
-| Hosting              | Cloudflare (Pages + Workers + DO + R2)      | Single provider, single bill, edge-native                                      |
-| Error monitoring     | Sentry                                      | Free tier sufficient                                                           |
-| Analytics + flags    | PostHog                                     | Analytics, session recording, feature flags in one                             |
-| Transactional email  | Resend                                      | Verification, password reset, game notifications                               |
-| Payments (later)     | Stripe                                      | Premium tier, cosmetics                                                        |
-| License              | AGPL-3.0                                    | Open source but prevents hosted clones of the server                           |
+| Layer               | Pick                                                              | Notes                                                               |
+| ------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Language            | TypeScript end-to-end                                             | Rules, bot, server, web — one language, one set of types            |
+| Monorepo            | pnpm workspaces + Turborepo                                       | Shared `@frontline/rules` package, cached/parallel task runs        |
+| Web framework       | **TanStack Start** on Vite                                        | SSR + SSG per route, deploys to Cloudflare Workers, SEO-capable     |
+| Router              | TanStack Router                                                   | Type-safe routes and search params (analysis URLs, puzzle filters)  |
+| Styling             | Tailwind v4 (`@theme` tokens)                                     | Tokens defined in [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)            |
+| Client server state | TanStack Query                                                    | REST/HTTP data; websocket state handled by `partysocket` directly   |
+| Realtime            | **PartyKit** (Cloudflare Durable Objects)                         | One DO per game room = authoritative, low-latency, no extra infra   |
+| HTTP API            | Cloudflare Workers (Hono)                                         | REST endpoints for non-room state (profiles, leaderboards, puzzles) |
+| DB                  | Postgres (Neon)                                                   | Serverless, branchable, Hyperdrive-compatible with Cloudflare       |
+| ORM                 | Drizzle                                                           | SQL-first, edge-compatible, minimal cold-start                      |
+| Auth                | **better-auth** (self-hosted, in Postgres)                        | No vendor lock, session lives next to user data                     |
+| File storage        | Cloudflare R2                                                     | Avatars, piece-set cosmetics; zero egress fees                      |
+| Bot engine          | TypeScript (Web Worker + Node)                                    | Rust/WASM hot-path is a later optimization, not a day-1 requirement |
+| Puzzle generation   | Node worker pool, bot self-play                                   | Mine positions where `eval_delta > threshold` after a forcing line  |
+| Rating              | Glicko-2 (revisit: OpenSkill)                                     | Glicko-2 for 1v1 ship; OpenSkill if we add free-for-all modes later |
+| Anti-cheat          | Server-authoritative moves + move-time stats + engine correlation | Non-negotiable for rated play                                       |
+| Hosting             | Cloudflare (Pages + Workers + DO + R2)                            | Single provider, single bill, edge-native                           |
+| Error monitoring    | Sentry                                                            | Free tier sufficient                                                |
+| Analytics + flags   | PostHog                                                           | Analytics, session recording, feature flags in one                  |
+| Transactional email | Resend                                                            | Verification, password reset, game notifications                    |
+| Payments (later)    | Stripe                                                            | Premium tier, cosmetics                                             |
+| License             | AGPL-3.0                                                          | Open source but prevents hosted clones of the server                |
 
 ---
 
@@ -166,23 +166,23 @@ Spec: **[GAME.md → FGN](./GAME.md#fgn--frontline-game-notation)**. Single sour
 
 ## Resolved decisions
 
-| Decision            | Pick                        |
-| ------------------- | --------------------------- |
-| Language            | TypeScript                  |
-| Realtime            | PartyKit                    |
-| Web framework       | TanStack Start              |
-| Router              | TanStack Router             |
-| Styling             | Tailwind v4                 |
-| ORM                 | Drizzle                     |
-| Auth                | better-auth                 |
-| Hosting             | Cloudflare (all-in)         |
-| DB                  | Postgres / Neon             |
-| Bot language        | TypeScript (Rust/WASM TBD)  |
-| Monitoring          | Sentry                      |
-| Analytics / flags   | PostHog                     |
-| Email               | Resend                      |
-| Storage             | Cloudflare R2               |
-| License             | AGPL-3.0                    |
+| Decision          | Pick                       |
+| ----------------- | -------------------------- |
+| Language          | TypeScript                 |
+| Realtime          | PartyKit                   |
+| Web framework     | TanStack Start             |
+| Router            | TanStack Router            |
+| Styling           | Tailwind v4                |
+| ORM               | Drizzle                    |
+| Auth              | better-auth                |
+| Hosting           | Cloudflare (all-in)        |
+| DB                | Postgres / Neon            |
+| Bot language      | TypeScript (Rust/WASM TBD) |
+| Monitoring        | Sentry                     |
+| Analytics / flags | PostHog                    |
+| Email             | Resend                     |
+| Storage           | Cloudflare R2              |
+| License           | AGPL-3.0                   |
 
 ## Open decisions
 

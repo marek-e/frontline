@@ -12,8 +12,13 @@ interface Props {
 }
 
 export function WinModal({
-  phase, roundWinner, matchWinner, lastRoundScore,
-  onNextRound, dispatch, matchFormat
+  phase,
+  roundWinner,
+  matchWinner,
+  lastRoundScore,
+  onNextRound,
+  dispatch,
+  matchFormat,
 }: Props) {
   if (phase === 'playing') return null
 
@@ -59,10 +64,7 @@ export function WinModal({
               </div>
             )}
             <div className="win-modal__actions">
-              <button
-                className="win-modal__btn win-modal__btn--primary"
-                onClick={onNextRound}
-              >
+              <button className="win-modal__btn win-modal__btn--primary" onClick={onNextRound}>
                 Next Round
               </button>
               <button

@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import type { Color, GamePhase, Piece, PieceType, Square, GameAction } from '@frontline/rules'
 import { PIECE_VALUES } from '@frontline/rules'
-import { CommanderSvg, GuardSvg, CannonSvg, StrikerSvg, FlankerSvg, WarlordSvg } from '../Piece/PieceSvgs'
+import {
+  CommanderSvg,
+  GuardSvg,
+  CannonSvg,
+  StrikerSvg,
+  FlankerSvg,
+  WarlordSvg,
+} from '../Piece/PieceSvgs'
 import { PIECE_COLORS } from '../Piece/pieceColors'
 import './GameInfo.css'
 
@@ -67,11 +74,11 @@ function PieceIcon({ type, color }: { type: PieceType; color: Color }) {
   return (
     <div className="legend-icon">
       {type === 'commander' && <CommanderSvg {...p} />}
-      {type === 'guard'     && <GuardSvg     {...p} />}
-      {type === 'cannon'    && <CannonSvg    {...p} />}
-      {type === 'striker'   && <StrikerSvg   {...p} />}
-      {type === 'flanker'   && <FlankerSvg   {...p} />}
-      {type === 'warlord'   && <WarlordSvg   {...p} />}
+      {type === 'guard' && <GuardSvg {...p} />}
+      {type === 'cannon' && <CannonSvg {...p} />}
+      {type === 'striker' && <StrikerSvg {...p} />}
+      {type === 'flanker' && <FlankerSvg {...p} />}
+      {type === 'warlord' && <WarlordSvg {...p} />}
     </div>
   )
 }
@@ -81,7 +88,7 @@ function PieceLegend({ turn }: { turn: Color }) {
 
   return (
     <div className="piece-legend">
-      {PIECE_ORDER.map(type => {
+      {PIECE_ORDER.map((type) => {
         const info = PIECE_INFO[type]
         const isHovered = hovered === type
         return (
@@ -132,7 +139,12 @@ function PieceLegend({ turn }: { turn: Color }) {
 // ─── Captured pieces ──────────────────────────────────────────────────────────
 
 const PIECE_SYMBOLS: Record<PieceType, string> = {
-  commander: '♔', warlord: '✦', cannon: '⊕', striker: '↑', flanker: '◈', guard: '♟',
+  commander: '♔',
+  warlord: '✦',
+  cannon: '⊕',
+  striker: '↑',
+  flanker: '◈',
+  guard: '♟',
 }
 
 function CapturedList({ pieces, label, color }: { pieces: Piece[]; label: string; color: Color }) {
@@ -146,7 +158,8 @@ function CapturedList({ pieces, label, color }: { pieces: Piece[]; label: string
       <span className="captured__pieces">
         {(Object.entries(counts) as [PieceType, number][]).map(([type, count]) => (
           <span key={type} className="captured__item">
-            {PIECE_SYMBOLS[type]}{count > 1 ? `×${count}` : ''}
+            {PIECE_SYMBOLS[type]}
+            {count > 1 ? `×${count}` : ''}
           </span>
         ))}
       </span>
@@ -156,7 +169,15 @@ function CapturedList({ pieces, label, color }: { pieces: Piece[]; label: string
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function GameInfo({ turn, phase, inCheck, warlordPursuit, capturedByRed, capturedByBlue, dispatch }: Props) {
+export function GameInfo({
+  turn,
+  phase,
+  inCheck,
+  warlordPursuit,
+  capturedByRed,
+  capturedByBlue,
+  dispatch,
+}: Props) {
   const isPlaying = phase === 'playing'
 
   return (
@@ -178,14 +199,17 @@ export function GameInfo({ turn, phase, inCheck, warlordPursuit, capturedByRed, 
         <div className={`pursuit-alert pursuit-alert--${turn}`}>
           <div className="pursuit-alert__title">⚔ WARLORD PURSUES</div>
           <div className="pursuit-alert__sub">Move 1 square or skip</div>
-          <button className="pursuit-alert__skip" onClick={() => dispatch({ type: 'SKIP_PURSUIT' })}>
+          <button
+            className="pursuit-alert__skip"
+            onClick={() => dispatch({ type: 'SKIP_PURSUIT' })}
+          >
             Skip pursuit
           </button>
         </div>
       )}
 
       <div className="game-info__captures">
-        <CapturedList pieces={capturedByRed}  label="Red captured:"  color="red" />
+        <CapturedList pieces={capturedByRed} label="Red captured:" color="red" />
         <CapturedList pieces={capturedByBlue} label="Blue captured:" color="blue" />
       </div>
 

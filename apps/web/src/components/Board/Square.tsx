@@ -21,8 +21,21 @@ interface Props {
 }
 
 export function Square({
-  square, piece, isLight, isSelected, isLegalMove, isCaptureTarget, isSwapTarget, isChecked, isDragOver,
-  onDragStart, onDragEnd, onDragOver, onDragLeave, onDrop, onClick,
+  square,
+  piece,
+  isLight,
+  isSelected,
+  isLegalMove,
+  isCaptureTarget,
+  isSwapTarget,
+  isChecked,
+  isDragOver,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
+  onDragLeave,
+  onDrop,
+  onClick,
 }: Props) {
   const classes = [
     'square',
@@ -33,14 +46,22 @@ export function Square({
     isCaptureTarget ? 'square--capture' : '',
     isSwapTarget ? 'square--swap' : '',
     isDragOver ? 'square--drag-over' : '',
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <div
       className={classes}
-      onDragOver={(e) => { e.preventDefault(); onDragOver(square) }}
+      onDragOver={(e) => {
+        e.preventDefault()
+        onDragOver(square)
+      }}
       onDragLeave={onDragLeave}
-      onDrop={(e) => { e.preventDefault(); onDrop(square) }}
+      onDrop={(e) => {
+        e.preventDefault()
+        onDrop(square)
+      }}
       onClick={() => onClick(square)}
     >
       {piece && (

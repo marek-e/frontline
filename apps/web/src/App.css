@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -29,7 +31,7 @@ body {
   padding: 32px;
   background: #f5ede0;
   border-radius: 20px;
-  box-shadow: 0 16px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
 }
 
 .app__left,

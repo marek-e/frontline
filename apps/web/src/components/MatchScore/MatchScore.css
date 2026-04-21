@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  background: rgba(0,0,0,0.06);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 8px;
   padding: 10px 12px;
 }
@@ -35,8 +35,12 @@
   min-width: 36px;
 }
 
-.match-score__player--red  .match-score__name { color: #cc2200; }
-.match-score__player--blue .match-score__name { color: #1155cc; }
+.match-score__player--red .match-score__name {
+  color: #cc2200;
+}
+.match-score__player--blue .match-score__name {
+  color: #1155cc;
+}
 
 .match-score__wins {
   font-size: 20px;
@@ -79,7 +83,7 @@
   gap: 6px;
   font-size: 12px;
   padding: 3px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.07);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   color: #555;
 }
 
@@ -88,8 +92,12 @@
   flex: 1;
 }
 
-.match-score__round--red  .match-score__round-winner { color: #cc2200; }
-.match-score__round--blue .match-score__round-winner { color: #1155cc; }
+.match-score__round--red .match-score__round-winner {
+  color: #cc2200;
+}
+.match-score__round--blue .match-score__round-winner {
+  color: #1155cc;
+}
 
 .match-score__format {
   display: flex;

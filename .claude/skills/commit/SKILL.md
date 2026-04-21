@@ -37,19 +37,18 @@ Cross-cutting change touching multiple packages → omit the scope (e.g. `chore:
 1. **Gitignore** — if untracked files should not be committed (build artifacts, `.env`, IDE configs, `.DS_Store`, `node_modules/`, `dist/`, `.turbo/`, `coverage/`, `__pycache__/`, `.venv/`, secrets, logs), add them to `.gitignore`, `git reset` those files, and commit `.gitignore` first.
 
 2. **Group and commit** — split changes into atomic commits, one logical change each. Order by **monorepo dependency layer** (leaves → roots):
+   1. `docs` / `repo` config (workspace, tsconfig, turbo, CI, license, gitignore)
+   2. `rules` (pure core — depended on by everything)
+   3. `db` / `auth` (data + identity primitives)
+   4. `ui` (shared components, depends on tokens)
+   5. `bot` / `puzzles` (depend on `rules`)
+   6. `api` / `party` (server apps — depend on rules/db/auth)
+   7. `web` (client app — depends on everything above)
+   8. Tests **alongside** the layer they cover, not at the end
 
-    1. `docs` / `repo` config (workspace, tsconfig, turbo, CI, license, gitignore)
-    2. `rules` (pure core — depended on by everything)
-    3. `db` / `auth` (data + identity primitives)
-    4. `ui` (shared components, depends on tokens)
-    5. `bot` / `puzzles` (depend on `rules`)
-    6. `api` / `party` (server apps — depend on rules/db/auth)
-    7. `web` (client app — depends on everything above)
-    8. Tests **alongside** the layer they cover, not at the end
+   Use `git add -p` when a file spans multiple concerns. Stage and commit each group immediately — do NOT ask for confirmation.
 
-    Use `git add -p` when a file spans multiple concerns. Stage and commit each group immediately — do NOT ask for confirmation.
-
-3. **Lockfile** — commit `pnpm-lock.yaml` in the *same* commit as the `package.json` change that caused it. Never commit lockfile drift on its own unless it's an intentional dedupe (`chore(repo): dedupe lockfile`).
+3. **Lockfile** — commit `pnpm-lock.yaml` in the _same_ commit as the `package.json` change that caused it. Never commit lockfile drift on its own unless it's an intentional dedupe (`chore(repo): dedupe lockfile`).
 
 4. **Workspace additions** — when adding a new package/app, the scaffolding commit (`feat(<scope>): scaffold package`) should include its `package.json`, `tsconfig.json`, and minimal `src/index.ts`. Follow-up commits add real code.
 
@@ -66,6 +65,7 @@ Cross-cutting change touching multiple packages → omit the scope (e.g. `chore:
 - No Co-Authored-By footer
 
 Examples:
+
 - `feat(rules): add warlord pursuit move generator`
 - `test(rules): add fast-check invariants for legal moves`
 - `refactor(web): import game logic from @frontline/rules`
