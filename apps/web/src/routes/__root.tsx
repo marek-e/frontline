@@ -4,9 +4,11 @@ import {
   Outlet,
   Scripts,
 } from '@tanstack/react-router'
+import { NotFound } from '../components/NotFound'
 import '../styles/app.css'
 
 export const Route = createRootRoute({
+  notFoundComponent: NotFound,
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
