@@ -4,6 +4,7 @@ import { Board } from './components/Board/Board'
 import { GameInfo } from './components/GameInfo/GameInfo'
 import { MatchScore } from './components/MatchScore/MatchScore'
 import { WinModal } from './components/WinModal/WinModal'
+import { PromotionPicker } from './components/PromotionPicker/PromotionPicker'
 import './App.css'
 
 function App() {
@@ -12,10 +13,6 @@ function App() {
 
   const lastRoundScore = match.roundScores.at(-1) ?? null
 
-  function handleNextRound() {
-    dispatch({ type: 'NEW_ROUND' })
-  }
-
   return (
     <div className="app">
       <div className="app__left">
@@ -23,8 +20,10 @@ function App() {
           turn={round.turn}
           phase={round.phase}
           inCheck={round.inCheck}
+          warlordPursuit={round.warlordPursuit}
           capturedByRed={round.capturedByRed}
           capturedByBlue={round.capturedByBlue}
+          dispatch={dispatch}
         />
       </div>
 
@@ -36,6 +35,7 @@ function App() {
           inCheck={round.inCheck}
           movedPieceIds={round.movedPieceIds}
           enPassantTarget={round.enPassantTarget}
+          warlordPursuit={round.warlordPursuit}
           dispatch={dispatch}
         />
       </div>
@@ -44,12 +44,16 @@ function App() {
         <MatchScore match={match} dispatch={dispatch} />
       </div>
 
+      {round.pendingPromotion && (
+        <PromotionPicker color={round.pendingPromotion.color} dispatch={dispatch} />
+      )}
+
       <WinModal
         phase={round.phase}
         roundWinner={round.winner}
         matchWinner={match.matchWinner}
         lastRoundScore={lastRoundScore}
-        onNextRound={handleNextRound}
+        onNextRound={() => dispatch({ type: 'NEW_ROUND' })}
         dispatch={dispatch}
         matchFormat={match.format}
       />

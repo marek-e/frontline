@@ -1,6 +1,6 @@
 export type Color = 'red' | 'blue'
 
-export type PieceType = 'commander' | 'guard' | 'rook' | 'bishop' | 'knight' | 'captain'
+export type PieceType = 'commander' | 'guard' | 'cannon' | 'striker' | 'flanker' | 'warlord'
 
 export interface Piece {
   type: PieceType
@@ -20,15 +20,15 @@ export interface Move {
   to: Square
   piece: Piece
   capturedPiece: Piece | null
-  isEnPassant?: boolean      // capture happened on a different square than `to`
-  isSwap?: boolean           // commander-rook swap
-  enPassantCaptureSquare?: Square  // where the captured pawn actually sits
+  isEnPassant?: boolean
+  isSwap?: boolean
+  enPassantCaptureSquare?: Square
 }
 
 export interface RoundScore {
   winner: Color
-  winnerPoints: number // 1 + efficiency bonus
-  loserPoints: number  // always 0
+  winnerPoints: number
+  loserPoints: number
 }
 
 export type GamePhase = 'playing' | 'round_over' | 'match_over'
@@ -41,11 +41,13 @@ export interface RoundState {
   moveHistory: Move[]
   phase: GamePhase
   winner: Color | null
-  // Special rule tracking
-  movedPieceIds: string[]        // pieces that have moved at least once
-  enPassantTarget: Square | null // square a guard can capture en passant this turn
-  // Check state for current turn player
+  movedPieceIds: string[]
+  enPassantTarget: Square | null
   inCheck: boolean
+  // Warlord pursuit: set after warlord captures, same player gets 1 free non-capturing step
+  warlordPursuit: Square | null
+  // Pending promotion: guard reached the back rank, waiting for player to choose a piece
+  pendingPromotion: { square: Square; color: Color } | null
 }
 
 export interface MatchState {

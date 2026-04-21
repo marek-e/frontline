@@ -98,13 +98,8 @@
   opacity: 0.85;
 }
 
-.win-modal__btn--primary {
-  background: currentColor;
-  color: white !important;
-}
-
 .win-modal--red  .win-modal__btn { color: #cc2200; }
 .win-modal--blue .win-modal__btn { color: #1155cc; }
 
-.win-modal--red  .win-modal__btn--primary { color: white !important; }
-.win-modal--blue .win-modal__btn--primary { color: white !important; }
+.win-modal--red  .win-modal__btn--primary { background: #cc2200; color: white; border-color: #cc2200; }
+.win-modal--blue .win-modal__btn--primary { background: #1155cc; color: white; border-color: #1155cc; }

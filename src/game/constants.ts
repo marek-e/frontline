@@ -1,16 +1,16 @@
 import type { Board, Color, Piece, PieceType } from './types'
 
 export const PIECE_VALUES: Record<PieceType, number> = {
-  guard: 1,
-  knight: 3,
-  bishop: 3,
-  rook: 5,
-  captain: 7,
+  guard:     1,
+  flanker:   3,
+  striker:   3,
+  cannon:    5,
+  warlord:   7,
   commander: Infinity,
 }
 
 // Sum of one side's non-Commander material:
-// 8 guards(8) + 2 knights(6) + 2 bishops(6) + 2 rooks(10) + 1 captain(7) = 37
+// 8 guards(8) + 2 flankers(6) + 2 strikers(6) + 2 cannons(10) + 1 warlord(7) = 37
 export const MATERIAL_NORMALIZER = 37
 
 function makePiece(type: PieceType, color: Color, index: number): Piece {
@@ -20,8 +20,8 @@ function makePiece(type: PieceType, color: Color, index: number): Piece {
 export function createInitialBoard(): Board {
   const board: Board = Array.from({ length: 8 }, () => Array(8).fill(null))
 
-  // Back row order: R N B Captain Commander B N R
-  const backRow: PieceType[] = ['rook', 'knight', 'bishop', 'captain', 'commander', 'bishop', 'knight', 'rook']
+  // Back row: Cannon, Flanker, Striker, Warlord, Commander, Striker, Flanker, Cannon
+  const backRow: PieceType[] = ['cannon', 'flanker', 'striker', 'warlord', 'commander', 'striker', 'flanker', 'cannon']
 
   // Row 0 = rank 8 = blue back rank
   backRow.forEach((type, col) => {
