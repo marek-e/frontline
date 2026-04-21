@@ -20,19 +20,19 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 ## Phase 0 — Foundation
 
 - [x] Init pnpm workspaces + Turborepo
-- [~] Restructure: `apps/web`, `apps/party`, `apps/api`, `packages/rules`, `packages/bot`, `packages/puzzles`, `packages/ui`, `packages/db`, `packages/auth` (done: `apps/web`, `packages/rules`, `packages/ui`)
+- [~] Restructure: `apps/web`, `apps/party`, `apps/api`, `packages/rules`, `packages/bot`, `packages/puzzles`, `packages/ui`, `packages/db`, `packages/auth` (done: all except `packages/bot`, `packages/puzzles`)
 - [x] Move `src/game/*` → `packages/rules` (pure, no React imports)
 - [x] Move `src/` → `apps/web/src/`
-- [ ] Migrate `apps/web` from raw Vite SPA to TanStack Start
-- [ ] Scaffold `apps/party` (PartyKit) with a `GameRoom` stub
-- [ ] Scaffold `apps/api` (Cloudflare Worker + Hono) with a health route
-- [ ] Scaffold `packages/db` with Drizzle + Neon connection
-- [ ] Scaffold `packages/auth` with better-auth + Postgres adapter
+- [x] Migrate `apps/web` from raw Vite SPA to TanStack Start
+- [x] Scaffold `apps/party` (PartyKit) with a `GameRoom` stub
+- [x] Scaffold `apps/api` (Cloudflare Worker + Hono) with a health route
+- [x] Scaffold `packages/db` with Drizzle + Neon connection
+- [x] Scaffold `packages/auth` with better-auth + Postgres adapter
 - [x] Set up Vitest + fast-check
 - [~] Write property tests for move generation (no illegal moves, checkmate detection, en passant, promotion, commander swap, warlord pursuit) — baseline suite (16 tests) in `packages/rules/src/moves.test.ts`; expand coverage for promotion flows + EP capture
-- [ ] Set up Tailwind v4 with tokens from DESIGN_SYSTEM.md
-- [ ] Configure Biome or ESLint + Prettier
-- [ ] GitHub Actions: typecheck, lint, test, build
+- [x] Set up Tailwind v4 with tokens from DESIGN_SYSTEM.md
+- [x] Configure linter + formatter (oxlint + oxfmt)
+- [x] GitHub Actions: typecheck, lint, test, build
 - [ ] Cloudflare Pages deploy for `apps/web` (staging + prod)
 - [ ] Cloudflare Workers deploy for `apps/party` and `apps/api` (staging + prod)
 - [x] Add `LICENSE` file (AGPL-3.0)
