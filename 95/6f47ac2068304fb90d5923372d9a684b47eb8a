@@ -1,0 +1,37 @@
+apps/web/src/router.tsx
+  992c488978624ccf 1-16
+apps/web/src/routes/index.tsx
+  992c488978624ccf 1-6
+apps/web/vite.config.ts
+  992c488978624ccf 1-3,5,8
+apps/web/package.json
+  992c488978624ccf 7-9,12,17-18,23-24,29-30
+apps/web/tsconfig.json
+  992c488978624ccf 5,11
+apps/web/src/styles/app.css
+  992c488978624ccf 1-108
+apps/web/src/routeTree.gen.ts
+  992c488978624ccf 1-68
+apps/web/src/routes/__root.tsx
+  992c488978624ccf 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "956f47ac2068304fb90d5923372d9a684b47eb8a",
+  "prompts": {
+    "992c488978624ccf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0f0432c-e4ba-4b6f-970f-edc6ace4241a",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 265,
+      "overriden_lines": 0
+    }
+  }
+}
