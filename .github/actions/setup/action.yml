@@ -9,7 +9,7 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version: 22
-        cache: pnpm  # caches ~/.pnpm-store (package content)
+        cache: pnpm # caches ~/.pnpm-store (package content)
 
     - name: Cache node_modules
       id: cache

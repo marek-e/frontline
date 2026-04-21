@@ -1,9 +1,4 @@
-import {
-  createRootRoute,
-  HeadContent,
-  Outlet,
-  Scripts,
-} from '@tanstack/react-router'
+import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { NotFound } from '../components/NotFound'
 import '../styles/app.css'
 
