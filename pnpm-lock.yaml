@@ -104,6 +104,9 @@ importers:
       vite:
         specifier: ^8.0.9
         version: 8.0.9(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0)
+      wrangler:
+        specifier: ^4.18.0
+        version: 4.84.1(@cloudflare/workers-types@4.20260421.1)
 
   packages/auth:
     dependencies:

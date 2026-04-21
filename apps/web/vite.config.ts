@@ -5,5 +5,10 @@ import { defineConfig } from 'vite'
 import { nitro } from 'nitro/vite'
 
 export default defineConfig({
-  plugins: [tailwindcss(), tanstackStart({ srcDirectory: 'src' }), viteReact(), nitro()],
+  plugins: [
+    tailwindcss(),
+    tanstackStart({ srcDirectory: 'src' }),
+    viteReact(),
+    nitro({ preset: 'cloudflare-pages' }),
+  ],
 })
