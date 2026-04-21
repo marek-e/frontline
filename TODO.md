@@ -33,8 +33,8 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 - [x] Set up Tailwind v4 with tokens from DESIGN_SYSTEM.md
 - [x] Configure linter + formatter (oxlint + oxfmt)
 - [x] GitHub Actions: typecheck, lint, test, build
-- [ ] Cloudflare Pages deploy for `apps/web` (staging + prod)
-- [ ] Cloudflare Workers deploy for `apps/party` and `apps/api` (staging + prod)
+- [x] Cloudflare Pages deploy for `apps/web` (staging + prod)
+- [x] Cloudflare Workers deploy for `apps/party` and `apps/api` (staging + prod)
 - [x] Add `LICENSE` file (AGPL-3.0)
 - [ ] Wire Sentry on web + workers
 - [ ] Wire PostHog on web
