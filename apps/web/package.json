@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",
-    "start": "node .output/server/index.mjs",
+    "start": "node dist/server/index.mjs",
     "lint": "oxlint --deny-warnings .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"

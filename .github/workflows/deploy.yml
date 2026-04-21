@@ -60,7 +60,7 @@ jobs:
       - name: Deploy web → CF Pages (staging)
         if: github.event_name == 'workflow_run'
         working-directory: apps/web
-        run: pnpm exec wrangler pages deploy .output/public --project-name frontline-web-staging
+        run: pnpm exec wrangler pages deploy dist --project-name frontline-web-staging
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -85,7 +85,7 @@ jobs:
       - name: Deploy web → CF Pages (production)
         if: github.event_name == 'push'
         working-directory: apps/web
-        run: pnpm exec wrangler pages deploy .output/public --project-name frontline-web
+        run: pnpm exec wrangler pages deploy dist --project-name frontline-web
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
