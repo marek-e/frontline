@@ -7,10 +7,14 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "format": "oxfmt -c oxfmt.config.ts --write .",
+    "format:check": "oxfmt -c oxfmt.config.ts --check .",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
     "turbo": "^2.9.6",
     "typescript": "~6.0.3"
   },
