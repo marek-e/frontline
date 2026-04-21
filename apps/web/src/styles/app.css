@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ----- Brand / factions ----- */
+  --color-red-faction: oklch(62% 0.19 28);
+  --color-red-faction-dark: oklch(48% 0.18 28);
+  --color-red-faction-glow: oklch(72% 0.18 28 / 0.35);
+  --color-blue-faction: oklch(58% 0.15 245);
+  --color-blue-faction-dark: oklch(42% 0.13 245);
+  --color-blue-faction-glow: oklch(70% 0.15 245 / 0.35);
+
+  /* ----- Board ----- */
+  --color-board-light: oklch(92% 0.03 75); /* cream parchment */
+  --color-board-dark: oklch(52% 0.07 45); /* warm walnut */
+  --color-board-border: oklch(28% 0.05 40);
+
+  /* ----- Surfaces (dark-mode default) ----- */
+  --color-surface-0: oklch(15% 0.01 40); /* app bg */
+  --color-surface-1: oklch(19% 0.01 40); /* card */
+  --color-surface-2: oklch(24% 0.015 40); /* elevated */
+  --color-surface-3: oklch(30% 0.02 40); /* overlay / modal */
+
+  /* ----- Text ----- */
+  --color-fg: oklch(96% 0.01 80);
+  --color-fg-muted: oklch(72% 0.015 80);
+  --color-fg-subtle: oklch(52% 0.01 80);
+
+  /* ----- Semantic ----- */
+  --color-success: oklch(70% 0.17 150);
+  --color-warning: oklch(78% 0.15 75);
+  --color-danger: oklch(62% 0.22 25);
+  --color-accent: oklch(78% 0.16 85); /* gold — pursuit, promo, win */
+
+  /* ----- Board overlays ----- */
+  --color-move-dot: oklch(28% 0.03 40 / 0.35);
+  --color-move-capture: oklch(62% 0.22 25 / 0.55);
+  --color-last-move: oklch(78% 0.16 85 / 0.35);
+  --color-check: oklch(62% 0.22 25 / 0.65);
+  --color-selected: oklch(78% 0.16 85 / 0.55);
+  --color-pursuit: oklch(78% 0.16 85 / 0.6);
+
+  /* ----- Radii ----- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* ----- Spacing (4px base) ----- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* ----- Type ----- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+  --text-4xl: 44px;
+  --text-5xl: 60px;
+
+  /* ----- Shadows (warm, not neutral) ----- */
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.3);
+  --shadow-md: 0 4px 12px oklch(0% 0 0 / 0.35);
+  --shadow-lg: 0 16px 40px oklch(0% 0 0 / 0.45);
+  --shadow-board: 0 20px 60px oklch(15% 0.05 40 / 0.6);
+  --shadow-glow-red: 0 0 20px var(--color-red-faction-glow);
+  --shadow-glow-blue: 0 0 20px var(--color-blue-faction-glow);
+
+  /* ----- Motion ----- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --duration-move: 180ms;
+}
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-surface-0);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
