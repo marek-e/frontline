@@ -1,0 +1,29 @@
+name: Setup Node + pnpm
+description: Setup pnpm, Node, and install dependencies with node_modules caching.
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm  # caches ~/.pnpm-store (package content)
+
+    - name: Cache node_modules
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          node_modules
+          apps/*/node_modules
+          packages/*/node_modules
+        key: ${{ runner.os }}-node_modules-${{ hashFiles('pnpm-lock.yaml') }}
+
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: pnpm install --frozen-lockfile
+      shell: bash
