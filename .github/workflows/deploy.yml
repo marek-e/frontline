@@ -44,6 +44,7 @@ jobs:
       )
     runs-on: ubuntu-latest
     environment: prod
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -59,6 +60,7 @@ jobs:
 
       - name: Deploy web → CF Pages (staging)
         if: github.event_name == 'workflow_run'
+        timeout-minutes: 5
         working-directory: apps/web
         run: pnpm exec wrangler pages deploy dist --project-name frontline-web-staging
         env:
@@ -67,6 +69,7 @@ jobs:
 
       - name: Deploy api → CF Workers (staging)
         if: github.event_name == 'workflow_run'
+        timeout-minutes: 5
         working-directory: apps/api
         run: pnpm exec wrangler deploy --env staging
         env:
@@ -75,15 +78,18 @@ jobs:
 
       - name: Deploy party → PartyKit (staging)
         if: github.event_name == 'workflow_run'
+        timeout-minutes: 5
         working-directory: apps/party
         run: pnpm exec partykit deploy --name frontline-party-staging
         env:
           PARTYKIT_TOKEN: ${{ secrets.PARTYKIT_TOKEN }}
+          PARTYKIT_LOGIN: ${{ secrets.PARTYKIT_LOGIN  }}
 
       # ── Production (tag v*) ───────────────────────────────────────────────
 
       - name: Deploy web → CF Pages (production)
         if: github.event_name == 'push'
+        timeout-minutes: 5
         working-directory: apps/web
         run: pnpm exec wrangler pages deploy dist --project-name frontline-web
         env:
@@ -92,6 +98,7 @@ jobs:
 
       - name: Deploy api → CF Workers (production)
         if: github.event_name == 'push'
+        timeout-minutes: 5
         working-directory: apps/api
         run: pnpm exec wrangler deploy
         env:
@@ -100,6 +107,7 @@ jobs:
 
       - name: Deploy party → PartyKit (production)
         if: github.event_name == 'push'
+        timeout-minutes: 5
         working-directory: apps/party
         run: pnpm exec partykit deploy
         env:
