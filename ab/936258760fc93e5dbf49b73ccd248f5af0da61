@@ -1,0 +1,28 @@
+.github/workflows/deploy.yml
+  08b3109e62380608 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "ab936258760fc93e5dbf49b73ccd248f5af0da61",
+  "prompts": {
+    "08b3109e62380608": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7b8cb6e7-19fc-4db3-b367-1f20c6f5d6a7",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 0,
+      "accepted_lines": 131,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
