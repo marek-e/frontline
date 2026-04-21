@@ -48,11 +48,47 @@ What's not there yet: accounts, online play, bot, puzzles, server, persistence.
 ## Quick start
 
 ```bash
+cp .env.example .env   # fill in DATABASE_URL + AUTH_SECRET (see below)
 pnpm install
 pnpm dev
 ```
 
 Visit `http://localhost:5173`.
+
+## Environment variables
+
+Copy `.env.example` to `.env` and fill in the values you need locally:
+
+| Variable | Where to get it | Required locally |
+|---|---|---|
+| `DATABASE_URL` | [neon.tech](https://neon.tech) → project → connection string | Only if running db/auth |
+| `AUTH_SECRET` | Any random string — `openssl rand -base64 32` | Only if running auth |
+| `CLOUDFLARE_API_TOKEN` | dash.cloudflare.com → My Profile → API Tokens | CI/deploy only |
+| `CLOUDFLARE_ACCOUNT_ID` | dash.cloudflare.com → Workers & Pages → Account ID | CI/deploy only |
+| `PARTYKIT_TOKEN` | `partykit login` locally → `~/.partykit/config.json` → `access_token` | CI/deploy only |
+
+The three Cloudflare/PartyKit secrets are only needed for deployment — set them as GitHub Actions secrets (repo → Settings → Secrets and variables → Actions), not in `.env`.
+
+## Deployment
+
+| Trigger | Environment | What deploys |
+|---|---|---|
+| Push to `main` | **Staging** | web → `frontline-web-staging` · api → `frontline-api-staging` · party → `frontline-party-staging` |
+| Push tag `v*` | **Production** | web → `frontline-web` · api → `frontline-api` · party → `frontline-party` |
+
+To cut a production release:
+
+```bash
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+**First deploy only:** create the two CF Pages projects once before pushing:
+
+```bash
+cd apps/web
+pnpm exec wrangler pages project create frontline-web-staging
+pnpm exec wrangler pages project create frontline-web
+```
 
 ## Tech stack
 
