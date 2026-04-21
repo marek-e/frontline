@@ -1,0 +1,41 @@
+packages/rules/package.json
+  722f128a7938df2c 1-23
+packages/rules/src/moves.ts
+  722f128a7938df2c 1-299
+packages/rules/vitest.config.ts
+  722f128a7938df2c 1-8
+packages/rules/src/scoring.ts
+  722f128a7938df2c 1-52
+packages/rules/src/board.ts
+  722f128a7938df2c 1-58
+packages/rules/src/index.ts
+  722f128a7938df2c 1-6
+packages/rules/tsconfig.json
+  722f128a7938df2c 1-9
+packages/rules/src/types.ts
+  722f128a7938df2c 1-65
+packages/rules/src/gameReducer.ts
+  722f128a7938df2c 1-306
+packages/rules/src/constants.ts
+  722f128a7938df2c 1-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "e658660209206fc12009a2d3f4fd2aac30960cd4",
+  "prompts": {
+    "722f128a7938df2c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3b02314a-90db-4bf0-b233-3cd6bb132067",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 3173,
+      "overriden_lines": 0
+    }
+  }
+}
