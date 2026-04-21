@@ -1,0 +1,27 @@
+packages/ui/src/index.ts
+  722f128a7938df2c 1-4
+packages/ui/package.json
+  722f128a7938df2c 1-24
+packages/ui/tsconfig.json
+  722f128a7938df2c 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "94c92e6e5364f0cd7230241d314d6e768f5e2203",
+  "prompts": {
+    "722f128a7938df2c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "3b02314a-90db-4bf0-b233-3cd6bb132067",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1851,
+      "overriden_lines": 0
+    }
+  }
+}
