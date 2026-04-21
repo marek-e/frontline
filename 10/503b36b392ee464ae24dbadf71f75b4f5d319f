@@ -1,0 +1,28 @@
+README.md
+  08b3109e62380608 130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "10503b36b392ee464ae24dbadf71f75b4f5d319f",
+  "prompts": {
+    "08b3109e62380608": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7b8cb6e7-19fc-4db3-b367-1f20c6f5d6a7",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
