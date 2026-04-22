@@ -68,10 +68,10 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 
 ### Game features
 
-- [ ] FGN serializer + parser (`packages/rules`)
-- [ ] `MoveList` component with FGN notation (scrollable, click-to-scrub)
-- [ ] Takeback / undo
-- [ ] FGN export / import in UI
+- [x] FGN serializer + parser (`packages/rules`)
+- [x] `MoveList` component with FGN notation (scrollable, click-to-scrub)
+- [x] Takeback / undo
+- [x] FGN export / import in UI
 - [ ] `Clock` component (tabular-nums, pulse when active, danger flash <10s)
 - [ ] Board flip + coordinates toggle
 
