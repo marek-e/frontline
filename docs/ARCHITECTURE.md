@@ -195,6 +195,23 @@ Write comments only for things that are not obvious from the code itself:
 
 When in doubt, prefer a better name over a comment.
 
+### Component file structure (`apps/web`)
+
+**One component per file.** Never keep multiple sibling components in a single file — no matter how small. If a file defines a component plus a handful of internal section/card subcomponents, split them immediately.
+
+Two locations, decided by scope:
+
+- **Shared / cross-page components** → `apps/web/src/components/<Name>/<Name>.tsx`
+  e.g. `components/Logo/Logo.tsx`, `components/Board/Board.tsx`. Folder name = component name = file name.
+- **Page-local components** → `apps/web/src/pages/<page>/_components/<Name>.tsx`
+  Flat `_components/` folder next to the page's entry file. Used for pieces that only exist to compose that one page (nav, hero, footer, section cards, etc).
+
+A page's entry file (e.g. `LandingPage.tsx`) should be pure composition: imports + one top-level component that wires its sections together. No inline subcomponents, no module-level data tables for child components — those live in the child's own file.
+
+Promote a page-local component to `src/components/` the moment a second page imports it.
+
+Types that describe a component's props/items (e.g. `FeatureItem`, `Faction`) live in that component's file and are exported by name so data files can import them.
+
 ---
 
 ## Open decisions
