@@ -1,0 +1,30 @@
+apps/web/src/components/Logo/Logo.tsx
+  h_b7c268b0e33ac7 25
+apps/web/src/pages/design-system/DesignSystemPage.tsx
+  h_b7c268b0e33ac7 45,94,99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "0f91c5de7a979faf4816b42763df3aea1cada634",
+  "prompts": {
+    "3346fcb0acc62599": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cdeee63d-3e83-4942-b32b-5a53d1afdf1e",
+        "model": "<synthetic>"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 84,
+      "total_deletions": 19,
+      "accepted_lines": 387,
+      "overriden_lines": 5
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
