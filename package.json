@@ -1,14 +1,14 @@
 {
   "name": "frontline",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "format": "oxfmt -c oxfmt.config.ts --write .",
-    "format:check": "oxfmt -c oxfmt.config.ts --check .",
+    "format": "oxfmt -c .oxfmtrc.json --write .",
+    "format:check": "oxfmt -c .oxfmtrc.json --check .",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck"
   },
@@ -18,8 +18,8 @@
     "turbo": "^2.9.6",
     "typescript": "~6.0.3"
   },
-  "packageManager": "pnpm@10.19.0",
   "engines": {
     "node": ">=20"
-  }
+  },
+  "packageManager": "pnpm@10.19.0"
 }
