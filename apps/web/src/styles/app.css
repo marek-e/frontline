@@ -239,3 +239,65 @@
     @apply font-sans;
   }
 }
+
+/* ─── Board square overlays ───────────────────────────────────────────────────
+   These require ::after pseudo-elements or keyframe animations that can't be
+   expressed inline in Tailwind — kept minimal and token-referenced.          */
+
+@keyframes checkFlash {
+  from { background-color: var(--color-check) !important; }
+  to   { background-color: oklch(62% 0.22 25 / 0.78) !important; }
+}
+
+@keyframes alertPulse {
+  from { opacity: 0.72; }
+  to   { opacity: 1; }
+}
+
+@layer components {
+  /* Gold overlay on the selected square */
+  .sq-selected::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-selected);
+    pointer-events: none;
+  }
+
+  /* Red ring on enemy capture targets */
+  .sq-capture::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 4px var(--color-move-capture);
+    pointer-events: none;
+  }
+
+  /* Blue ring on friendly swap targets */
+  .sq-swap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 4px oklch(70% 0.15 245 / 0.75);
+    pointer-events: none;
+  }
+
+  /* Flashing red fill on the checked commander's square */
+  .sq-checked {
+    animation: checkFlash 0.5s ease infinite alternate;
+  }
+
+  /* Piece glow + scale when selected */
+  .piece-selected svg {
+    filter: drop-shadow(0 0 6px oklch(78% 0.16 85 / 0.9))
+            drop-shadow(0 2px 3px oklch(0% 0 0 / 0.35));
+    transform: scale(1.08);
+  }
+
+  /* Pulsing opacity for check / pursuit alerts */
+  .animate-alert {
+    animation: alertPulse 0.6s ease infinite alternate;
+  }
+}

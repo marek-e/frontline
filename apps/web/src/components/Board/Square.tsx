@@ -1,6 +1,6 @@
+import { cn } from '~/lib/utils'
 import type { Piece as PieceData, Square as SquareType } from '@frontline/rules'
 import { Piece } from '../Piece/Piece'
-import './Square.css'
 
 interface Props {
   square: SquareType
@@ -37,31 +37,20 @@ export function Square({
   onDrop,
   onClick,
 }: Props) {
-  const classes = [
-    'square',
-    isLight ? 'square--light' : 'square--dark',
-    isChecked ? 'square--checked' : '',
-    isSelected ? 'square--selected' : '',
-    isLegalMove && !isCaptureTarget && !isSwapTarget ? 'square--legal' : '',
-    isCaptureTarget ? 'square--capture' : '',
-    isSwapTarget ? 'square--swap' : '',
-    isDragOver ? 'square--drag-over' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
-
   return (
     <div
-      className={classes}
-      onDragOver={(e) => {
-        e.preventDefault()
-        onDragOver(square)
-      }}
+      className={cn(
+        'relative flex items-center justify-center aspect-square',
+        isLight ? 'bg-board-light' : 'bg-board-dark',
+        isChecked && 'sq-checked',
+        isSelected && 'sq-selected',
+        isCaptureTarget && 'sq-capture',
+        isSwapTarget && 'sq-swap',
+        isDragOver && '!bg-gold/55',
+      )}
+      onDragOver={(e) => { e.preventDefault(); onDragOver(square) }}
       onDragLeave={onDragLeave}
-      onDrop={(e) => {
-        e.preventDefault()
-        onDrop(square)
-      }}
+      onDrop={(e) => { e.preventDefault(); onDrop(square) }}
       onClick={() => onClick(square)}
     >
       {piece && (
@@ -73,7 +62,9 @@ export function Square({
           onDragEnd={onDragEnd}
         />
       )}
-      {isLegalMove && !piece && <div className="square__dot" />}
+      {isLegalMove && !piece && (
+        <div className="absolute w-[28%] h-[28%] rounded-full pointer-events-none bg-move-dot" />
+      )}
     </div>
   )
 }

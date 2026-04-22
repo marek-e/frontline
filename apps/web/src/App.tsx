@@ -5,7 +5,6 @@ import { GameInfo } from './components/GameInfo/GameInfo'
 import { MatchScore } from './components/MatchScore/MatchScore'
 import { WinModal } from './components/WinModal/WinModal'
 import { PromotionPicker } from './components/PromotionPicker/PromotionPicker'
-import './App.css'
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, createInitialState(3))
@@ -14,8 +13,9 @@ function App() {
   const lastRoundScore = match.roundScores.at(-1) ?? null
 
   return (
-    <div className="app">
-      <div className="app__left">
+    <div className="flex items-center justify-center max-[700px]:flex-col gap-10 max-[700px]:gap-4 p-8 max-[700px]:p-4 bg-card rounded-[20px] shadow-board">
+      {/* Left sidebar */}
+      <div className="flex flex-col gap-4 w-[180px] max-[700px]:w-full min-h-[min(90vmin,600px)] max-[700px]:min-h-0 justify-start pt-2">
         <GameInfo
           turn={round.turn}
           phase={round.phase}
@@ -27,7 +27,8 @@ function App() {
         />
       </div>
 
-      <div className="app__center">
+      {/* Board */}
+      <div className="flex items-center justify-center px-5 max-[700px]:px-0">
         <Board
           board={round.board}
           turn={round.turn}
@@ -40,7 +41,8 @@ function App() {
         />
       </div>
 
-      <div className="app__right">
+      {/* Right sidebar */}
+      <div className="flex flex-col gap-4 w-[180px] max-[700px]:w-full min-h-[min(90vmin,600px)] max-[700px]:min-h-0 justify-start pt-2">
         <MatchScore match={match} dispatch={dispatch} />
       </div>
 

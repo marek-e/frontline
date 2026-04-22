@@ -7,8 +7,8 @@ import {
   squaresEqual,
   findPiece,
 } from '@frontline/rules'
+import { cn } from '~/lib/utils'
 import { Square } from './Square'
-import './Board.css'
 
 interface DragState {
   selectedSquare: SquareType | null
@@ -28,6 +28,9 @@ interface Props {
 }
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
+const LABEL_CLS =
+  'flex-1 flex items-center justify-center text-[11px] font-semibold text-board-border font-mono select-none'
 
 export function Board({
   board,
@@ -51,7 +54,6 @@ export function Board({
 
   const ctx = { movedPieceIds, enPassantTarget }
 
-  // When pursuit mode activates, auto-select the warlord and show its pursuit moves
   useEffect(() => {
     if (warlordPursuit) {
       const pursuitMoves = getWarlordPursuitMoves(board, warlordPursuit, turn, ctx)
@@ -63,14 +65,10 @@ export function Board({
   }, [warlordPursuit])
 
   function selectSquare(sq: SquareType) {
-    if (warlordPursuit) return // during pursuit, only the warlord is locked in
+    if (warlordPursuit) return
     const piece = getPiece(board, sq)
     if (piece && piece.color === turn) {
-      setDrag({
-        selectedSquare: sq,
-        legalMoves: getLegalMoves(board, sq, ctx),
-        dragOverSquare: null,
-      })
+      setDrag({ selectedSquare: sq, legalMoves: getLegalMoves(board, sq, ctx), dragOverSquare: null })
     } else {
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
     }
@@ -112,7 +110,6 @@ export function Board({
   function handleClick(sq: SquareType) {
     if (phase !== 'playing') return
 
-    // Pursuit mode: only the warlord can move
     if (warlordPursuit) {
       if (drag.legalMoves.some((s) => squaresEqual(s, sq))) {
         dispatch({ type: 'WARLORD_PURSUE', to: sq })
@@ -128,10 +125,7 @@ export function Board({
         return
       }
       const piece = getPiece(board, sq)
-      if (piece && piece.color === turn) {
-        selectSquare(sq)
-        return
-      }
+      if (piece && piece.color === turn) { selectSquare(sq); return }
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
       return
     }
@@ -141,23 +135,28 @@ export function Board({
   }
 
   return (
-    <div className="board-wrapper">
-      <div className="board-ranks">
+    <div className="relative flex flex-col items-start">
+      {/* Rank labels */}
+      <div className="absolute -left-[22px] top-0 flex flex-col h-[min(90vmin,600px)]">
         {Array.from({ length: 8 }, (_, i) => (
-          <div key={i} className="board-label">
-            {8 - i}
-          </div>
+          <div key={i} className={LABEL_CLS}>{8 - i}</div>
         ))}
       </div>
 
-      <div className={`board${warlordPursuit ? ' board--pursuit' : ''}`}>
+      {/* Board grid */}
+      <div
+        className={cn(
+          'grid grid-cols-8 grid-rows-8 w-[min(90vmin,600px)] h-[min(90vmin,600px)]',
+          'border-[3px] border-board-border shadow-board',
+          warlordPursuit && 'outline outline-[3px] outline-offset-2 outline-gold/60',
+        )}
+      >
         {board.map((row, rowIdx) =>
           row.map((piece, colIdx) => {
             const sq: SquareType = { row: rowIdx, col: colIdx }
             const isSelected = !!(drag.selectedSquare && squaresEqual(drag.selectedSquare, sq))
             const isLegal = drag.legalMoves.some((s) => squaresEqual(s, sq))
-            const isSwapTarget =
-              !warlordPursuit && isLegal && piece !== null && piece.color === turn
+            const isSwapTarget = !warlordPursuit && isLegal && piece !== null && piece.color === turn
             const isCapture = isLegal && piece !== null && !isSwapTarget
             const isDragOver = !!(drag.dragOverSquare && squaresEqual(drag.dragOverSquare, sq))
             const isLight = (rowIdx + colIdx) % 2 === 0
@@ -184,15 +183,14 @@ export function Board({
                 onClick={handleClick}
               />
             )
-          })
+          }),
         )}
       </div>
 
-      <div className="board-files">
+      {/* File labels */}
+      <div className="flex w-[min(90vmin,600px)] mt-1">
         {FILES.map((f) => (
-          <div key={f} className="board-label">
-            {f}
-          </div>
+          <div key={f} className={LABEL_CLS}>{f}</div>
         ))}
       </div>
     </div>
