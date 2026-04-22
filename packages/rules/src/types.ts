@@ -25,6 +25,15 @@ export interface Move {
   enPassantCaptureSquare?: Square
 }
 
+export interface TurnEntry {
+  primary: Move
+  promotion?: Exclude<PieceType, 'commander' | 'guard'>
+  pursuit?: { to: Square } | 'skip'
+  color: Color
+  check: boolean
+  checkmate: boolean
+}
+
 export interface RoundScore {
   winner: Color
   winnerPoints: number
@@ -36,9 +45,11 @@ export type GamePhase = 'playing' | 'round_over' | 'match_over'
 export interface RoundState {
   board: Board
   turn: Color
+  startingTurn: Color
   capturedByRed: Piece[]
   capturedByBlue: Piece[]
   moveHistory: Move[]
+  turnLog: TurnEntry[]
   phase: GamePhase
   winner: Color | null
   movedPieceIds: string[]
@@ -62,4 +73,6 @@ export interface MatchState {
 export interface GameState {
   round: RoundState
   match: MatchState
+  /** Pre-turn round snapshots for local undo; cleared on new round/match. */
+  undoStack: RoundState[]
 }

@@ -1,4 +1,4 @@
-import type { Color, GameState, Move, Piece, RoundState, Square } from './types'
+import type { Color, GameState, Move, Piece, RoundState, Square, TurnEntry } from './types'
 import { createInitialBoard } from './constants'
 import { getPiece, applyMove, squaresEqual } from './board'
 import { getLegalMoves, isInCheck, hasNoLegalMoves } from './moves'
@@ -9,6 +9,8 @@ export type GameAction =
   | { type: 'WARLORD_PURSUE'; to: Square }
   | { type: 'SKIP_PURSUIT' }
   | { type: 'PROMOTE'; pieceType: Exclude<import('./types').PieceType, 'commander' | 'guard'> }
+  | { type: 'UNDO_TURN' }
+  | { type: 'LOAD_STATE'; state: GameState }
   | { type: 'NEW_ROUND' }
   | { type: 'NEW_MATCH'; format: 3 | 5 }
 
@@ -16,9 +18,11 @@ function createInitialRound(firstTurn: Color = 'red'): RoundState {
   return {
     board: createInitialBoard(),
     turn: firstTurn,
+    startingTurn: firstTurn,
     capturedByRed: [],
     capturedByBlue: [],
     moveHistory: [],
+    turnLog: [],
     phase: 'playing',
     winner: null,
     movedPieceIds: [],
@@ -44,6 +48,7 @@ export function createInitialState(format: 3 | 5 = 3): GameState {
   return {
     round: createInitialRound('red'),
     match: createInitialMatch(format),
+    undoStack: [],
   }
 }
 
@@ -57,7 +62,7 @@ function resolveTurnEnd(
   moveHistory: typeof round.moveHistory,
   movedPieceIds: string[],
   enPassantTarget: Square | null
-): Partial<RoundState> {
+): { next: Partial<RoundState>; flags: { check: boolean; checkmate: boolean } } {
   const nextTurn: Color = moverColor === 'red' ? 'blue' : 'red'
   const nextCtx = { movedPieceIds, enPassantTarget }
 
@@ -70,22 +75,51 @@ function resolveTurnEnd(
   const winner: Color | null = checkmate ? moverColor : null
 
   return {
-    board,
-    turn: nextTurn,
-    capturedByRed,
-    capturedByBlue,
-    moveHistory,
-    phase: roundOver ? 'round_over' : 'playing',
-    winner,
-    movedPieceIds,
-    enPassantTarget,
-    inCheck: roundOver ? false : nextInCheck,
-    warlordPursuit: null,
+    flags: { check: !checkmate && nextInCheck, checkmate },
+    next: {
+      board,
+      turn: nextTurn,
+      capturedByRed,
+      capturedByBlue,
+      moveHistory,
+      phase: roundOver ? 'round_over' : 'playing',
+      winner,
+      movedPieceIds,
+      enPassantTarget,
+      inCheck: roundOver ? false : nextInCheck,
+      warlordPursuit: null,
+      pendingPromotion: null,
+    },
+  }
+}
+
+function cloneSquare(sq: Square | null): Square | null {
+  return sq ? { row: sq.row, col: sq.col } : null
+}
+
+function cloneRoundSnapshot(round: RoundState): RoundState {
+  return {
+    ...round,
+    board: round.board.map((r) => r.slice()),
+    capturedByRed: round.capturedByRed.slice(),
+    capturedByBlue: round.capturedByBlue.slice(),
+    moveHistory: round.moveHistory.slice(),
+    turnLog: round.turnLog.slice(),
+    movedPieceIds: round.movedPieceIds.slice(),
+    enPassantTarget: cloneSquare(round.enPassantTarget),
+    warlordPursuit: cloneSquare(round.warlordPursuit),
+    pendingPromotion: round.pendingPromotion
+      ? { square: { ...round.pendingPromotion.square }, color: round.pendingPromotion.color }
+      : null,
   }
 }
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
+    case 'LOAD_STATE': {
+      return action.state
+    }
+
     case 'MOVE_PIECE': {
       const { round } = state
       if (round.phase !== 'playing' || round.warlordPursuit || round.pendingPromotion) return state
@@ -155,6 +189,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (piece.type === 'guard' && action.to.row === backRank) {
         return {
           ...state,
+          undoStack: [...state.undoStack, cloneRoundSnapshot(round)],
           round: {
             ...round,
             board: newBoard,
@@ -174,6 +209,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (warlordCaptured) {
         return {
           ...state,
+          undoStack: [...state.undoStack, cloneRoundSnapshot(round)],
           round: {
             ...round,
             board: newBoard,
@@ -187,20 +223,30 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         }
       }
 
+      const resolved = resolveTurnEnd(
+        round,
+        newBoard,
+        piece.color,
+        capturedByRed,
+        capturedByBlue,
+        [...round.moveHistory, move],
+        newMovedIds,
+        newEnPassantTarget
+      )
+      const entry: TurnEntry = {
+        primary: move,
+        color: piece.color,
+        check: resolved.flags.check,
+        checkmate: resolved.flags.checkmate,
+      }
+
       return {
         ...state,
+        undoStack: [...state.undoStack, cloneRoundSnapshot(round)],
         round: {
           ...round,
-          ...resolveTurnEnd(
-            round,
-            newBoard,
-            piece.color,
-            capturedByRed,
-            capturedByBlue,
-            [...round.moveHistory, move],
-            newMovedIds,
-            newEnPassantTarget
-          ),
+          ...resolved.next,
+          turnLog: [...round.turnLog, entry],
         },
       }
     }
@@ -220,21 +266,33 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         r !== square.row ? row : row.map((p, c) => (c === square.col ? promoted : p))
       )
 
+      const primary = round.moveHistory.at(-1) ?? null
+      if (!primary) return state
+      const resolved = resolveTurnEnd(
+        round,
+        newBoard,
+        color,
+        round.capturedByRed,
+        round.capturedByBlue,
+        round.moveHistory,
+        round.movedPieceIds,
+        round.enPassantTarget
+      )
+      const entry: TurnEntry = {
+        primary,
+        promotion: action.pieceType,
+        color,
+        check: resolved.flags.check,
+        checkmate: resolved.flags.checkmate,
+      }
+
       return {
         ...state,
         round: {
           ...round,
           pendingPromotion: null,
-          ...resolveTurnEnd(
-            round,
-            newBoard,
-            color,
-            round.capturedByRed,
-            round.capturedByBlue,
-            round.moveHistory,
-            round.movedPieceIds,
-            round.enPassantTarget
-          ),
+          ...resolved.next,
+          turnLog: [...round.turnLog, entry],
         },
       }
     }
@@ -268,20 +326,32 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       // Check-filter the pursuit
       if (isInCheck(newBoard, warlord.color, ctx)) return state
 
+      const primary = round.moveHistory.at(-1) ?? null
+      if (!primary) return state
+      const resolved = resolveTurnEnd(
+        round,
+        newBoard,
+        warlord.color,
+        round.capturedByRed,
+        round.capturedByBlue,
+        [...round.moveHistory, move],
+        round.movedPieceIds,
+        null
+      )
+      const entry: TurnEntry = {
+        primary,
+        pursuit: { to },
+        color: warlord.color,
+        check: resolved.flags.check,
+        checkmate: resolved.flags.checkmate,
+      }
+
       return {
         ...state,
         round: {
           ...round,
-          ...resolveTurnEnd(
-            round,
-            newBoard,
-            warlord.color,
-            round.capturedByRed,
-            round.capturedByBlue,
-            [...round.moveHistory, move],
-            round.movedPieceIds,
-            null
-          ),
+          ...resolved.next,
+          turnLog: [...round.turnLog, entry],
         },
       }
     }
@@ -290,22 +360,41 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const { round } = state
       if (!round.warlordPursuit || round.phase !== 'playing') return state
 
+      const primary = round.moveHistory.at(-1) ?? null
+      if (!primary) return state
+      const resolved = resolveTurnEnd(
+        round,
+        round.board,
+        round.turn,
+        round.capturedByRed,
+        round.capturedByBlue,
+        round.moveHistory,
+        round.movedPieceIds,
+        round.enPassantTarget
+      )
+      const entry: TurnEntry = {
+        primary,
+        pursuit: 'skip',
+        color: round.turn,
+        check: resolved.flags.check,
+        checkmate: resolved.flags.checkmate,
+      }
+
       return {
         ...state,
         round: {
           ...round,
-          ...resolveTurnEnd(
-            round,
-            round.board,
-            round.turn,
-            round.capturedByRed,
-            round.capturedByBlue,
-            round.moveHistory,
-            round.movedPieceIds,
-            round.enPassantTarget
-          ),
+          ...resolved.next,
+          turnLog: [...round.turnLog, entry],
         },
       }
+    }
+
+    case 'UNDO_TURN': {
+      if (state.undoStack.length === 0) return state
+      const nextUndo = state.undoStack.slice(0, -1)
+      const restored = state.undoStack[state.undoStack.length - 1]!
+      return { ...state, undoStack: nextUndo, round: restored }
     }
 
     case 'NEW_ROUND': {
@@ -316,11 +405,11 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const newMatch = updateMatchState(match, score)
 
       if (newMatch.matchWinner) {
-        return { round: { ...round, phase: 'match_over' }, match: newMatch }
+        return { round: { ...round, phase: 'match_over' }, match: newMatch, undoStack: [] }
       }
 
       const loser: Color = round.winner === 'red' ? 'blue' : 'red'
-      return { round: createInitialRound(loser), match: newMatch }
+      return { round: createInitialRound(loser), match: newMatch, undoStack: [] }
     }
 
     case 'NEW_MATCH': {
