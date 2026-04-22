@@ -9,8 +9,7 @@
     "allowImportingTsExtensions": true,
     "paths": {
       "~/*": ["./src/*"],
-      "@frontline/rules": ["../../packages/rules/src/index.ts"],
-      "@frontline/ui": ["../../packages/ui/src/index.ts"]
+      "@frontline/rules": ["../../packages/rules/src/index.ts"]
     }
   },
   "include": ["src", "vite.config.ts"]
