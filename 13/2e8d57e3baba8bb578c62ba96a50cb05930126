@@ -1,0 +1,30 @@
+apps/web/src/components/ui/dropdown-menu.tsx
+  h_b7c268b0e33ac7 1-245
+apps/web/src/components/ui/button.tsx
+  h_b7c268b0e33ac7 1-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "132e8d57e3baba8bb578c62ba96a50cb05930126",
+  "prompts": {
+    "519e1fa51479895b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48a05d31-950e-4934-a99d-48e5a36ec12b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 400,
+      "total_deletions": 24,
+      "accepted_lines": 321,
+      "overriden_lines": 23
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
