@@ -157,7 +157,7 @@ Scale uses tokens `--text-xs` … `--text-5xl`.
 
 ## 4. Iconography
 
-- UI icons: **Lucide**
+- UI icons: **Phosphor** (`@phosphor-icons/react`) — installed via the shadcn radix-lyra preset
 - Piece icons: **custom SVGs, commissioned or in-house**. Off-the-shelf chess pieces will make the product feel like a chess knock-off.
 
 Piece silhouette brief (must read at 32px):
@@ -212,12 +212,45 @@ Packs: Freesound / Soundly, or commission ~$200 custom.
 
 ---
 
-## 7. Responsive
+## 7. Responsive (mobile-first)
 
-- Board: `min(90vmin, 720px)` — always square, everything else flexes
-- Breakpoints: `sm 640` / `md 768` / `lg 1024` / `xl 1280`
-- Mobile: panels stack under the board; tap-to-select (drag supported but not required)
-- Min supported: 360px wide
+**Every component is designed for 360px first.** Larger layouts are progressive enhancements via min-width breakpoints — never the default.
+
+### Breakpoints (Tailwind v4 min-width)
+
+| Name | Min-width | Notes |
+| ---- | --------- | ----- |
+| `sm` | 640px     | Large phone / small tablet |
+| `md` | 768px     | Tablet portrait |
+| `lg` | 1024px    | Tablet landscape / small laptop |
+| `xl` | 1280px    | Desktop |
+
+### Layout tiers
+
+**Mobile (< 640px) — default, designed first:**
+- Board fills `min(90vmin, 600px)` — always square, always usable
+- Sidebars (GameInfo, MatchScore) stack vertically below the board
+- Touch-first: tap-to-select as primary interaction; drag optional
+- Tap targets ≥ 44×44px on all interactive elements
+- No hover-only affordances — everything accessible via tap
+- Modals (WinModal, PromotionPicker) full-width with generous tap targets
+
+**Tablet (`md` 768px+):**
+- Board centered, single sidebar visible (toggle between GameInfo / MatchScore)
+- Sidebars may appear as a bottom sheet or slide-over panel
+
+**Desktop (`lg` 1024px+):**
+- Three-column layout: GameInfo | Board | MatchScore
+- Drag-and-drop as primary piece interaction (drag supported on mobile too)
+- Hover states and tooltip-based piece legend
+
+### Rules for contributors
+
+- Write mobile classes first, add `md:` / `lg:` overrides after
+- Use `max-[N]:` variants only when a layout genuinely cannot be expressed mobile-first
+- Never use `hover:` alone — always pair with a `focus-visible:` or tap equivalent
+- Test every new component at 360px before considering it done
+- Min supported: **360px wide**
 
 ---
 

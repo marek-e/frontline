@@ -14,7 +14,7 @@ Target stack, repo layout, and data flow for the Frontline platform.
 | Monorepo            | pnpm workspaces + Turborepo                                       | Shared `@frontline/rules` package, cached/parallel task runs        |
 | Web framework       | **TanStack Start** on Vite                                        | SSR + SSG per route, deploys to Cloudflare Workers, SEO-capable     |
 | Router              | TanStack Router                                                   | Type-safe routes and search params (analysis URLs, puzzle filters)  |
-| Styling             | Tailwind v4 (`@theme` tokens)                                     | Tokens defined in [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)            |
+| Styling             | Tailwind v4 (`@theme` tokens) + shadcn/ui (radix-lyra)            | Mobile-first. Tokens in [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md). Write mobile classes first, add `md:`/`lg:` overrides after. |
 | Client server state | TanStack Query                                                    | REST/HTTP data; websocket state handled by `partysocket` directly   |
 | Realtime            | **PartyKit** (Cloudflare Durable Objects)                         | One DO per game room = authoritative, low-latency, no extra infra   |
 | HTTP API            | Cloudflare Workers (Hono)                                         | REST endpoints for non-room state (profiles, leaderboards, puzzles) |
