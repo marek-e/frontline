@@ -26,23 +26,27 @@ export function WinModal({
   const color = isMatchOver ? matchWinner! : roundWinner!
 
   const factionBorder = color === 'red' ? 'border-t-red-faction' : 'border-t-blue-faction'
-  const factionText   = color === 'red' ? 'text-red-faction'     : 'text-blue-faction'
-  const primaryBtn    = color === 'red'
-    ? 'bg-red-faction border-red-faction text-white hover:bg-red-faction/85'
-    : 'bg-blue-faction border-blue-faction text-white hover:bg-blue-faction/85'
-  const outlineBtn    = color === 'red'
-    ? 'border-red-faction text-red-faction hover:bg-red-faction/10'
-    : 'border-blue-faction text-blue-faction hover:bg-blue-faction/10'
+  const factionText = color === 'red' ? 'text-red-faction' : 'text-blue-faction'
+  const primaryBtn =
+    color === 'red'
+      ? 'bg-red-faction border-red-faction text-white hover:bg-red-faction/85'
+      : 'bg-blue-faction border-blue-faction text-white hover:bg-blue-faction/85'
+  const outlineBtn =
+    color === 'red'
+      ? 'border-red-faction text-red-faction hover:bg-red-faction/10'
+      : 'border-blue-faction text-blue-faction hover:bg-blue-faction/10'
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] animate-in fade-in duration-200">
-      <div className={cn(
-        'bg-card rounded-2xl px-11 py-9 min-w-[300px] text-center shadow-lg',
-        'animate-in slide-in-from-bottom-6 duration-200',
-        'border-t-[6px]',
-        factionBorder,
-        factionText,
-      )}>
+      <div
+        className={cn(
+          'bg-card rounded-2xl px-11 py-9 min-w-[300px] text-center shadow-lg',
+          'animate-in slide-in-from-bottom-6 duration-200',
+          'border-t-[6px]',
+          factionBorder,
+          factionText
+        )}
+      >
         {isMatchOver ? (
           <>
             <div className="text-[40px] mb-2">🏆</div>
@@ -56,7 +60,10 @@ export function WinModal({
             )}
             <div className="flex gap-2.5 justify-center">
               <button
-                className={cn('px-5 py-2.5 rounded-lg border-2 text-[13px] font-bold tracking-[0.5px] cursor-pointer transition-all', primaryBtn)}
+                className={cn(
+                  'px-5 py-2.5 rounded-lg border-2 text-[13px] font-bold tracking-[0.5px] cursor-pointer transition-all',
+                  primaryBtn
+                )}
                 onClick={() => dispatch({ type: 'NEW_MATCH', format: matchFormat })}
               >
                 New Match
@@ -82,13 +89,19 @@ export function WinModal({
             )}
             <div className="flex gap-2.5 justify-center">
               <button
-                className={cn('px-5 py-2.5 rounded-lg border-2 text-[13px] font-bold tracking-[0.5px] cursor-pointer transition-all', primaryBtn)}
+                className={cn(
+                  'px-5 py-2.5 rounded-lg border-2 text-[13px] font-bold tracking-[0.5px] cursor-pointer transition-all',
+                  primaryBtn
+                )}
                 onClick={onNextRound}
               >
                 Next Round
               </button>
               <button
-                className={cn('px-5 py-2.5 rounded-lg border-2 text-[13px] font-bold tracking-[0.5px] cursor-pointer transition-all bg-transparent', outlineBtn)}
+                className={cn(
+                  'px-5 py-2.5 rounded-lg border-2 text-[13px] font-bold tracking-[0.5px] cursor-pointer transition-all bg-transparent',
+                  outlineBtn
+                )}
                 onClick={() => dispatch({ type: 'NEW_MATCH', format: matchFormat })}
               >
                 New Match

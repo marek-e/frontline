@@ -20,7 +20,7 @@ function PieceIcon({ type, color }: { type: PromotablePiece; color: Color }) {
   const p = { fill, stroke }
   return (
     <div className="w-11 h-11 [&_svg]:w-full [&_svg]:h-full">
-      {type === 'cannon'  && <CannonSvg  {...p} />}
+      {type === 'cannon' && <CannonSvg {...p} />}
       {type === 'striker' && <StrikerSvg {...p} />}
       {type === 'flanker' && <FlankerSvg {...p} />}
       {type === 'warlord' && <WarlordSvg {...p} />}
@@ -35,18 +35,21 @@ interface Props {
 
 export function PromotionPicker({ color, dispatch }: Props) {
   const factionBorder = color === 'red' ? 'border-t-red-faction' : 'border-t-blue-faction'
-  const choiceHover   = color === 'red'
-    ? 'hover:border-red-faction hover:bg-red-faction/8'
-    : 'hover:border-blue-faction hover:bg-blue-faction/8'
+  const choiceHover =
+    color === 'red'
+      ? 'hover:border-red-faction hover:bg-red-faction/8'
+      : 'hover:border-blue-faction hover:bg-blue-faction/8'
 
   return (
     <div className="fixed inset-0 bg-black/55 flex items-center justify-center z-[200] animate-in fade-in duration-150">
-      <div className={cn(
-        'bg-card rounded-2xl px-8 py-7 text-center shadow-lg min-w-[340px]',
-        'animate-in slide-in-from-bottom-5 duration-200',
-        'border-t-[6px]',
-        factionBorder,
-      )}>
+      <div
+        className={cn(
+          'bg-card rounded-2xl px-8 py-7 text-center shadow-lg min-w-[340px]',
+          'animate-in slide-in-from-bottom-5 duration-200',
+          'border-t-[6px]',
+          factionBorder
+        )}
+      >
         <div className="text-[18px] font-black tracking-[2px] mb-1 text-foreground">
           PROMOTE GUARD
         </div>
@@ -61,7 +64,7 @@ export function PromotionPicker({ color, dispatch }: Props) {
               className={cn(
                 'flex flex-col items-center gap-1.5 px-3.5 py-3 rounded-xl',
                 'border-2 border-transparent bg-muted/40 cursor-pointer transition-all min-w-[72px]',
-                choiceHover,
+                choiceHover
               )}
               onClick={() => dispatch({ type: 'PROMOTE', pieceType: type })}
             >

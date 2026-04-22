@@ -16,9 +16,10 @@ export function MatchScore({ match, dispatch }: Props) {
       </div>
 
       <div className="flex flex-col gap-1.5 bg-muted/50 rounded-lg px-3 py-2.5">
-        {/* Red */}
         <div className="flex items-baseline gap-2">
-          <span className="font-extrabold text-[14px] tracking-[1px] min-w-9 text-red-faction">RED</span>
+          <span className="font-extrabold text-[14px] tracking-[1px] min-w-9 text-red-faction">
+            RED
+          </span>
           <span className="text-[20px] font-bold text-foreground">
             {match.roundWins.red} / {winsNeeded}
           </span>
@@ -29,9 +30,10 @@ export function MatchScore({ match, dispatch }: Props) {
 
         <div className="text-[11px] font-bold tracking-[2px] text-fg-subtle self-center">VS</div>
 
-        {/* Blue */}
         <div className="flex items-baseline gap-2">
-          <span className="font-extrabold text-[14px] tracking-[1px] min-w-9 text-blue-faction">BLUE</span>
+          <span className="font-extrabold text-[14px] tracking-[1px] min-w-9 text-blue-faction">
+            BLUE
+          </span>
           <span className="text-[20px] font-bold text-foreground">
             {match.roundWins.blue} / {winsNeeded}
           </span>
@@ -52,10 +54,12 @@ export function MatchScore({ match, dispatch }: Props) {
               className="flex items-center gap-1.5 text-[12px] py-0.5 border-b border-border/50 text-fg-muted"
             >
               <span>Round {i + 1}</span>
-              <span className={cn(
-                'font-bold flex-1',
-                score.winner === 'red' ? 'text-red-faction' : 'text-blue-faction',
-              )}>
+              <span
+                className={cn(
+                  'font-bold flex-1',
+                  score.winner === 'red' ? 'text-red-faction' : 'text-blue-faction'
+                )}
+              >
                 {score.winner.toUpperCase()} wins
               </span>
               <span>{score.winnerPoints.toFixed(2)}</span>
@@ -73,7 +77,7 @@ export function MatchScore({ match, dispatch }: Props) {
               'px-2.5 py-1 border rounded text-[11px] font-semibold cursor-pointer transition-all',
               match.format === f
                 ? 'border-board-dark bg-board-dark text-white'
-                : 'border-border bg-transparent text-fg-muted hover:border-fg-subtle hover:text-foreground',
+                : 'border-border bg-transparent text-fg-muted hover:border-fg-subtle hover:text-foreground'
             )}
             onClick={() => dispatch({ type: 'NEW_MATCH', format: f })}
           >
