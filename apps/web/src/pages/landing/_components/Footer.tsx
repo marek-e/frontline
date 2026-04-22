@@ -1,16 +1,39 @@
+import { Link } from '@tanstack/react-router'
 import { Logo } from '~/components/Logo/Logo'
 
-const FOOTER_LINKS = [
-  ['PLAY', ['Quick Match', 'Ranked', 'Leaderboard', 'Watch Live']],
-  ['ACCOUNT', ['Sign Up', 'Log In', 'Profile', 'Settings']],
-  ['COMPANY', ['About', 'Blog', 'Careers', 'Contact']],
+type FooterLink = { label: string; to?: string }
+
+const FOOTER_LINKS: Array<readonly [string, readonly FooterLink[]]> = [
+  [
+    'PLAY',
+    [
+      { label: 'Quick Match' },
+      { label: 'Ranked' },
+      { label: 'Leaderboard' },
+      { label: 'Watch Live' },
+    ],
+  ],
+  [
+    'ACCOUNT',
+    [{ label: 'Sign Up' }, { label: 'Log In' }, { label: 'Profile' }, { label: 'Settings' }],
+  ],
+  ['COMPANY', [{ label: 'About' }, { label: 'Blog' }, { label: 'Careers' }, { label: 'Contact' }]],
+  [
+    'RESOURCES',
+    [
+      { label: 'Design System', to: '/design-system' },
+      { label: 'Changelog' },
+      { label: 'Status' },
+      { label: 'API' },
+    ],
+  ],
 ] as const
 
 export function Footer() {
   return (
     <footer className="bg-fl-surf border-t border-fl-border-s px-12 pt-14 pb-8">
       <div className="max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-12">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-12 mb-12">
           {/* Brand */}
           <div>
             <Logo />
@@ -34,14 +57,24 @@ export function Footer() {
                 {heading}
               </div>
               <div className="flex flex-col gap-2.5">
-                {links.map((l) => (
-                  <span
-                    key={l}
-                    className="font-barlow text-[13px] text-fl-fg3 cursor-pointer hover:text-fl-fg1 transition-colors duration-150"
-                  >
-                    {l}
-                  </span>
-                ))}
+                {links.map((l) =>
+                  l.to ? (
+                    <Link
+                      key={l.label}
+                      to={l.to}
+                      className="font-barlow text-[13px] text-fl-fg3 cursor-pointer hover:text-fl-fg1 transition-colors duration-150 w-fit"
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <span
+                      key={l.label}
+                      className="font-barlow text-[13px] text-fl-fg3 cursor-pointer hover:text-fl-fg1 transition-colors duration-150"
+                    >
+                      {l.label}
+                    </span>
+                  )
+                )}
               </div>
             </div>
           ))}
