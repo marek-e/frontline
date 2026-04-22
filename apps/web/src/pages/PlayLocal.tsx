@@ -1,11 +1,12 @@
-import { useReducer, useEffect, useRef, useState } from 'react'
-import { gameReducer, createInitialState } from '@frontline/rules'
+import { useReducer, useEffect, useMemo, useRef, useState } from 'react'
+import { gameReducer, createInitialState, replayTurns, toFGN, replayFGN } from '@frontline/rules'
 import type { Move, Square } from '@frontline/rules'
 import { Board } from '~/components/Board/Board'
 import { GameInfo } from '~/components/GameInfo/GameInfo'
 import { MatchScore } from '~/components/MatchScore/MatchScore'
 import { WinModal } from '~/components/WinModal/WinModal'
 import { PromotionPicker } from '~/components/PromotionPicker/PromotionPicker'
+import { MoveList } from '~/components/MoveList/MoveList'
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 const coord = (s: Square) => `${FILES[s.col]}${8 - s.row}`
@@ -24,6 +25,7 @@ export function PlayLocal() {
   const [state, dispatch] = useReducer(gameReducer, createInitialState(3))
   const { round, match } = state
   const lastRoundScore = match.roundScores.at(-1) ?? null
+  const [viewPly, setViewPly] = useState<number | null>(null)
 
   const prevMoveCount = useRef(0)
   const [announcement, setAnnouncement] = useState('')
@@ -36,6 +38,38 @@ export function PlayLocal() {
     }
   }, [round.moveHistory])
 
+  const displayState = useMemo(() => {
+    if (viewPly === null) return state
+    const base = createInitialState(match.format)
+    base.round.startingTurn = round.startingTurn
+    base.round.turn = round.startingTurn
+    return replayTurns(base, round.turnLog, viewPly + 1)
+  }, [match.format, round.startingTurn, round.turnLog, state, viewPly])
+
+  const displayRound = displayState.round
+
+  async function handleExport() {
+    const fgn = toFGN(state)
+    try {
+      await navigator.clipboard.writeText(fgn)
+    } catch {
+      // ignore
+    }
+    const blob = new Blob([fgn], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'frontline.fgn'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function handleImport(text: string) {
+    const next = replayFGN(text, match.format)
+    dispatch({ type: 'LOAD_STATE', state: next })
+    setViewPly(null)
+  }
+
   return (
     <>
       <div aria-live="polite" aria-atomic="true" className="sr-only">
@@ -46,14 +80,15 @@ export function PlayLocal() {
         {/* Board rendered first in DOM for a11y; visually re-ordered on lg via flex order */}
         <div className="flex items-center justify-center lg:order-2">
           <Board
-            board={round.board}
-            turn={round.turn}
-            phase={round.phase}
-            inCheck={round.inCheck}
-            movedPieceIds={round.movedPieceIds}
-            enPassantTarget={round.enPassantTarget}
-            warlordPursuit={round.warlordPursuit}
-            flipped={round.turn === 'blue'}
+            board={displayRound.board}
+            turn={displayRound.turn}
+            phase={displayRound.phase}
+            inCheck={displayRound.inCheck}
+            movedPieceIds={displayRound.movedPieceIds}
+            enPassantTarget={displayRound.enPassantTarget}
+            warlordPursuit={displayRound.warlordPursuit}
+            flipped={displayRound.turn === 'blue'}
+            readOnly={viewPly !== null}
             dispatch={dispatch}
           />
         </div>
@@ -61,17 +96,28 @@ export function PlayLocal() {
         <div className="flex flex-col gap-4 w-full sm:grid sm:grid-cols-2 lg:contents">
           <div className="flex flex-col gap-3 min-w-0 lg:order-1 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
             <GameInfo
-              turn={round.turn}
-              phase={round.phase}
-              inCheck={round.inCheck}
-              warlordPursuit={round.warlordPursuit}
-              capturedByRed={round.capturedByRed}
-              capturedByBlue={round.capturedByBlue}
+              turn={displayRound.turn}
+              phase={displayRound.phase}
+              inCheck={displayRound.inCheck}
+              warlordPursuit={displayRound.warlordPursuit}
+              capturedByRed={displayRound.capturedByRed}
+              capturedByBlue={displayRound.capturedByBlue}
+              canUndo={state.undoStack.length > 0 && viewPly === null}
+              disableActions={viewPly !== null}
+              onExport={handleExport}
+              onImport={handleImport}
               dispatch={dispatch}
             />
           </div>
 
           <div className="flex flex-col gap-3 min-w-0 lg:order-3 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
+            <MoveList
+              turnLog={round.turnLog}
+              startingTurn={round.startingTurn}
+              viewPly={viewPly}
+              onSelectPly={setViewPly}
+              format={match.format}
+            />
             <MatchScore match={match} dispatch={dispatch} />
           </div>
         </div>
