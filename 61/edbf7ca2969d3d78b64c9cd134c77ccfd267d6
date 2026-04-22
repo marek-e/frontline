@@ -1,0 +1,28 @@
+packages/rules/src/fgn.test.ts
+  b8237177b66af875 1-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "61edbf7ca2969d3d78b64c9cd134c77ccfd267d6",
+  "prompts": {
+    "b8237177b66af875": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c3a23538-4e29-421c-b6d8-49a58aa0f59f",
+        "model": "default"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 502,
+      "overriden_lines": 1
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
