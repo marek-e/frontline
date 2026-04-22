@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useMemo, useRef, useState } from 'react'
+import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { gameReducer, createInitialState, replayTurns, toFGN, replayFGN } from '@frontline/rules'
 import type { Move, Square } from '@frontline/rules'
 import { Board } from '~/components/Board/Board'
@@ -71,7 +72,10 @@ export function PlayLocal() {
   }
 
   return (
-    <>
+    <main className="flex flex-col items-center justify-start min-h-dvh py-6 lg:justify-center">
+      <div className="fixed top-3 right-3 z-50">
+        <ThemeToggle />
+      </div>
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {announcement}
       </div>
@@ -136,6 +140,6 @@ export function PlayLocal() {
         dispatch={dispatch}
         matchFormat={match.format}
       />
-    </>
+    </main>
   )
 }

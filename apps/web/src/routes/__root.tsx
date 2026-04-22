@@ -1,7 +1,6 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { NotFound } from '../components/NotFound'
 import { ThemeProvider } from '../components/theme-provider'
-import { ThemeToggle } from '../components/ui/theme-toggle'
 import '../styles/app.css'
 
 export const Route = createRootRoute({
@@ -12,7 +11,15 @@ export const Route = createRootRoute({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { title: 'Frontline' },
     ],
-    links: [{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    links: [
+      { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap',
+      },
+    ],
   }),
   component: RootDocument,
 })
@@ -25,12 +32,7 @@ function RootDocument() {
       </head>
       <body>
         <ThemeProvider defaultTheme="system" storageKey="theme">
-          <div className="fixed top-3 right-3 z-50">
-            <ThemeToggle />
-          </div>
-          <main className="flex flex-col items-center justify-start min-h-dvh py-6 lg:justify-center">
-            <Outlet />
-          </main>
+          <Outlet />
         </ThemeProvider>
         <Scripts />
       </body>

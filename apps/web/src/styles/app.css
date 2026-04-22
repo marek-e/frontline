@@ -60,6 +60,37 @@
   /* ----- Type ----- */
   --font-display: 'Space Grotesk', 'Figtree Variable', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-oswald: 'Oswald', sans-serif;
+  --font-barlow: 'Barlow', sans-serif;
+  --font-plex: 'IBM Plex Mono', monospace;
+
+  /* ─── Landing page tokens (static) ─────────────────────────────────── */
+  --color-fl-bg: #12120d;
+  --color-fl-surf: #1a1a12;
+  --color-fl-raised: #222218;
+  --color-fl-elev: #2c2c1e;
+  --color-fl-border: #444438;
+  --color-fl-border-s: #38382a;
+  --color-fl-border-st: #5a5a48;
+  --color-fl-red: #c8372d;
+  --color-fl-red-h: #e04840;
+  --color-fl-red-bg: #3d1008;
+  --color-fl-red-bg2: #1e0805;
+  --color-fl-red-border: #6b1a10;
+  --color-fl-blue: #2d6fa8;
+  --color-fl-blue-h: #3d88c8;
+  --color-fl-blue-bg: #0c1e30;
+  --color-fl-blue-bg2: #040c14;
+  --color-fl-blue-border: #16385a;
+  --color-fl-gold: #c8922a;
+  --color-fl-gold-h: #e0ae44;
+  --color-fl-gold-bg: #3d2a08;
+  --color-fl-gold-bg2: #1e1404;
+  --color-fl-gold-border: #7a5214;
+  --color-fl-fg1: #f4f0e4;
+  --color-fl-fg2: #e8e0cc;
+  --color-fl-fg3: #bcbca8;
+  --color-fl-fg4: #9a9a86;
 
   --text-xs: 12px;
   --text-sm: 13px;
