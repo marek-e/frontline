@@ -19,7 +19,11 @@ export function Logo({ onClick, size = 'md' }: { onClick?: () => void; size?: Lo
   return (
     <div
       onClick={onClick}
-      className={cn('flex items-center gap-[10px] select-none', onClick && 'cursor-pointer')}
+      className={cn(
+        'flex items-center gap-[10px] select-none',
+        onClick &&
+          'cursor-pointer transition-all duration-200 hover:scale-[1.01] hover:bg-fl-raised rounded-md px-2 py-1.5'
+      )}
     >
       <svg width={iconSize} height={iconSize} viewBox="0 0 48 48" fill="none" aria-hidden="true">
         <rect x="2" y="14" width="18" height="20" fill="#c8372d" />

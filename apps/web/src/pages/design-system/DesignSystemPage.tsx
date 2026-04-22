@@ -42,6 +42,7 @@ import { ThemeCycle } from '~/components/ui/theme-cycle'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Logo } from '~/components/Logo/Logo'
 import { cn } from '~/lib/utils'
+import { useNavigate } from '@tanstack/react-router'
 
 const BUTTON_VARIANTS = ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'] as const
 const BUTTON_SIZES = ['xs', 'sm', 'default', 'lg'] as const
@@ -90,11 +91,12 @@ export function DesignSystemPage() {
 }
 
 function Header() {
+  const navigate = useNavigate({ from: '/design-system' })
   return (
     <header className="sticky top-0 z-50 bg-fl-surf/90 backdrop-blur-md border-b border-fl-border">
       <div className="max-w-[1200px] mx-auto px-12 h-[60px] flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <Logo />
+          <Logo onClick={() => navigate({ to: '/' })} />
           <div className="w-px h-4 bg-fl-border-s" />
           <span className="font-oswald text-[14px] font-semibold uppercase tracking-[0.14em] text-fl-fg1">
             Design System
