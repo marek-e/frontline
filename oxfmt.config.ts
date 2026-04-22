@@ -7,5 +7,13 @@ export default defineConfig({
   trailingComma: 'es5',
   printWidth: 100,
   sortPackageJson: false,
-  ignorePatterns: ['node_modules', 'dist', '.output', 'coverage', 'pnpm-lock.yaml'],
+  ignorePatterns: [
+    'node_modules',
+    'dist',
+    '.output',
+    'coverage',
+    'pnpm-lock.yaml',
+    '**/*.yml',
+    '**/*.yaml',
+  ],
 })

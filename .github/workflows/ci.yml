@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -45,7 +45,7 @@ jobs:
 
   build:
     name: Build
-    needs: [typecheck, lint, format, test]
+    needs: [ typecheck, lint, format, test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
