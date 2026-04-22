@@ -172,7 +172,7 @@ Spec: **[GAME.md → FGN](./GAME.md#fgn--frontline-game-notation)**. Single sour
 | Realtime          | PartyKit                   |
 | Web framework     | TanStack Start             |
 | Router            | TanStack Router            |
-| Styling           | Tailwind v4                |
+| Styling           | Tailwind v4 + shadcn/ui    |
 | ORM               | Drizzle                    |
 | Auth              | better-auth                |
 | Hosting           | Cloudflare (all-in)        |
