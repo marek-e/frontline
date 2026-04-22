@@ -3,7 +3,14 @@ import { cn } from '~/lib/utils'
 import type { Color, GamePhase, Piece, PieceType, Square, GameAction } from '@frontline/rules'
 import { PIECE_VALUES } from '@frontline/rules'
 import { Button } from '~/components/ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '~/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '~/components/ui/dialog'
 import {
   CommanderSvg,
   GuardSvg,
@@ -249,14 +256,16 @@ export function GameInfo({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Import FGN</DialogTitle>
-            <DialogDescription>Paste an FGN game. This will replace the current round.</DialogDescription>
+            <DialogDescription>
+              Paste an FGN game. This will replace the current round.
+            </DialogDescription>
           </DialogHeader>
           <div className="px-5 pt-4">
             <textarea
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
               className="w-full min-h-[180px] resize-y rounded-xl border border-border bg-background px-3 py-2 font-mono text-[12px] outline-hidden focus:ring-2 focus:ring-ring"
-              placeholder='1. e4 e5 2. Wc3 ...'
+              placeholder="1. e4 e5 2. Wc3 ..."
             />
           </div>
           <DialogFooter>

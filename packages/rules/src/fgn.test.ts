@@ -44,15 +44,22 @@ describe('FGN', () => {
                 [1, 1],
               ] as const
               const d = deltas[Math.floor(rng() * deltas.length)]!
-              state = gameReducer(state, { type: 'WARLORD_PURSUE', to: { row: row + d[0], col: col + d[1] } })
+              state = gameReducer(state, {
+                type: 'WARLORD_PURSUE',
+                to: { row: row + d[0], col: col + d[1] },
+              })
               if (state.round.warlordPursuit) state = gameReducer(state, { type: 'SKIP_PURSUIT' })
             }
             continue
           }
 
           // choose a random legal move by scanning all squares and legal targets
-          const moves: { from: { row: number; col: number }; to: { row: number; col: number } }[] = []
-          const ctx = { movedPieceIds: state.round.movedPieceIds, enPassantTarget: state.round.enPassantTarget }
+          const moves: { from: { row: number; col: number }; to: { row: number; col: number } }[] =
+            []
+          const ctx = {
+            movedPieceIds: state.round.movedPieceIds,
+            enPassantTarget: state.round.enPassantTarget,
+          }
           for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
               const p = state.round.board[r]![c]
@@ -80,8 +87,16 @@ describe('FGN', () => {
   it('UNDO_TURN restores exact round snapshot', () => {
     let state = createInitialState(3)
     const s0 = stripUndo(state)
-    state = gameReducer(state, { type: 'MOVE_PIECE', from: { row: 6, col: 0 }, to: { row: 4, col: 0 } })
-    state = gameReducer(state, { type: 'MOVE_PIECE', from: { row: 1, col: 0 }, to: { row: 3, col: 0 } })
+    state = gameReducer(state, {
+      type: 'MOVE_PIECE',
+      from: { row: 6, col: 0 },
+      to: { row: 4, col: 0 },
+    })
+    state = gameReducer(state, {
+      type: 'MOVE_PIECE',
+      from: { row: 1, col: 0 },
+      to: { row: 3, col: 0 },
+    })
     const s2 = stripUndo(state)
 
     state = gameReducer(state, { type: 'UNDO_TURN' })
@@ -101,4 +116,3 @@ function mulberry32(seed: number): () => number {
     return ((x ^ (x >>> 14)) >>> 0) / 4294967296
   }
 }
-
