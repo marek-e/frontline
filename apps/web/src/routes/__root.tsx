@@ -1,5 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { NotFound } from '../components/NotFound'
+import { ThemeProvider } from '../components/theme-provider'
+import { ThemeToggle } from '../components/ui/theme-toggle'
 import '../styles/app.css'
 
 export const Route = createRootRoute({
@@ -17,12 +19,17 @@ export const Route = createRootRoute({
 
 function RootDocument() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <Outlet />
+        <ThemeProvider defaultTheme="system" storageKey="theme">
+          <div className="fixed top-3 right-3 z-50">
+            <ThemeToggle />
+          </div>
+          <Outlet />
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>
