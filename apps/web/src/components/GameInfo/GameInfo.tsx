@@ -199,7 +199,7 @@ export function GameInfo({
   const isPlaying = phase === 'playing'
 
   return (
-    <div className="flex flex-col gap-3.5 min-w-40">
+    <div className="flex flex-col gap-3.5 min-w-0 lg:min-w-40">
       <div className="text-[22px] font-extrabold tracking-[4px] text-foreground">FRONTLINE</div>
 
       {isPlaying && !warlordPursuit && (

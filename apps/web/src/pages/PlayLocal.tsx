@@ -58,8 +58,8 @@ export function PlayLocal() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4 w-full lg:contents">
-          <div className="flex flex-col gap-3 lg:order-1 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
+        <div className="flex flex-col gap-4 w-full sm:grid sm:grid-cols-2 lg:contents">
+          <div className="flex flex-col gap-3 min-w-0 lg:order-1 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
             <GameInfo
               turn={round.turn}
               phase={round.phase}
@@ -71,7 +71,7 @@ export function PlayLocal() {
             />
           </div>
 
-          <div className="flex flex-col gap-3 lg:order-3 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
+          <div className="flex flex-col gap-3 min-w-0 lg:order-3 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
             <MatchScore match={match} dispatch={dispatch} />
           </div>
         </div>

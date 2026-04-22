@@ -10,34 +10,34 @@ export function MatchScore({ match, dispatch }: Props) {
   const winsNeeded = Math.ceil(match.format / 2)
 
   return (
-    <div className="flex flex-col gap-4 min-w-40">
+    <div className="flex flex-col gap-4 min-w-0 lg:min-w-40">
       <div className="text-[13px] font-extrabold tracking-[2px] text-fg-subtle uppercase">
         MATCH — BO{match.format}
       </div>
 
       <div className="flex flex-col gap-1.5 bg-muted/50 rounded-lg px-3 py-2.5">
-        <div className="flex items-baseline gap-2">
+        <div className="flex items-baseline gap-2 flex-wrap">
           <span className="font-extrabold text-[14px] tracking-[1px] min-w-9 text-red-faction">
             RED
           </span>
-          <span className="text-[20px] font-bold text-foreground">
+          <span className="text-[20px] font-bold text-foreground whitespace-nowrap">
             {match.roundWins.red} / {winsNeeded}
           </span>
-          <span className="text-[11px] text-fg-subtle ml-auto">
+          <span className="text-[11px] text-fg-subtle ml-auto whitespace-nowrap">
             {match.redMatchPoints.toFixed(2)} pts
           </span>
         </div>
 
         <div className="text-[11px] font-bold tracking-[2px] text-fg-subtle self-center">VS</div>
 
-        <div className="flex items-baseline gap-2">
+        <div className="flex items-baseline gap-2 flex-wrap">
           <span className="font-extrabold text-[14px] tracking-[1px] min-w-9 text-blue-faction">
             BLUE
           </span>
-          <span className="text-[20px] font-bold text-foreground">
+          <span className="text-[20px] font-bold text-foreground whitespace-nowrap">
             {match.roundWins.blue} / {winsNeeded}
           </span>
-          <span className="text-[11px] text-fg-subtle ml-auto">
+          <span className="text-[11px] text-fg-subtle ml-auto whitespace-nowrap">
             {match.blueMatchPoints.toFixed(2)} pts
           </span>
         </div>

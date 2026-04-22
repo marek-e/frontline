@@ -28,7 +28,7 @@ function RootDocument() {
           <div className="fixed top-3 right-3 z-50">
             <ThemeToggle />
           </div>
-          <main className="flex flex-col items-center justify-center h-screen">
+          <main className="flex flex-col items-center justify-start min-h-dvh py-6 lg:justify-center">
             <Outlet />
           </main>
         </ThemeProvider>
