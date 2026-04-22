@@ -1,5 +1,6 @@
 import { useNavigate } from '@tanstack/react-router'
 import { MiniBoard } from './MiniBoard'
+import { CtaButton } from '~/components/ui/cta-button'
 
 export function Hero() {
   const navigate = useNavigate({ from: '/' })
@@ -48,15 +49,8 @@ export function Hero() {
           </p>
 
           <div className="flex gap-3 items-center mb-10">
-            <button
-              onClick={() => navigate({ to: '/play/local' })}
-              className="inline-flex items-center justify-center px-8 py-[13px] font-oswald text-md font-semibold uppercase tracking-[0.08em] leading-none text-white border border-fl-red-border bg-fl-red hover:bg-fl-red-h transition-all duration-200 cursor-pointer shadow-[0_2px_12px_rgba(200,55,45,0.25)] hover:shadow-[0_2px_12px_rgba(200,55,45,0.5)]"
-            >
-              ENLIST NOW
-            </button>
-            <button className="inline-flex items-center justify-center px-8 py-[13px] font-oswald text-md font-semibold uppercase tracking-[0.08em] leading-none text-fl-fg3 border border-fl-border bg-transparent hover:bg-fl-raised hover:text-fl-fg1 hover:border-fl-border-st transition-all duration-200 cursor-pointer">
-              WATCH LIVE
-            </button>
+            <CtaButton onClick={() => navigate({ to: '/play/local' })}>ENLIST NOW</CtaButton>
+            <CtaButton variant="outline">WATCH LIVE</CtaButton>
           </div>
 
           <div className="flex gap-8 pt-8 border-t border-fl-border-s">

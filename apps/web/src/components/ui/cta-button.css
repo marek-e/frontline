@@ -1,0 +1,63 @@
+/* primary — radial bg expand from center
+   Explicit transition beats transition-all from the Tailwind utilities layer.
+   ease-in makes the circle start slow so its center origin is obvious.      */
+
+@property --cta-radial {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+.cta-primary-radial {
+  --cta-radial: 0%;
+  background-image: radial-gradient(
+    circle at center,
+    var(--color-fl-red-h) var(--cta-radial),
+    var(--color-fl-red) var(--cta-radial)
+  );
+  transition:
+    --cta-radial 0.3s cubic-bezier(0.4, 0, 1, 1),
+    box-shadow 0.2s ease !important;
+}
+
+.cta-primary-radial:hover {
+  --cta-radial: 120%;
+}
+
+/* outline — border grows from center of each edge toward corners */
+
+.cta-border-grow {
+  position: relative;
+}
+
+.cta-border-grow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-image:
+    linear-gradient(var(--color-fl-red-border), var(--color-fl-red-border)),
+    linear-gradient(var(--color-fl-red-border), var(--color-fl-red-border)),
+    linear-gradient(var(--color-fl-red-border), var(--color-fl-red-border)),
+    linear-gradient(var(--color-fl-red-border), var(--color-fl-red-border));
+  background-position:
+    left top,
+    right bottom,
+    left bottom,
+    right top;
+  background-size:
+    0% 1px,
+    0% 1px,
+    1px 0%,
+    1px 0%;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.4, 0, 1, 1);
+  pointer-events: none;
+}
+
+.cta-border-grow:hover::after {
+  background-size:
+    100% 1px,
+    100% 1px,
+    1px 100%,
+    1px 100%;
+}

@@ -3,6 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { cn } from '~/lib/utils'
 import { Logo } from '~/components/Logo/Logo'
 import { ThemeCycle } from '~/components/ui/theme-cycle'
+import { CtaButton } from '~/components/ui/cta-button'
 
 export function LandingNav() {
   const navigate = useNavigate({ from: '/' })
@@ -41,18 +42,12 @@ export function LandingNav() {
       <div className="flex gap-2.5 items-center">
         <ThemeCycle />
         <div className="w-px h-4 bg-fl-border-s mr-2" />
-        <button
-          onClick={() => navigate({ to: '/play/local' })}
-          className="px-5 py-[7px] font-oswald text-[13px] font-semibold uppercase tracking-[0.08em] leading-none text-fl-fg3 border border-fl-border bg-transparent hover:bg-fl-raised hover:text-fl-fg1 hover:border-fl-border-st transition-all duration-200 cursor-pointer"
-        >
+        <CtaButton variant="outline" size="sm" onClick={() => navigate({ to: '/play/local' })}>
           LOG IN
-        </button>
-        <button
-          onClick={() => navigate({ to: '/play/local' })}
-          className="px-5 py-[9px] font-oswald text-[13px] font-semibold uppercase tracking-[0.08em] leading-none text-white border border-fl-red-border bg-fl-red hover:bg-fl-red-h transition-all duration-200 cursor-pointer shadow-[0_2px_12px_rgba(200,55,45,0.25)] hover:shadow-[0_2px_12px_rgba(200,55,45,0.5)]"
-        >
+        </CtaButton>
+        <CtaButton size="sm" onClick={() => navigate({ to: '/play/local' })}>
           ENLIST NOW
-        </button>
+        </CtaButton>
       </div>
     </header>
   )

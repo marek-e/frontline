@@ -38,6 +38,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu'
+import { CtaButton } from '~/components/ui/cta-button'
 import { ThemeCycle } from '~/components/ui/theme-cycle'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Logo } from '~/components/Logo/Logo'
@@ -68,6 +69,14 @@ export function DesignSystemPage() {
 
         <Section id="button" title="Button" subtitle="Variants × sizes, icon + link combos">
           <ButtonShowcase />
+        </Section>
+
+        <Section
+          id="cta-button"
+          title="CTA Button"
+          subtitle="Primary (red) · Outline · sm / md sizes"
+        >
+          <CtaButtonShowcase />
         </Section>
 
         <Section id="dialog" title="Dialog" subtitle="Modal, blocking interactions">
@@ -107,6 +116,7 @@ function Header() {
             ['Tokens', 'tokens'],
             ['Type', 'typography'],
             ['Button', 'button'],
+            ['CTA', 'cta-button'],
             ['Dialog', 'dialog'],
             ['Dropdown', 'dropdown'],
             ['Theme', 'theme'],
@@ -446,6 +456,60 @@ function ButtonShowcase() {
             <Button variant="destructive" aria-invalid>
               Destructive invalid
             </Button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+// --- CTA Button -------------------------------------------------------------
+
+function CtaButtonShowcase() {
+  return (
+    <div className="space-y-6">
+      <div>
+        <SubHead>Variants</SubHead>
+        <Card>
+          <div className="flex flex-wrap items-center gap-3">
+            <CtaButton>ENLIST NOW</CtaButton>
+            <CtaButton variant="outline">WATCH LIVE</CtaButton>
+          </div>
+        </Card>
+      </div>
+
+      <div>
+        <SubHead>Sizes</SubHead>
+        <Card>
+          <div className="flex flex-wrap items-end gap-4">
+            <div className="flex flex-col items-start gap-2">
+              <CtaButton size="md">DEPLOY md</CtaButton>
+              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+                size md · hero
+              </span>
+            </div>
+            <div className="flex flex-col items-start gap-2">
+              <CtaButton size="sm">DEPLOY sm</CtaButton>
+              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+                size sm · nav
+              </span>
+            </div>
+            <div className="flex flex-col items-start gap-2">
+              <CtaButton variant="outline" size="md">
+                LOG IN md
+              </CtaButton>
+              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+                outline md
+              </span>
+            </div>
+            <div className="flex flex-col items-start gap-2">
+              <CtaButton variant="outline" size="sm">
+                LOG IN sm
+              </CtaButton>
+              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+                outline sm
+              </span>
+            </div>
           </div>
         </Card>
       </div>
