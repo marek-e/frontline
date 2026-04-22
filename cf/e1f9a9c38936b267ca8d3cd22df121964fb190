@@ -1,0 +1,29 @@
+apps/web/src/components/GameInfo/GameInfo.tsx
+  6955824bbfb85abb 202
+apps/web/src/routes/__root.tsx
+  6955824bbfb85abb 31
+apps/web/src/components/MatchScore/MatchScore.tsx
+  6955824bbfb85abb 13,19,23,26,33,37,40
+apps/web/src/pages/PlayLocal.tsx
+  6955824bbfb85abb 61-62,74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "cfe1f9a9c38936b267ca8d3cd22df121964fb190",
+  "prompts": {
+    "6955824bbfb85abb": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "dc09604b-f2f8-4db0-98e3-82353cc40c64",
+        "model": "default"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 13,
+      "total_deletions": 13,
+      "accepted_lines": 12,
+      "overriden_lines": 0
+    }
+  }
+}
