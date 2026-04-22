@@ -1,0 +1,30 @@
+.oxfmtrc.json
+  h_b7c268b0e33ac7 1-17
+package.json
+  h_b7c268b0e33ac7 4,10-11,23-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "967da5eaa86ba7283328f761d799cb3822d97322",
+  "prompts": {
+    "b8237177b66af875": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c3a23538-4e29-421c-b6d8-49a58aa0f59f",
+        "model": "default"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 533,
+      "total_deletions": 56,
+      "accepted_lines": 517,
+      "overriden_lines": 9
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
