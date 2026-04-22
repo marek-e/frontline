@@ -1,0 +1,14 @@
+.github/workflows/deploy.yml
+  h_b7c268b0e33ac7 11,115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "17ede86ed51d13b1b29051bdbd4604187e158cfe",
+  "prompts": {},
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
