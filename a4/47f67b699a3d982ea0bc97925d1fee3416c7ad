@@ -1,0 +1,31 @@
+apps/web/src/components/theme-provider.tsx
+  519e1fa51479895b 55,89
+apps/web/src/components/ui/button.tsx
+  519e1fa51479895b 1-3,5,12,14,16,18,20-21,25,28-32,36-37,39-40,44-45,48,50,52,62,65
+apps/web/src/lib/utils.ts
+  519e1fa51479895b 1-2
+apps/web/src/components/ui/dropdown-menu.tsx
+  519e1fa51479895b 1-2,4-5,8,14,20,25,36-37,42,46,52,55-56,65,69,79,87,102,108,117,125,139,147,153,156,166,169,172,177-178,182,186,195,203,210,221-222,226,245
+apps/web/src/components/ui/theme-toggle.tsx
+  519e1fa51479895b 1-2,8-9,12,23,27,31,37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "a447f67b699a3d982ea0bc97925d1fee3416c7ad",
+  "prompts": {
+    "519e1fa51479895b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48a05d31-950e-4934-a99d-48e5a36ec12b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1890,
+      "overriden_lines": 0
+    }
+  }
+}
