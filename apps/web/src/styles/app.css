@@ -64,33 +64,16 @@
   --font-barlow: 'Barlow', sans-serif;
   --font-plex: 'IBM Plex Mono', monospace;
 
-  /* ─── Landing page tokens (static) ─────────────────────────────────── */
-  --color-fl-bg: #12120d;
-  --color-fl-surf: #1a1a12;
-  --color-fl-raised: #222218;
-  --color-fl-elev: #2c2c1e;
-  --color-fl-border: #444438;
-  --color-fl-border-s: #38382a;
-  --color-fl-border-st: #5a5a48;
+  /* ─── Landing page — faction brand colors (static, same in all themes) ── */
   --color-fl-red: #c8372d;
   --color-fl-red-h: #e04840;
-  --color-fl-red-bg: #3d1008;
-  --color-fl-red-bg2: #1e0805;
   --color-fl-red-border: #6b1a10;
   --color-fl-blue: #2d6fa8;
   --color-fl-blue-h: #3d88c8;
-  --color-fl-blue-bg: #0c1e30;
-  --color-fl-blue-bg2: #040c14;
   --color-fl-blue-border: #16385a;
   --color-fl-gold: #c8922a;
   --color-fl-gold-h: #e0ae44;
-  --color-fl-gold-bg: #3d2a08;
-  --color-fl-gold-bg2: #1e1404;
   --color-fl-gold-border: #7a5214;
-  --color-fl-fg1: #f4f0e4;
-  --color-fl-fg2: #e8e0cc;
-  --color-fl-fg3: #bcbca8;
-  --color-fl-fg4: #9a9a86;
 
   --text-xs: 12px;
   --text-sm: 13px;
@@ -158,6 +141,25 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Landing page — surface/text/faction-bg tokens (switch with theme) */
+  --color-fl-bg: var(--fl-bg);
+  --color-fl-surf: var(--fl-surf);
+  --color-fl-raised: var(--fl-raised);
+  --color-fl-elev: var(--fl-elev);
+  --color-fl-border: var(--fl-border);
+  --color-fl-border-s: var(--fl-border-s);
+  --color-fl-border-st: var(--fl-border-st);
+  --color-fl-red-bg: var(--fl-red-bg);
+  --color-fl-red-bg2: var(--fl-red-bg2);
+  --color-fl-blue-bg: var(--fl-blue-bg);
+  --color-fl-blue-bg2: var(--fl-blue-bg2);
+  --color-fl-gold-bg: var(--fl-gold-bg);
+  --color-fl-gold-bg2: var(--fl-gold-bg2);
+  --color-fl-fg1: var(--fl-fg1);
+  --color-fl-fg2: var(--fl-fg2);
+  --color-fl-fg3: var(--fl-fg3);
+  --color-fl-fg4: var(--fl-fg4);
+
   /* Radii driven by --radius base */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -170,6 +172,24 @@
 
 /* ===== LIGHT THEME (:root) ===== */
 :root {
+  /* Landing — light: warm parchment / field-manual */
+  --fl-bg: #f2ede0;
+  --fl-surf: #e8e2d4;
+  --fl-raised: #ddd6c6;
+  --fl-elev: #d0c8b4;
+  --fl-border: #b4ab90;
+  --fl-border-s: #c4bba4;
+  --fl-border-st: #a09878;
+  --fl-fg1: #18160e;
+  --fl-fg2: #28240e;
+  --fl-fg3: #484432;
+  --fl-fg4: #686450;
+  --fl-red-bg: #fce8e6;
+  --fl-red-bg2: #fdf3f2;
+  --fl-blue-bg: #e6f0f8;
+  --fl-blue-bg2: #f2f7fc;
+  --fl-gold-bg: #fdf4e6;
+  --fl-gold-bg2: #fef9f2;
   /* Our custom surface / text vars */
   --surface-0: oklch(96% 0.015 75);
   --surface-1: oklch(100% 0.005 75);
@@ -216,6 +236,24 @@
 
 /* ===== DARK THEME (.dark) ===== */
 .dark {
+  /* Landing — dark: near-black olive */
+  --fl-bg: #12120d;
+  --fl-surf: #1a1a12;
+  --fl-raised: #222218;
+  --fl-elev: #2c2c1e;
+  --fl-border: #444438;
+  --fl-border-s: #38382a;
+  --fl-border-st: #5a5a48;
+  --fl-fg1: #f4f0e4;
+  --fl-fg2: #e8e0cc;
+  --fl-fg3: #bcbca8;
+  --fl-fg4: #9a9a86;
+  --fl-red-bg: #3d1008;
+  --fl-red-bg2: #1e0805;
+  --fl-blue-bg: #0c1e30;
+  --fl-blue-bg2: #040c14;
+  --fl-gold-bg: #3d2a08;
+  --fl-gold-bg2: #1e1404;
   /* Our custom surface / text vars */
   --surface-0: oklch(15% 0.01 40);
   --surface-1: oklch(19% 0.01 40);

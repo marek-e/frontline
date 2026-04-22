@@ -1,4 +1,10 @@
-export function CornerBrackets({ color = '#c8922a', size = 14 }: { color?: string; size?: number }) {
+export function CornerBrackets({
+  color = '#c8922a',
+  size = 14,
+}: {
+  color?: string
+  size?: number
+}) {
   const base: React.CSSProperties = { position: 'absolute', width: size, height: size }
   return (
     <>

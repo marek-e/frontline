@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { cn } from '~/lib/utils'
 import { Logo } from '~/components/Logo/Logo'
+import { ThemeCycle } from '~/components/ui/theme-cycle'
 
 export function LandingNav() {
   const navigate = useNavigate({ from: '/' })
@@ -38,6 +39,8 @@ export function LandingNav() {
         </nav>
       </div>
       <div className="flex gap-2.5 items-center">
+        <ThemeCycle />
+        <div className="w-px h-4 bg-fl-border-s mr-2" />
         <button
           onClick={() => navigate({ to: '/play/local' })}
           className="px-5 py-[7px] font-oswald text-[13px] font-semibold uppercase tracking-[0.08em] leading-none text-fl-fg3 border border-fl-border bg-transparent hover:bg-fl-raised hover:text-fl-fg1 hover:border-fl-border-st transition-all duration-200 cursor-pointer"
