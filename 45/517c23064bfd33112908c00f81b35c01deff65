@@ -1,0 +1,40 @@
+apps/web/public/favicon.svg
+  h_b7c268b0e33ac7 1-11
+apps/web/src/styles/app.css
+  3346fcb0acc62599 63-93
+apps/web/src/pages/LandingPage.tsx
+  h_b7c268b0e33ac7 191,227,230,259,261,288,292,394,471,603,606
+  3346fcb0acc62599 1-190,192-226,228-229,231-258,260,262-287,289-291,293-393,395-470,472-602,604-605,607-672
+apps/web/src/routes/index.tsx
+  3346fcb0acc62599 1-2,5
+apps/web/src/pages/PlayLocal.tsx
+  3346fcb0acc62599 2,143
+  h_b7c268b0e33ac7 75-78
+apps/web/src/routes/__root.tsx
+  3346fcb0acc62599 14-22,35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "45517c23064bfd33112908c00f81b35c01deff65",
+  "prompts": {
+    "3346fcb0acc62599": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cdeee63d-3e83-4942-b32b-5a53d1afdf1e",
+        "model": "<synthetic>"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1550,
+      "overriden_lines": 36
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
