@@ -43,6 +43,7 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 ## Phase 1 — Core UX polish (local hot-seat)
 
 ### Foundation (done)
+
 - [x] Init shadcn/ui with radix-lyra preset (Tailwind v4 + TanStack Start)
 - [x] `Button`, `DropdownMenu` primitives via shadcn; `cn()` utility
 - [x] Restructure design tokens for light / dark theming (`:root` + `.dark`)
@@ -51,6 +52,7 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 - [x] Establish mobile-first layout standard in docs (360px base, min-width breakpoints)
 
 ### Responsive & accessibility (next)
+
 - [ ] Responsive layout down to 360px — fix game layout for mobile, stack sidebars below board, touch-friendly tap targets ≥ 44px
 - [ ] Keyboard nav across squares (arrows + Enter/Space to select/move)
 - [ ] `aria-live` move announcements (plain-English last move)
@@ -58,12 +60,14 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 - [ ] Color-blind mode (pattern overlays: stripes for red, dots for blue) — toggle in settings
 
 ### UI primitives (as needed)
+
 - [ ] `Tooltip`, `Dialog` (modal base), `Tabs`, `Badge` via shadcn
 - [ ] `Input`, `Select`, `Switch`, `Slider` via shadcn
 - [ ] `Avatar` (with faction-color ring)
 - [ ] `IconButton` wrapper around shadcn `Button` (icon-only, accessible)
 
 ### Game features
+
 - [ ] FGN serializer + parser (`packages/rules`)
 - [ ] `MoveList` component with FGN notation (scrollable, click-to-scrub)
 - [ ] Takeback / undo
@@ -72,16 +76,19 @@ Resolved in [ARCHITECTURE.md](./docs/ARCHITECTURE.md#resolved-decisions). Remain
 - [ ] Board flip + coordinates toggle
 
 ### Settings & persistence
+
 - [ ] Settings page (theme, piece set, sounds, coords, board flip default)
 - [ ] Persist settings to `localStorage`
 - [ ] Board themes (parchment, slate, marble, neon) — token swap, no component changes
 - [ ] Piece-set selector (default, classic, minimal)
 
 ### Sound
+
 - [ ] Sound system: `useSound()` hook + event pack (move, capture, check, mate, promotion, warning, win)
 - [ ] Master mute + per-event volume
 
 ### Animations
+
 - [ ] Move slide (piece travels from origin to destination)
 - [ ] Capture fade (captured piece fades out)
 - [ ] Flanker arc (piece arcs over its jump path)
