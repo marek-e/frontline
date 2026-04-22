@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { cn } from '~/lib/utils'
 import type { Color, GamePhase, Piece, PieceType, Square, GameAction } from '@frontline/rules'
 import { PIECE_VALUES } from '@frontline/rules'
+import { Button } from '~/components/ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '~/components/ui/dialog'
 import {
   CommanderSvg,
   GuardSvg,
@@ -20,6 +22,10 @@ interface Props {
   capturedByRed: Piece[]
   capturedByBlue: Piece[]
   dispatch: (action: GameAction) => void
+  canUndo?: boolean
+  onExport?: () => void
+  onImport?: (fgn: string) => void
+  disableActions?: boolean
 }
 
 interface PieceInfo {
@@ -195,12 +201,80 @@ export function GameInfo({
   capturedByRed,
   capturedByBlue,
   dispatch,
+  canUndo = false,
+  onExport,
+  onImport,
+  disableActions = false,
 }: Props) {
   const isPlaying = phase === 'playing'
+  const [importOpen, setImportOpen] = useState(false)
+  const [importText, setImportText] = useState('')
 
   return (
     <div className="flex flex-col gap-3.5 min-w-0 lg:min-w-40">
-      <div className="text-[22px] font-extrabold tracking-[4px] text-foreground">FRONTLINE</div>
+      <div className="flex items-center justify-between gap-2">
+        <div className="text-[22px] font-extrabold tracking-[4px] text-foreground">FRONTLINE</div>
+        <Button
+          variant="outline"
+          size="icon-sm"
+          disabled={disableActions || !canUndo}
+          onClick={() => dispatch({ type: 'UNDO_TURN' })}
+          aria-label="Undo last turn"
+          title="Undo"
+        >
+          ↶
+        </Button>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={disableActions || !onExport}
+          onClick={() => onExport?.()}
+        >
+          Export FGN
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={disableActions || !onImport}
+          onClick={() => setImportOpen(true)}
+        >
+          Import
+        </Button>
+      </div>
+
+      <Dialog open={importOpen} onOpenChange={setImportOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Import FGN</DialogTitle>
+            <DialogDescription>Paste an FGN game. This will replace the current round.</DialogDescription>
+          </DialogHeader>
+          <div className="px-5 pt-4">
+            <textarea
+              value={importText}
+              onChange={(e) => setImportText(e.target.value)}
+              className="w-full min-h-[180px] resize-y rounded-xl border border-border bg-background px-3 py-2 font-mono text-[12px] outline-hidden focus:ring-2 focus:ring-ring"
+              placeholder='1. e4 e5 2. Wc3 ...'
+            />
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setImportOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                onImport?.(importText)
+                setImportOpen(false)
+                setImportText('')
+              }}
+            >
+              Import
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {isPlaying && !warlordPursuit && (
         <div

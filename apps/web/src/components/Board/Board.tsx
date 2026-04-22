@@ -26,6 +26,7 @@ interface Props {
   enPassantTarget: SquareType | null
   warlordPursuit: SquareType | null
   flipped?: boolean
+  readOnly?: boolean
   dispatch: (action: GameAction) => void
 }
 
@@ -58,6 +59,7 @@ export function Board({
   enPassantTarget,
   warlordPursuit,
   flipped = false,
+  readOnly = false,
   dispatch,
 }: Props) {
   const checkedCommanderSq = inCheck
@@ -86,6 +88,7 @@ export function Board({
   }, [warlordPursuit])
 
   function selectSquare(sq: SquareType) {
+    if (readOnly) return
     if (warlordPursuit) return
     const piece = getPiece(board, sq)
     if (piece && piece.color === turn) {
@@ -100,6 +103,7 @@ export function Board({
   }
 
   function handleDragStart(sq: SquareType) {
+    if (readOnly) return
     if (phase !== 'playing') return
     if (warlordPursuit && !squaresEqual(sq, warlordPursuit)) return
     selectSquare(sq)
@@ -110,6 +114,7 @@ export function Board({
   }
 
   function handleDragOver(sq: SquareType) {
+    if (readOnly) return
     setDrag((d) => ({ ...d, dragOverSquare: sq }))
   }
 
@@ -118,6 +123,7 @@ export function Board({
   }
 
   function handleDrop(to: SquareType) {
+    if (readOnly) return
     setDrag((d) => ({ ...d, dragOverSquare: null }))
     if (!drag.selectedSquare) return
     if (!drag.legalMoves.some((sq) => squaresEqual(sq, to))) {
@@ -133,6 +139,7 @@ export function Board({
   }
 
   function handleClick(sq: SquareType) {
+    if (readOnly) return
     if (phase !== 'playing') return
 
     if (warlordPursuit) {
@@ -174,6 +181,7 @@ export function Board({
   }
 
   function handleBoardKeyDown(e: React.KeyboardEvent) {
+    if (readOnly && (e.key === 'Enter' || e.key === ' ')) return
     const { row, col } = focusedSq
     const up = flipped ? 1 : -1
     const left = flipped ? 1 : -1
@@ -222,7 +230,8 @@ export function Board({
         className={cn(
           'grid grid-cols-8 grid-rows-8 w-[min(90vmin,600px)] h-[min(90vmin,600px)]',
           'border-[3px] border-board-border shadow-board',
-          warlordPursuit && 'outline-[3px] outline-offset-2 outline-gold/60'
+          warlordPursuit && 'outline-[3px] outline-offset-2 outline-gold/60',
+          readOnly && 'cursor-default'
         )}
         onKeyDown={handleBoardKeyDown}
       >
