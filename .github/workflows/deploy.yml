@@ -3,12 +3,12 @@ name: Deploy
 on:
   # For main branch: only deploy after CI passes.
   workflow_run:
-    workflows: [CI]
-    types: [completed]
-    branches: [main]
+    workflows: [ CI ]
+    types: [ completed ]
+    branches: [ main ]
   # For production releases: tags are not covered by CI, so validate inline.
   push:
-    tags: ['v*']
+    tags: [ "v*" ]
 
 # Never cancel an in-flight deploy.
 concurrency:
@@ -34,7 +34,7 @@ jobs:
   # ── Deploy ────────────────────────────────────────────────────────────────
   deploy:
     name: Deploy (${{ github.event_name == 'push' && 'production' || 'staging' }})
-    needs: [validate]
+    needs: [ validate ]
     # - workflow_run: validate is skipped, run deploy only if CI succeeded.
     # - push (tag): validate must have succeeded.
     if: |
@@ -112,3 +112,4 @@ jobs:
         run: pnpm exec partykit deploy
         env:
           PARTYKIT_TOKEN: ${{ secrets.PARTYKIT_TOKEN }}
+          PARTYKIT_LOGIN: ${{ secrets.PARTYKIT_LOGIN }}
