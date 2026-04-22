@@ -25,6 +25,7 @@ interface Props {
   movedPieceIds: string[]
   enPassantTarget: SquareType | null
   warlordPursuit: SquareType | null
+  flipped?: boolean
   dispatch: (action: GameAction) => void
 }
 
@@ -56,6 +57,7 @@ export function Board({
   movedPieceIds,
   enPassantTarget,
   warlordPursuit,
+  flipped = false,
   dispatch,
 }: Props) {
   const checkedCommanderSq = inCheck
@@ -173,22 +175,24 @@ export function Board({
 
   function handleBoardKeyDown(e: React.KeyboardEvent) {
     const { row, col } = focusedSq
+    const up = flipped ? 1 : -1
+    const left = flipped ? 1 : -1
     switch (e.key) {
       case 'ArrowUp':
         e.preventDefault()
-        if (row > 0) focusSquare({ row: row - 1, col })
+        if (row + up >= 0 && row + up <= 7) focusSquare({ row: row + up, col })
         break
       case 'ArrowDown':
         e.preventDefault()
-        if (row < 7) focusSquare({ row: row + 1, col })
+        if (row - up >= 0 && row - up <= 7) focusSquare({ row: row - up, col })
         break
       case 'ArrowLeft':
         e.preventDefault()
-        if (col > 0) focusSquare({ row, col: col - 1 })
+        if (col + left >= 0 && col + left <= 7) focusSquare({ row, col: col + left })
         break
       case 'ArrowRight':
         e.preventDefault()
-        if (col < 7) focusSquare({ row, col: col + 1 })
+        if (col - left >= 0 && col - left <= 7) focusSquare({ row, col: col - left })
         break
       case 'Enter':
       case ' ':
@@ -206,7 +210,7 @@ export function Board({
       <div className="absolute left-[-22px] top-0 hidden md:flex flex-col h-[min(90vmin,600px)]">
         {Array.from({ length: 8 }, (_, i) => (
           <div key={i} className={LABEL_CLS}>
-            {8 - i}
+            {flipped ? i + 1 : 8 - i}
           </div>
         ))}
       </div>
@@ -222,8 +226,11 @@ export function Board({
         )}
         onKeyDown={handleBoardKeyDown}
       >
-        {board.map((row, rowIdx) =>
-          row.map((piece, colIdx) => {
+        {(flipped ? [...board].reverse() : board).map((row, rIdx) => {
+          const rowIdx = flipped ? 7 - rIdx : rIdx
+          const cols = flipped ? [...row].reverse() : row
+          return cols.map((piece, cIdx) => {
+            const colIdx = flipped ? 7 - cIdx : cIdx
             const sq: SquareType = { row: rowIdx, col: colIdx }
             const isSelected = !!(drag.selectedSquare && squaresEqual(drag.selectedSquare, sq))
             const isLegal = drag.legalMoves.some((s) => squaresEqual(s, sq))
@@ -266,11 +273,11 @@ export function Board({
               />
             )
           })
-        )}
+        })}
       </div>
 
       <div className="hidden md:flex w-[min(90vmin,600px)] mt-1">
-        {FILES.map((f) => (
+        {(flipped ? [...FILES].reverse() : FILES).map((f) => (
           <div key={f} className={LABEL_CLS}>
             {f}
           </div>

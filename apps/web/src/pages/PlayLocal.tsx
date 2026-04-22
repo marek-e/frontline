@@ -53,6 +53,7 @@ export function PlayLocal() {
             movedPieceIds={round.movedPieceIds}
             enPassantTarget={round.enPassantTarget}
             warlordPursuit={round.warlordPursuit}
+            flipped={round.turn === 'blue'}
             dispatch={dispatch}
           />
         </div>
