@@ -1,0 +1,35 @@
+apps/web/src/pages/design-system/DesignSystemPage.tsx
+  h_b7c268b0e33ac7 624,627,637
+  d0cd166b7ee53d95 1-623,625-626,628-636,638-643
+apps/web/src/routes/design-system.tsx
+  d0cd166b7ee53d95 1-6
+apps/web/src/pages/landing/_components/Footer.tsx
+  d0cd166b7ee53d95 1,4-29,36,60-77
+apps/web/src/components/ui/button.tsx
+  h_b7c268b0e33ac7 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "7563d4045b6fd2be60637f28eacb6855069f7596",
+  "prompts": {
+    "d0cd166b7ee53d95": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "4fd7028c-7adb-4133-8151-bc02d4f816d2",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 696,
+      "total_deletions": 14,
+      "accepted_lines": 692,
+      "overriden_lines": 2
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
