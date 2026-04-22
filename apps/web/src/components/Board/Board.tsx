@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { Board as BoardType, Square as SquareType, GameAction, Color } from '@frontline/rules'
 import {
   getLegalMoves,
@@ -7,6 +7,7 @@ import {
   squaresEqual,
   findPiece,
 } from '@frontline/rules'
+import type { Piece as PieceData } from '@frontline/rules'
 import { cn } from '~/lib/utils'
 import { Square } from './Square'
 
@@ -32,6 +33,21 @@ const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 const LABEL_CLS =
   'flex-1 flex items-center justify-center text-[11px] font-semibold text-board-border font-mono select-none'
 
+function squareAriaLabel(
+  sq: SquareType,
+  piece: PieceData | null,
+  isLegal: boolean,
+  isSelected: boolean,
+  isChecked: boolean
+): string {
+  const c = `${FILES[sq.col]}${8 - sq.row}`
+  if (isSelected && piece) return `${c}, selected ${piece.color} ${piece.type}`
+  if (piece && isLegal) return `${c}, ${piece.color} ${piece.type}, can capture`
+  if (piece) return `${c}, ${piece.color} ${piece.type}${isChecked ? ', in check' : ''}`
+  if (isLegal) return `${c}, available move`
+  return c
+}
+
 export function Board({
   board,
   turn,
@@ -52,6 +68,9 @@ export function Board({
     dragOverSquare: null,
   })
 
+  const [focusedSq, setFocusedSq] = useState<SquareType>({ row: 7, col: 0 })
+  const boardGridRef = useRef<HTMLDivElement>(null)
+
   const ctx = { movedPieceIds, enPassantTarget }
 
   useEffect(() => {
@@ -68,7 +87,11 @@ export function Board({
     if (warlordPursuit) return
     const piece = getPiece(board, sq)
     if (piece && piece.color === turn) {
-      setDrag({ selectedSquare: sq, legalMoves: getLegalMoves(board, sq, ctx), dragOverSquare: null })
+      setDrag({
+        selectedSquare: sq,
+        legalMoves: getLegalMoves(board, sq, ctx),
+        dragOverSquare: null,
+      })
     } else {
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
     }
@@ -125,7 +148,10 @@ export function Board({
         return
       }
       const piece = getPiece(board, sq)
-      if (piece && piece.color === turn) { selectSquare(sq); return }
+      if (piece && piece.color === turn) {
+        selectSquare(sq)
+        return
+      }
       setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
       return
     }
@@ -134,34 +160,81 @@ export function Board({
     if (piece && piece.color === turn) selectSquare(sq)
   }
 
+  function focusSquare(sq: SquareType) {
+    setFocusedSq(sq)
+    // Move browser focus to the new square after React re-renders
+    requestAnimationFrame(() => {
+      const el = boardGridRef.current?.querySelector(
+        `[data-sq="${sq.row}-${sq.col}"]`
+      ) as HTMLElement | null
+      el?.focus({ preventScroll: true })
+    })
+  }
+
+  function handleBoardKeyDown(e: React.KeyboardEvent) {
+    const { row, col } = focusedSq
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault()
+        if (row > 0) focusSquare({ row: row - 1, col })
+        break
+      case 'ArrowDown':
+        e.preventDefault()
+        if (row < 7) focusSquare({ row: row + 1, col })
+        break
+      case 'ArrowLeft':
+        e.preventDefault()
+        if (col > 0) focusSquare({ row, col: col - 1 })
+        break
+      case 'ArrowRight':
+        e.preventDefault()
+        if (col < 7) focusSquare({ row, col: col + 1 })
+        break
+      case 'Enter':
+      case ' ':
+        e.preventDefault()
+        handleClick(focusedSq)
+        break
+      case 'Escape':
+        setDrag({ selectedSquare: null, legalMoves: [], dragOverSquare: null })
+        break
+    }
+  }
+
   return (
     <div className="relative flex flex-col items-start">
-      {/* Rank labels */}
-      <div className="absolute -left-[22px] top-0 flex flex-col h-[min(90vmin,600px)]">
+      <div className="absolute left-[-22px] top-0 hidden md:flex flex-col h-[min(90vmin,600px)]">
         {Array.from({ length: 8 }, (_, i) => (
-          <div key={i} className={LABEL_CLS}>{8 - i}</div>
+          <div key={i} className={LABEL_CLS}>
+            {8 - i}
+          </div>
         ))}
       </div>
 
-      {/* Board grid */}
       <div
+        ref={boardGridRef}
+        role="grid"
+        aria-label={`Frontline board, ${turn}'s turn`}
         className={cn(
           'grid grid-cols-8 grid-rows-8 w-[min(90vmin,600px)] h-[min(90vmin,600px)]',
           'border-[3px] border-board-border shadow-board',
-          warlordPursuit && 'outline outline-[3px] outline-offset-2 outline-gold/60',
+          warlordPursuit && 'outline-[3px] outline-offset-2 outline-gold/60'
         )}
+        onKeyDown={handleBoardKeyDown}
       >
         {board.map((row, rowIdx) =>
           row.map((piece, colIdx) => {
             const sq: SquareType = { row: rowIdx, col: colIdx }
             const isSelected = !!(drag.selectedSquare && squaresEqual(drag.selectedSquare, sq))
             const isLegal = drag.legalMoves.some((s) => squaresEqual(s, sq))
-            const isSwapTarget = !warlordPursuit && isLegal && piece !== null && piece.color === turn
+            const isSwapTarget =
+              !warlordPursuit && isLegal && piece !== null && piece.color === turn
             const isCapture = isLegal && piece !== null && !isSwapTarget
             const isDragOver = !!(drag.dragOverSquare && squaresEqual(drag.dragOverSquare, sq))
             const isLight = (rowIdx + colIdx) % 2 === 0
             const isChecked = !!(checkedCommanderSq && squaresEqual(checkedCommanderSq, sq))
             const isPursuitPiece = !!(warlordPursuit && squaresEqual(warlordPursuit, sq))
+            const isFocused = squaresEqual(focusedSq, sq)
 
             return (
               <Square
@@ -175,22 +248,32 @@ export function Board({
                 isSwapTarget={isSwapTarget}
                 isChecked={isChecked}
                 isDragOver={isDragOver && isLegal}
+                isFocused={isFocused}
+                ariaLabel={squareAriaLabel(
+                  sq,
+                  piece,
+                  isLegal,
+                  isSelected || isPursuitPiece,
+                  isChecked
+                )}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 onClick={handleClick}
+                onFocused={setFocusedSq}
               />
             )
-          }),
+          })
         )}
       </div>
 
-      {/* File labels */}
-      <div className="flex w-[min(90vmin,600px)] mt-1">
+      <div className="hidden md:flex w-[min(90vmin,600px)] mt-1">
         {FILES.map((f) => (
-          <div key={f} className={LABEL_CLS}>{f}</div>
+          <div key={f} className={LABEL_CLS}>
+            {f}
+          </div>
         ))}
       </div>
     </div>

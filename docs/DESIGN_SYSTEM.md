@@ -218,16 +218,17 @@ Packs: Freesound / Soundly, or commission ~$200 custom.
 
 ### Breakpoints (Tailwind v4 min-width)
 
-| Name | Min-width | Notes |
-| ---- | --------- | ----- |
-| `sm` | 640px     | Large phone / small tablet |
-| `md` | 768px     | Tablet portrait |
+| Name | Min-width | Notes                           |
+| ---- | --------- | ------------------------------- |
+| `sm` | 640px     | Large phone / small tablet      |
+| `md` | 768px     | Tablet portrait                 |
 | `lg` | 1024px    | Tablet landscape / small laptop |
-| `xl` | 1280px    | Desktop |
+| `xl` | 1280px    | Desktop                         |
 
 ### Layout tiers
 
 **Mobile (< 640px) — default, designed first:**
+
 - Board fills `min(90vmin, 600px)` — always square, always usable
 - Sidebars (GameInfo, MatchScore) stack vertically below the board
 - Touch-first: tap-to-select as primary interaction; drag optional
@@ -236,10 +237,12 @@ Packs: Freesound / Soundly, or commission ~$200 custom.
 - Modals (WinModal, PromotionPicker) full-width with generous tap targets
 
 **Tablet (`md` 768px+):**
+
 - Board centered, single sidebar visible (toggle between GameInfo / MatchScore)
 - Sidebars may appear as a bottom sheet or slide-over panel
 
 **Desktop (`lg` 1024px+):**
+
 - Three-column layout: GameInfo | Board | MatchScore
 - Drag-and-drop as primary piece interaction (drag supported on mobile too)
 - Hover states and tooltip-based piece legend

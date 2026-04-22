@@ -1,49 +1,79 @@
-import { useReducer } from 'react'
+import { useReducer, useEffect, useRef, useState } from 'react'
 import { gameReducer, createInitialState } from '@frontline/rules'
+import type { Move, Square } from '@frontline/rules'
 import { Board } from './components/Board/Board'
 import { GameInfo } from './components/GameInfo/GameInfo'
 import { MatchScore } from './components/MatchScore/MatchScore'
 import { WinModal } from './components/WinModal/WinModal'
 import { PromotionPicker } from './components/PromotionPicker/PromotionPicker'
 
+const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+const coord = (s: Square) => `${FILES[s.col]}${8 - s.row}`
+
+function formatAnnouncement(move: Move): string {
+  const color = move.piece.color.charAt(0).toUpperCase() + move.piece.color.slice(1)
+  const type = move.piece.type
+  if (move.isSwap) return `${color} ${type} swaps to ${coord(move.to)}`
+  if (move.isEnPassant) return `${color} ${type} captures en passant on ${coord(move.to)}`
+  if (move.capturedPiece)
+    return `${color} ${type} captures ${move.capturedPiece.type} on ${coord(move.to)}`
+  return `${color} ${type} to ${coord(move.to)}`
+}
+
 function App() {
   const [state, dispatch] = useReducer(gameReducer, createInitialState(3))
   const { round, match } = state
-
   const lastRoundScore = match.roundScores.at(-1) ?? null
 
+  const prevMoveCount = useRef(0)
+  const [announcement, setAnnouncement] = useState('')
+
+  useEffect(() => {
+    const history = round.moveHistory
+    if (history.length > prevMoveCount.current) {
+      setAnnouncement(formatAnnouncement(history[history.length - 1]))
+      prevMoveCount.current = history.length
+    }
+  }, [round.moveHistory])
+
   return (
-    <div className="flex items-center justify-center max-[700px]:flex-col gap-10 max-[700px]:gap-4 p-8 max-[700px]:p-4 bg-card rounded-[20px] shadow-board">
-      {/* Left sidebar */}
-      <div className="flex flex-col gap-4 w-[180px] max-[700px]:w-full min-h-[min(90vmin,600px)] max-[700px]:min-h-0 justify-start pt-2">
-        <GameInfo
-          turn={round.turn}
-          phase={round.phase}
-          inCheck={round.inCheck}
-          warlordPursuit={round.warlordPursuit}
-          capturedByRed={round.capturedByRed}
-          capturedByBlue={round.capturedByBlue}
-          dispatch={dispatch}
-        />
+    <>
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {announcement}
       </div>
 
-      {/* Board */}
-      <div className="flex items-center justify-center px-5 max-[700px]:px-0">
-        <Board
-          board={round.board}
-          turn={round.turn}
-          phase={round.phase}
-          inCheck={round.inCheck}
-          movedPieceIds={round.movedPieceIds}
-          enPassantTarget={round.enPassantTarget}
-          warlordPursuit={round.warlordPursuit}
-          dispatch={dispatch}
-        />
-      </div>
+      <div className="flex flex-col items-center gap-4 p-4 lg:flex-row lg:items-center lg:gap-10 lg:p-8 bg-card rounded-[20px] shadow-board w-full lg:w-auto">
+        {/* Board rendered first in DOM for a11y; visually re-ordered on lg via flex order */}
+        <div className="flex items-center justify-center lg:order-2">
+          <Board
+            board={round.board}
+            turn={round.turn}
+            phase={round.phase}
+            inCheck={round.inCheck}
+            movedPieceIds={round.movedPieceIds}
+            enPassantTarget={round.enPassantTarget}
+            warlordPursuit={round.warlordPursuit}
+            dispatch={dispatch}
+          />
+        </div>
 
-      {/* Right sidebar */}
-      <div className="flex flex-col gap-4 w-[180px] max-[700px]:w-full min-h-[min(90vmin,600px)] max-[700px]:min-h-0 justify-start pt-2">
-        <MatchScore match={match} dispatch={dispatch} />
+        <div className="grid grid-cols-2 gap-4 w-full lg:contents">
+          <div className="flex flex-col gap-3 lg:order-1 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
+            <GameInfo
+              turn={round.turn}
+              phase={round.phase}
+              inCheck={round.inCheck}
+              warlordPursuit={round.warlordPursuit}
+              capturedByRed={round.capturedByRed}
+              capturedByBlue={round.capturedByBlue}
+              dispatch={dispatch}
+            />
+          </div>
+
+          <div className="flex flex-col gap-3 lg:order-3 lg:w-[180px] lg:min-h-[min(90vmin,600px)] lg:justify-start lg:pt-2">
+            <MatchScore match={match} dispatch={dispatch} />
+          </div>
+        </div>
       </div>
 
       {round.pendingPromotion && (
@@ -59,7 +89,7 @@ function App() {
         dispatch={dispatch}
         matchFormat={match.format}
       />
-    </div>
+    </>
   )
 }
 
