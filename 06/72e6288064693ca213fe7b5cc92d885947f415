@@ -1,0 +1,29 @@
+apps/web/src/pages/PlayLocal.tsx
+  519e1fa51479895b 4-8,23
+apps/web/src/routeTree.gen.ts
+  519e1fa51479895b 13,20-24,28,32,37,41,43-44,49,61-67,73
+apps/web/src/routes/play/local.tsx
+  519e1fa51479895b 1-6
+apps/web/src/routes/index.tsx
+  519e1fa51479895b 1,4-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "0672e6288064693ca213fe7b5cc92d885947f415",
+  "prompts": {
+    "519e1fa51479895b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48a05d31-950e-4934-a99d-48e5a36ec12b",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 134,
+      "total_deletions": 113,
+      "accepted_lines": 1844,
+      "overriden_lines": 0
+    }
+  }
+}
