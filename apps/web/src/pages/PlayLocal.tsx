@@ -1,11 +1,11 @@
 import { useReducer, useEffect, useRef, useState } from 'react'
 import { gameReducer, createInitialState } from '@frontline/rules'
 import type { Move, Square } from '@frontline/rules'
-import { Board } from './components/Board/Board'
-import { GameInfo } from './components/GameInfo/GameInfo'
-import { MatchScore } from './components/MatchScore/MatchScore'
-import { WinModal } from './components/WinModal/WinModal'
-import { PromotionPicker } from './components/PromotionPicker/PromotionPicker'
+import { Board } from '~/components/Board/Board'
+import { GameInfo } from '~/components/GameInfo/GameInfo'
+import { MatchScore } from '~/components/MatchScore/MatchScore'
+import { WinModal } from '~/components/WinModal/WinModal'
+import { PromotionPicker } from '~/components/PromotionPicker/PromotionPicker'
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 const coord = (s: Square) => `${FILES[s.col]}${8 - s.row}`
@@ -20,7 +20,7 @@ function formatAnnouncement(move: Move): string {
   return `${color} ${type} to ${coord(move.to)}`
 }
 
-function App() {
+export function PlayLocal() {
   const [state, dispatch] = useReducer(gameReducer, createInitialState(3))
   const { round, match } = state
   const lastRoundScore = match.roundScores.at(-1) ?? null
@@ -92,5 +92,3 @@ function App() {
     </>
   )
 }
-
-export default App
