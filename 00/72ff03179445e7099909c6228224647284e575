@@ -1,0 +1,32 @@
+packages/rules/src/fgn.ts
+  bc00f0413ddda3ad 143-149,334-336
+packages/rules/src/fgn.test.ts
+  bc00f0413ddda3ad 95,103
+packages/rules/src/gameReducer.ts
+  bc00f0413ddda3ad 3,309
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "0072ff03179445e7099909c6228224647284e575",
+  "prompts": {
+    "bc00f0413ddda3ad": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c9816d9e-ac22-438e-b96b-2116a9736663",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 21,
+      "accepted_lines": 14,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
