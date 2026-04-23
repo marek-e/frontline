@@ -1,24 +1,11 @@
 import { MiniBoard } from './MiniBoard'
 import { CtaButton } from '~/components/ui/cta-button'
+import { GridBackground } from '~/components/ui/grid-background'
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden min-h-[calc(100vh-60px)] flex items-center bg-fl-bg">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-50"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #38382a 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 70% at 30% 50%, transparent, #12120d 80%)',
-        }}
-      />
-      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-linear-to-b from-transparent via-fl-red to-transparent" />
-      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-linear-to-b from-transparent via-fl-blue to-transparent" />
+      <GridBackground dotOpacity={50} vignette />
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-12 py-20 w-full grid grid-cols-2 gap-20 items-center">
         <div>

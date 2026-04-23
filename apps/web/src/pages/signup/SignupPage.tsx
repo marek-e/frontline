@@ -6,6 +6,7 @@ import { CtaButton } from '~/components/ui/cta-button'
 import { InputField } from '~/components/ui/input-field'
 import { GoogleButton } from '~/components/ui/google-button'
 import { CornerBrackets } from '../landing/_components/CornerBrackets'
+import { GridBackground } from '~/components/ui/grid-background'
 
 export function SignupPage() {
   const navigate = useNavigate()
@@ -22,17 +23,9 @@ export function SignupPage() {
 
   return (
     <div className="min-h-screen flex bg-fl-bg text-fl-fg2 font-barlow antialiased relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none opacity-35"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #38382a 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
-      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-linear-to-b from-transparent via-fl-red to-transparent" />
-      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-linear-to-b from-transparent via-fl-blue to-transparent" />
+      <GridBackground />
 
-      <div className="absolute top-0 left-0 right-0 h-[60px] flex items-center justify-between px-12 z-20">
+      <div className="absolute top-0 left-0 right-0 h-[60px] flex items-center justify-between px-12 z-20 bg-fl-bg">
         <Logo to="/" />
         <ThemeCycle />
       </div>
