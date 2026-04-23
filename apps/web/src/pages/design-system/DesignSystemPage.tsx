@@ -43,7 +43,6 @@ import { ThemeCycle } from '~/components/ui/theme-cycle'
 import { ThemeToggle } from '~/components/ui/theme-toggle'
 import { Logo } from '~/components/Logo/Logo'
 import { cn } from '~/lib/utils'
-import { useNavigate } from '@tanstack/react-router'
 
 const BUTTON_VARIANTS = ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'] as const
 const BUTTON_SIZES = ['xs', 'sm', 'default', 'lg'] as const
@@ -74,9 +73,13 @@ export function DesignSystemPage() {
         <Section
           id="cta-button"
           title="CTA Button"
-          subtitle="Primary (red) · Outline · sm / md sizes"
+          subtitle="Primary · Blue · Outline · Ghost · Link · lg / md / sm / xs"
         >
           <CtaButtonShowcase />
+        </Section>
+
+        <Section id="logo" title="Logo" subtitle="Link · onClick · mark only · with label">
+          <LogoShowcase />
         </Section>
 
         <Section id="dialog" title="Dialog" subtitle="Modal, blocking interactions">
@@ -100,38 +103,40 @@ export function DesignSystemPage() {
 }
 
 function Header() {
-  const navigate = useNavigate({ from: '/design-system' })
   return (
     <header className="sticky top-0 z-50 bg-fl-surf/90 backdrop-blur-md border-b border-fl-border">
-      <div className="max-w-[1200px] mx-auto px-12 h-[60px] flex items-center justify-between">
+      <div className="px-12 h-[60px] flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <Logo onClick={() => navigate({ to: '/' })} />
+          <Logo to="/" />
           <div className="w-px h-4 bg-fl-border-s" />
           <span className="font-oswald text-[14px] font-semibold uppercase tracking-[0.14em] text-fl-fg1">
             Design System
           </span>
         </div>
-        <nav className="flex items-center gap-1">
-          {[
-            ['Tokens', 'tokens'],
-            ['Type', 'typography'],
-            ['Button', 'button'],
-            ['CTA', 'cta-button'],
-            ['Dialog', 'dialog'],
-            ['Dropdown', 'dropdown'],
-            ['Theme', 'theme'],
-          ].map(([label, id]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className="px-3 py-2 font-barlow text-[12px] font-medium uppercase tracking-[0.06em] text-fl-fg4 hover:text-fl-fg1 transition-colors"
-            >
-              {label}
-            </a>
-          ))}
+        <div className="flex items-center gap-2.5">
+          <nav className="items-center gap-1 hidden md:flex">
+            {[
+              ['Tokens', 'tokens'],
+              ['Type', 'typography'],
+              ['Button', 'button'],
+              ['CTA', 'cta-button'],
+              ['Logo', 'logo'],
+              ['Dialog', 'dialog'],
+              ['Dropdown', 'dropdown'],
+              ['Theme', 'theme'],
+            ].map(([label, id]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="px-3 py-2 font-barlow text-[12px] font-medium uppercase tracking-[0.06em] text-fl-fg4 hover:text-fl-fg1 transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
           <div className="w-px h-4 bg-fl-border-s mx-2" />
           <ThemeCycle />
-        </nav>
+        </div>
       </div>
     </header>
   )
@@ -465,52 +470,148 @@ function ButtonShowcase() {
 
 // --- CTA Button -------------------------------------------------------------
 
+const CTA_VARIANTS = ['primary', 'blue', 'outline', 'ghost', 'link'] as const
+const CTA_SIZES = ['lg', 'md', 'sm', 'xs'] as const
+
 function CtaButtonShowcase() {
   return (
     <div className="space-y-6">
       <div>
-        <SubHead>Variants</SubHead>
+        <SubHead>Variants (size: md)</SubHead>
         <Card>
           <div className="flex flex-wrap items-center gap-3">
-            <CtaButton>ENLIST NOW</CtaButton>
+            <CtaButton variant="primary">ENLIST NOW</CtaButton>
+            <CtaButton variant="blue">JOIN BLUE</CtaButton>
             <CtaButton variant="outline">WATCH LIVE</CtaButton>
+            <CtaButton variant="ghost">GHOST</CtaButton>
+            <CtaButton variant="link">Link action →</CtaButton>
           </div>
         </Card>
       </div>
 
       <div>
-        <SubHead>Sizes</SubHead>
+        <SubHead>Sizes (variant: primary)</SubHead>
         <Card>
           <div className="flex flex-wrap items-end gap-4">
-            <div className="flex flex-col items-start gap-2">
-              <CtaButton size="md">DEPLOY md</CtaButton>
-              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
-                size md · hero
-              </span>
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <CtaButton size="sm">DEPLOY sm</CtaButton>
-              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
-                size sm · nav
-              </span>
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <CtaButton variant="outline" size="md">
-                LOG IN md
-              </CtaButton>
-              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
-                outline md
-              </span>
-            </div>
-            <div className="flex flex-col items-start gap-2">
-              <CtaButton variant="outline" size="sm">
-                LOG IN sm
-              </CtaButton>
-              <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
-                outline sm
-              </span>
-            </div>
+            {CTA_SIZES.map((s) => (
+              <div key={s} className="flex flex-col items-start gap-2">
+                <CtaButton size={s}>DEPLOY {s}</CtaButton>
+                <span className="font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+                  {s}
+                </span>
+              </div>
+            ))}
           </div>
+        </Card>
+      </div>
+
+      <div>
+        <SubHead>Variant × Size matrix</SubHead>
+        <Card>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-fl-border-s">
+                  <th className="py-2 pr-3 font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4 font-normal">
+                    variant \ size
+                  </th>
+                  {CTA_SIZES.map((s) => (
+                    <th
+                      key={s}
+                      className="py-2 px-3 font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4 font-normal"
+                    >
+                      {s}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {CTA_VARIANTS.map((v) => (
+                  <tr key={v} className="border-b border-fl-border-s last:border-0">
+                    <td className="py-3 pr-3 font-plex text-[11px] uppercase tracking-[0.14em] text-fl-fg3">
+                      {v}
+                    </td>
+                    {CTA_SIZES.map((s) => (
+                      <td key={s} className="py-3 px-3">
+                        <CtaButton variant={v} size={s}>
+                          {v === 'link' ? 'Go →' : 'GO'}
+                        </CtaButton>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+
+      <div>
+        <SubHead>As link (to prop)</SubHead>
+        <Card>
+          <div className="flex flex-wrap items-center gap-3">
+            <CtaButton to="/signup">ENLIST NOW</CtaButton>
+            <CtaButton variant="outline" size="sm" to="/login">
+              LOG IN
+            </CtaButton>
+            <CtaButton variant="link" size="sm" to="/login">
+              Already enlisted? Log in →
+            </CtaButton>
+          </div>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+// --- Logo -------------------------------------------------------------------
+
+function LogoShowcase() {
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-4">
+        <Card>
+          <SubHead>Default (with label)</SubHead>
+          <div className="flex items-center gap-4 py-1">
+            <Logo />
+            <Logo size="lg" />
+          </div>
+          <p className="mt-3 font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+            Static · sm / lg sizes
+          </p>
+        </Card>
+
+        <Card>
+          <SubHead>Mark only (showLabel=false)</SubHead>
+          <div className="flex items-center gap-4 py-1">
+            <Logo showLabel={false} />
+            <Logo showLabel={false} size="lg" />
+          </div>
+          <p className="mt-3 font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+            Icon-only · sm / lg sizes
+          </p>
+        </Card>
+
+        <Card>
+          <SubHead>Link variant (to prop)</SubHead>
+          <div className="flex items-center gap-4 py-1">
+            <Logo to="/" />
+            <Logo to="/" showLabel={false} size="lg" />
+          </div>
+          <p className="mt-3 font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+            Renders as &lt;Link&gt; · hover bg + cursor
+          </p>
+        </Card>
+
+        <Card>
+          <SubHead>onClick variant</SubHead>
+          <div className="flex items-center gap-4 py-1">
+            <Logo onClick={() => {}} />
+            <Logo onClick={() => {}} showLabel={false} size="lg" />
+          </div>
+          <p className="mt-3 font-plex text-[10px] uppercase tracking-[0.14em] text-fl-fg4">
+            Renders as &lt;div&gt; · hover bg + cursor
+          </p>
         </Card>
       </div>
     </div>
