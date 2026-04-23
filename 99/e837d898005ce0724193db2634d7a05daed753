@@ -1,0 +1,24 @@
+apps/web/src/pages/landing/_components/LandingNav.tsx
+  h_b7c268b0e33ac7 21,29
+apps/web/src/pages/signup/SignupPage.tsx
+  h_b7c268b0e33ac7 28-32
+apps/web/src/pages/login/LoginPage.tsx
+  h_b7c268b0e33ac7 28-32
+apps/web/src/components/ui/cta-button.css
+  h_b7c268b0e33ac7 69
+apps/web/src/pages/landing/_components/Hero.tsx
+  h_b7c268b0e33ac7 10
+apps/web/src/components/ui/cta-button.tsx
+  h_b7c268b0e33ac7 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "99e837d898005ce0724193db2634d7a05daed753",
+  "prompts": {},
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
