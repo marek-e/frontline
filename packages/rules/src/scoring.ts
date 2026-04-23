@@ -22,7 +22,16 @@ export function computeRoundScore(round: RoundState): RoundScore {
   const winnerMaterial = winner === 'red' ? redMaterial : blueMaterial
   const loserMaterial = winner === 'red' ? blueMaterial : redMaterial
 
-  const efficiency = Math.max(0, (winnerMaterial - loserMaterial) / MATERIAL_NORMALIZER)
+  // Efficiency bonus has two halves, each capped at 0.5:
+  //   - preservation: rewards the winner for keeping their own army alive
+  //   - margin:       rewards decisive wins (prevents surrender-farming)
+  // See docs/GAME.md → Scoring System.
+  const preservation = Math.min(1, winnerMaterial / MATERIAL_NORMALIZER)
+  const margin = Math.max(
+    0,
+    Math.min(1, (winnerMaterial - loserMaterial) / MATERIAL_NORMALIZER)
+  )
+  const efficiency = 0.5 * preservation + 0.5 * margin
   const winnerPoints = parseFloat((1 + efficiency).toFixed(3))
 
   return { winner, winnerPoints, loserPoints: 0 }

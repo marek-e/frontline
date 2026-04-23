@@ -76,6 +76,7 @@ Frontline uses 6 original unit types.
 - Guard can retreat and capture in all diagonal directions
 - Warlord Pursuit (bonus step after a capture)
 - Flanker leaps over pieces (cannot be blocked)
+- **Losses hurt even when you win** — material lost during a round reduces your end-of-round score (see [Scoring System](#scoring-system)), so Frontline plays closer to warfare than chess: trading down to win is a bad result, and conceding a clearly lost round early can beat fighting to the last piece
 
 ## Match Format
 
@@ -89,21 +90,53 @@ Frontline is designed for competitive play:
 
 Winning a round is not enough — efficiency matters.
 
-Each round awards:
+Each round awards the winner:
 
-- **+1 point** for the winner
-- **+efficiency bonus** based on material advantage at the end of the round
+- **+1 point** base (for winning)
+- **+ up to 1.0 efficiency bonus** — half for preserving your own army, half for the margin over the opponent
 
 ```
-Score = 1 + max(0, (winner_material − loser_material) / 37)
+preservation = winner_material / 37
+margin       = max(0, (winner_material − loser_material) / 37)
+Score        = 1 + 0.5 × preservation + 0.5 × margin
 ```
 
-Material normalizer is 37 (total non-Commander material for one side).
+Material normalizer is 37 (total non-Commander material for one side). The loser always scores 0 for the round.
+
+### Why this formula
+
+Frontline is closer to warfare than to chess — a battle won is not enough, it has to be won cheaply. The two halves of the bonus encode that:
+
+- **Preservation** rewards ending the round with your army mostly intact
+- **Margin** rewards decisive wins over peer opposition, and prevents "surrender farming" (where a loser could resign immediately and the winner would still get a near-max score)
+
+Worked examples (material remaining; W = winner, L = loser):
+
+| Outcome                 |  W |  L | Score |
+| ----------------------- | -: | -: | ----: |
+| Flawless (loser wiped)  | 37 |  0 |  2.00 |
+| Clean win               | 30 | 10 |  1.68 |
+| Bloody win              | 12 |  5 |  1.25 |
+| Pyrrhic win             |  8 |  0 |  1.22 |
+| Loser resigns intact    | 35 | 30 |  1.54 |
+| Winner barely scraped by |  6 |  4 |  1.11 |
 
 This creates meaningful trade-offs:
 
 - Win fast with heavy losses → low score
 - Win clean with control → high score
+- Losing with most of your army intact → round is lost, but the winner's bonus is capped — resign is a legitimate weapon
+
+### Forfeiting (resignation)
+
+Because material carries into the scoring formula, resigning is a real strategic tool, not just an act of courtesy:
+
+- A player may resign at any time — counts as a round loss
+- Resigning **freezes the current material balance** for scoring
+- When a position is clearly lost, resigning early **denies the opponent extra captures** and caps their efficiency bonus
+- Fighting on in a lost position mostly helps the opponent run up the score and can swing the match
+
+Rule of thumb: if the position is lost and you can't force trades that hurt the opponent, resign — the match score you save is more valuable than the round you can't win.
 
 ## Piece Values
 
@@ -118,12 +151,13 @@ This creates meaningful trade-offs:
 
 ## Strategic Depth
 
-Frontline shifts focus from pure checkmate patterns to:
+Frontline shifts focus from pure checkmate patterns to something closer to warfare: winning a battle is not enough — you need to win it cheaply.
 
 - Resource management across rounds
-- Risk vs reward in exchanges
+- Risk vs reward in exchanges — every trade you make costs points even if you win the round
 - Tempo and positioning without queen dominance
 - Long-term planning in multi-round matches
+- Knowing when to **resign and preserve the match** rather than bleed out a lost round
 
 Players must constantly balance:
 
