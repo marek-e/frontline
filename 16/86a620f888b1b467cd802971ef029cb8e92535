@@ -1,0 +1,29 @@
+apps/web/src/pages/design-system/DesignSystemPage.tsx
+  3346fcb0acc62599 76,81-82,110,123,473-475,480,483-484,486-487,493,496-610,612-614
+  h_b7c268b0e33ac7 108,116-117,136,139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "1686a620f888b1b467cd802971ef029cb8e92535",
+  "prompts": {
+    "3346fcb0acc62599": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cdeee63d-3e83-4942-b32b-5a53d1afdf1e",
+        "model": "<synthetic>"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1360,
+      "overriden_lines": 4
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
