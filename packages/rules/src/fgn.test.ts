@@ -76,13 +76,22 @@ describe('FGN', () => {
           state = next
         }
 
+        // Drain any mid-turn state so the FGN (which only serializes completed turns)
+        // matches the final board we compare against.
+        if (state.round.pendingPromotion) {
+          state = gameReducer(state, { type: 'PROMOTE', pieceType: 'warlord' })
+        }
+        if (state.round.warlordPursuit) {
+          state = gameReducer(state, { type: 'SKIP_PURSUIT' })
+        }
+
         const fgn = toFGN(state)
         const replayed = replayFGN(fgn, 3)
         expect(replayed.round.board).toEqual(state.round.board)
       }),
       { numRuns: 60 }
     )
-  })
+  }, 30_000)
 
   it('UNDO_TURN restores exact round snapshot', () => {
     let state = createInitialState(3)

@@ -153,7 +153,8 @@ export function moveToSAN(pre: RoundState, entry: TurnEntry): string {
 
   if (entry.promotion) body += `=${PIECE_TO_LETTER[entry.promotion]}`
   if (entry.pursuit && entry.pursuit !== 'skip') body += `~${squareToCoord(entry.pursuit.to)}`
-  if (move.isEnPassant) body += ' e.p.'
+  // NOTE: we intentionally omit an " e.p." tag — the parser derives en-passant from context,
+  // and embedding a space would split the move across whitespace-delimited tokens.
 
   return `${body}${suffix}`
 }
@@ -271,10 +272,6 @@ function applyToken(state: GameState, token: string): GameState {
   // strip check suffix (we don't validate it during parse)
   if (t.endsWith('#') || t.endsWith('+')) t = t.slice(0, -1)
 
-  // en passant suffix
-  const ep = t.endsWith(' e.p.')
-  if (ep) t = t.slice(0, -' e.p.'.length)
-
   // pursuit suffix
   let pursuitCoord: string | null = null
   const tildeIdx = t.indexOf('~')
@@ -348,11 +345,6 @@ function applyToken(state: GameState, token: string): GameState {
     if (pursuitCoord)
       s = gameReducer(s, { type: 'WARLORD_PURSUE', to: coordToSquare(pursuitCoord) })
     else s = gameReducer(s, { type: 'SKIP_PURSUIT' })
-  }
-
-  // basic sanity: en passant suffix should only appear if reducer marked it so
-  if (ep && !s.round.moveHistory.at(-1)?.isEnPassant && !s.round.moveHistory.at(-2)?.isEnPassant) {
-    // don't hard-fail on this; notation might be ahead of state semantics
   }
 
   return s
