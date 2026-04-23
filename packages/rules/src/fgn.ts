@@ -87,7 +87,6 @@ function disambiguation(
   movedPieceIds: string[],
   enPassantTarget: Square | null
 ): string {
-  if (pieceType === 'guard') return ''
   const ctx = { movedPieceIds, enPassantTarget }
 
   const candidates: Square[] = []
@@ -141,8 +140,13 @@ export function moveToSAN(pre: RoundState, entry: TurnEntry): string {
 
   let body = ''
   if (move.piece.type === 'guard') {
-    if (capture) body = `${FILES[move.from.col]}x${to}`
-    else body = to
+    if (capture) {
+      const fromFile = FILES[move.from.col]!
+      const prefix = dis.includes(fromFile) ? dis : `${fromFile}${dis}`
+      body = `${prefix}x${to}`
+    } else {
+      body = `${dis}${to}`
+    }
   } else {
     body = `${pieceLetter}${dis}${capture}${to}`
   }
@@ -327,14 +331,9 @@ function applyToken(state: GameState, token: string): GameState {
   let disFile: string | null = null
   let disRank: string | null = null
 
-  if (pieceType === 'guard') {
-    // pawn-like: file disambiguation is only written on captures (e.g. dxe6)
-    if (isCapture) disFile = dis[0] ?? null
-  } else {
-    for (const ch of dis) {
-      if (FILES.includes(ch as any)) disFile = ch
-      else if (/[1-8]/.test(ch)) disRank = ch
-    }
+  for (const ch of dis) {
+    if (FILES.includes(ch as (typeof FILES)[number])) disFile = ch
+    else if (/[1-8]/.test(ch)) disRank = ch
   }
 
   const from = findFromSquareForToken(round, pieceType, to, disFile, disRank)

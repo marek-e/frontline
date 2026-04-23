@@ -92,15 +92,15 @@ describe('FGN', () => {
       from: { row: 6, col: 0 },
       to: { row: 4, col: 0 },
     })
+    const s1 = stripUndo(state)
     state = gameReducer(state, {
       type: 'MOVE_PIECE',
       from: { row: 1, col: 0 },
       to: { row: 3, col: 0 },
     })
-    const s2 = stripUndo(state)
 
     state = gameReducer(state, { type: 'UNDO_TURN' })
-    expect(stripUndo(state)).toEqual(s2)
+    expect(stripUndo(state)).toEqual(s1)
     state = gameReducer(state, { type: 'UNDO_TURN' })
     expect(stripUndo(state)).toEqual(s0)
   })

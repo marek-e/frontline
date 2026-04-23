@@ -1,6 +1,6 @@
 import type { Color, GameState, Move, Piece, RoundState, Square, TurnEntry } from './types'
 import { createInitialBoard } from './constants'
-import { getPiece, applyMove, squaresEqual } from './board'
+import { getPiece, applyMove, squaresEqual, isInBounds } from './board'
 import { getLegalMoves, isInCheck, hasNoLegalMoves } from './moves'
 import { computeRoundScore, updateMatchState } from './scoring'
 
@@ -306,13 +306,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       if (!warlord || warlord.type !== 'warlord') return state
 
       const to = action.to
-      if (
-        !squaresEqual(
-          { row: warlordSq.row, col: warlordSq.col },
-          { row: warlordSq.row, col: warlordSq.col }
-        )
-      )
-        return state
+      if (!isInBounds(to)) return state
 
       // Validate: 1 square away, empty
       if (Math.max(Math.abs(to.row - warlordSq.row), Math.abs(to.col - warlordSq.col)) !== 1)
