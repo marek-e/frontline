@@ -25,9 +25,11 @@ export function LoginPage() {
     <div className="min-h-screen flex bg-fl-bg text-fl-fg2 font-barlow antialiased relative overflow-hidden">
       <GridBackground />
 
-      <div className="absolute top-0 left-0 right-0 h-[60px] flex items-center justify-between px-12 z-20 bg-fl-bg">
-        <Logo to="/" />
-        <ThemeCycle />
+      <div className="absolute top-0 left-0 right-0 h-[60px] z-20 bg-fl-bg">
+        <div className="max-w-7xl px-12 mx-auto flex items-center justify-between h-full">
+          <Logo to="/" />
+          <ThemeCycle />
+        </div>
       </div>
 
       <div className="flex-1 flex items-center justify-center px-6 py-24 relative z-10">

@@ -18,7 +18,7 @@ export function LandingNav() {
   return (
     <header
       className={cn(
-        'px-12 flex items-center justify-between h-[60px] sticky top-0 z-50 transition-all duration-300',
+        'px-12 flex items-center justify-between h-[60px] sticky max-w-7xl mx-auto top-0 z-50 transition-all duration-300',
         scrolled
           ? 'bg-fl-surf border-b border-fl-border shadow-[0_2px_20px_rgba(10,8,4,0.6)]'
           : 'bg-transparent border-b border-transparent'
@@ -26,7 +26,7 @@ export function LandingNav() {
     >
       <div className="flex items-center gap-8">
         <Logo className="px-2 py-1.5" />
-        <nav className="flex gap-0.5">
+        <nav className="hidden md:flex gap-0.5">
           {['PLAY', 'RANKED', 'LEADERBOARD', 'LEARN'].map((l) => (
             <button
               key={l}

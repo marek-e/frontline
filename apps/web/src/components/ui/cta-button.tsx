@@ -12,7 +12,7 @@ const ctaButtonVariants = cva(
           'cta-primary-radial uppercase tracking-[0.08em] leading-none text-white border border-fl-red-border shadow-[0_2px_12px_rgba(200,55,45,0.25)] hover:shadow-[0_2px_12px_rgba(200,55,45,0.5)]',
         blue: 'cta-blue-radial uppercase tracking-[0.08em] leading-none text-white border border-fl-blue-border shadow-[0_2px_12px_rgba(45,111,168,0.25)] hover:shadow-[0_2px_12px_rgba(45,111,168,0.5)]',
         outline:
-          'cta-border-grow duration-[450ms] uppercase tracking-[0.08em] leading-none text-fl-fg3 border border-fl-border hover:border-transparent bg-transparent hover:bg-fl-raised hover:text-fl-fg1',
+          'cta-border-grow duration-[450ms] uppercase tracking-[0.08em] leading-none text-fl-fg3 border border-fl-border hover:border-transparent bg-fl-bg hover:bg-fl-raised hover:text-fl-fg1',
         ghost:
           'text-fl-fg4 hover:text-fl-fg2 bg-transparent hover:bg-fl-raised border border-transparent',
         link: 'font-barlow text-fl-gold font-semibold hover:text-fl-gold-h hover:underline transition-colors duration-150 p-0!',

@@ -7,7 +7,7 @@ export function Hero() {
     <section className="relative overflow-hidden min-h-[calc(100vh-60px)] flex items-center bg-fl-bg">
       <GridBackground dotOpacity={50} vignette />
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-12 py-20 w-full grid grid-cols-2 gap-20 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-12 py-20 w-full grid grid-cols-2 gap-20 items-center">
         <div>
           <div className="font-plex text-xs text-fl-gold uppercase tracking-[0.18em] mb-5 flex items-center gap-2.5">
             <span className="inline-block w-5 h-px bg-fl-gold" />
