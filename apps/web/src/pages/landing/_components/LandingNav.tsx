@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
 import { cn } from '~/lib/utils'
 import { Logo } from '~/components/Logo/Logo'
 import { ThemeCycle } from '~/components/ui/theme-cycle'
 import { CtaButton } from '~/components/ui/cta-button'
 
 export function LandingNav() {
-  const navigate = useNavigate({ from: '/' })
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export function LandingNav() {
       )}
     >
       <div className="flex items-center gap-8">
-        <Logo />
+        <Logo className="px-2 py-1.5" />
         <nav className="flex gap-0.5">
           {['PLAY', 'RANKED', 'LEADERBOARD', 'LEARN'].map((l) => (
             <button
@@ -42,10 +40,10 @@ export function LandingNav() {
       <div className="flex gap-2.5 items-center">
         <ThemeCycle />
         <div className="w-px h-4 bg-fl-border-s mr-2" />
-        <CtaButton variant="outline" size="sm" onClick={() => navigate({ to: '/play/local' })}>
+        <CtaButton variant="outline" size="sm" to="/login">
           LOG IN
         </CtaButton>
-        <CtaButton size="sm" onClick={() => navigate({ to: '/play/local' })}>
+        <CtaButton size="sm" to="/signup">
           ENLIST NOW
         </CtaButton>
       </div>

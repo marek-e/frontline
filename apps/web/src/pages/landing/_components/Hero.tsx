@@ -1,12 +1,9 @@
-import { useNavigate } from '@tanstack/react-router'
 import { MiniBoard } from './MiniBoard'
 import { CtaButton } from '~/components/ui/cta-button'
 
 export function Hero() {
-  const navigate = useNavigate({ from: '/' })
   return (
     <section className="relative overflow-hidden min-h-[calc(100vh-60px)] flex items-center bg-fl-bg">
-      {/* Dot grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-50"
         style={{
@@ -14,22 +11,18 @@ export function Hero() {
           backgroundSize: '32px 32px',
         }}
       />
-      {/* Radial vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse 60% 70% at 30% 50%, transparent, #12120d 80%)',
         }}
       />
-      {/* Red left edge bar */}
       <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-linear-to-b from-transparent via-fl-red to-transparent" />
-      {/* Blue right edge bar */}
       <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-linear-to-b from-transparent via-fl-blue to-transparent" />
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-12 py-20 w-full grid grid-cols-2 gap-20 items-center">
-        {/* Left: copy */}
         <div>
-          <div className="font-plex text-[11px] text-fl-gold uppercase tracking-[0.18em] mb-5 flex items-center gap-2.5">
+          <div className="font-plex text-xs text-fl-gold uppercase tracking-[0.18em] mb-5 flex items-center gap-2.5">
             <span className="inline-block w-5 h-px bg-fl-gold" />
             SEASON 4 · RANKED OPEN
             <span className="inline-block w-5 h-px bg-fl-gold" />
@@ -49,7 +42,7 @@ export function Hero() {
           </p>
 
           <div className="flex gap-3 items-center mb-10">
-            <CtaButton onClick={() => navigate({ to: '/play/local' })}>ENLIST NOW</CtaButton>
+            <CtaButton to="/signup">ENLIST NOW</CtaButton>
             <CtaButton variant="outline">WATCH LIVE</CtaButton>
           </div>
 
@@ -71,7 +64,6 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right: interactive mini board */}
         <MiniBoard />
       </div>
     </section>
