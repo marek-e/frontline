@@ -58,6 +58,13 @@ jobs:
 
       # ── Staging (CI passed on main) ───────────────────────────────────────
 
+      - name: Migrate DB (staging)
+        if: github.event_name == 'workflow_run'
+        working-directory: packages/db
+        run: pnpm db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING }}
+
       - name: Deploy web → CF Pages (staging)
         if: github.event_name == 'workflow_run'
         timeout-minutes: 5
@@ -87,6 +94,13 @@ jobs:
           PARTYKIT_LOGIN: ${{ secrets.PARTYKIT_LOGIN  }}
 
       # ── Production (tag v*) ───────────────────────────────────────────────
+
+      - name: Migrate DB (production)
+        if: github.event_name == 'push'
+        working-directory: packages/db
+        run: pnpm db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
 
       - name: Deploy web → CF Pages (production)
         if: github.event_name == 'push'
