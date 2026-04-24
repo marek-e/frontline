@@ -27,10 +27,7 @@ export function computeRoundScore(round: RoundState): RoundScore {
   //   - margin:       rewards decisive wins (prevents surrender-farming)
   // See docs/GAME.md → Scoring System.
   const preservation = Math.min(1, winnerMaterial / MATERIAL_NORMALIZER)
-  const margin = Math.max(
-    0,
-    Math.min(1, (winnerMaterial - loserMaterial) / MATERIAL_NORMALIZER)
-  )
+  const margin = Math.max(0, Math.min(1, (winnerMaterial - loserMaterial) / MATERIAL_NORMALIZER))
   const efficiency = 0.5 * preservation + 0.5 * margin
   const winnerPoints = parseFloat((1 + efficiency).toFixed(3))
 
