@@ -112,14 +112,14 @@ Frontline is closer to warfare than to chess — a battle won is not enough, it 
 
 Worked examples (material remaining; W = winner, L = loser):
 
-| Outcome                 |  W |  L | Score |
-| ----------------------- | -: | -: | ----: |
-| Flawless (loser wiped)  | 37 |  0 |  2.00 |
-| Clean win               | 30 | 10 |  1.68 |
-| Bloody win              | 12 |  5 |  1.25 |
-| Pyrrhic win             |  8 |  0 |  1.22 |
-| Loser resigns intact    | 35 | 30 |  1.54 |
-| Winner barely scraped by |  6 |  4 |  1.11 |
+| Outcome                  |   W |   L | Score |
+| ------------------------ | --: | --: | ----: |
+| Flawless (loser wiped)   |  37 |   0 |  2.00 |
+| Clean win                |  30 |  10 |  1.68 |
+| Bloody win               |  12 |   5 |  1.25 |
+| Pyrrhic win              |   8 |   0 |  1.22 |
+| Loser resigns intact     |  35 |  30 |  1.54 |
+| Winner barely scraped by |   6 |   4 |  1.11 |
 
 This creates meaningful trade-offs:
 

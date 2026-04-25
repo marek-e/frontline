@@ -16,7 +16,7 @@ export async function sendEmail({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Frontline <noreply@frontline.gg>',
+      from: 'Frontline <onboarding@resend.dev>',
       to,
       subject,
       html,
