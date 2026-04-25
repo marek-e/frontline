@@ -1,0 +1,28 @@
+packages/auth/src/email.ts
+  6dc949f447f9ebe0 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "f6110f2c49efd49efb84ac56f1e9337f12d80669",
+  "prompts": {
+    "6dc949f447f9ebe0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4599e88-e99f-49b5-bd9b-eb415beb5502",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 7,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
