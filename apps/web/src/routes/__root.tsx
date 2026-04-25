@@ -10,7 +10,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Frontline' },
+      {
+        title: import.meta.env.VITE_APP_ENV === 'staging' ? 'Frontline [staging]' : 'Frontline',
+      },
     ],
     links: [
       { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },

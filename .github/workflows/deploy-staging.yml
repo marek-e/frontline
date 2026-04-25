@@ -28,6 +28,7 @@ jobs:
         run: pnpm build
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_APP_ENV: staging
 
       - name: Migrate DB
         working-directory: packages/db
