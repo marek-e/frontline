@@ -7,18 +7,38 @@ import { InputField } from '~/components/ui/input-field'
 import { GoogleButton } from '~/components/ui/google-button'
 import { CornerBrackets } from '../landing/_components/CornerBrackets'
 import { GridBackground } from '~/components/ui/grid-background'
+import { AuthError } from './_components/AuthError'
+import { signIn } from '~/lib/auth-client'
 
 export function LoginPage() {
   const navigate = useNavigate()
+  const [identifier, setIdentifier] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleLogin(e: React.SubmitEvent) {
+  async function handleLogin(e: React.SubmitEvent) {
     e.preventDefault()
+    setError(null)
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      navigate({ to: '/play/local' })
-    }, 800)
+
+    const isEmail = identifier.includes('@')
+    const result = isEmail
+      ? await signIn.email({ email: identifier, password })
+      : await signIn.username({ username: identifier, password })
+
+    setLoading(false)
+
+    if (result.error) {
+      setError(result.error.message ?? 'Login failed. Check your credentials.')
+      return
+    }
+
+    navigate({ to: '/home' })
+  }
+
+  async function handleGoogleSignIn() {
+    await signIn.social({ provider: 'google', callbackURL: '/' })
   }
 
   return (
@@ -51,22 +71,30 @@ export function LoginPage() {
               label="CALLSIGN OR EMAIL"
               placeholder="Enter callsign or email…"
               autoComplete="username email"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
             />
             <InputField
               label="PASSWORD"
               type="password"
               placeholder="••••••••"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <div className="flex justify-end -mt-1">
-              <button
-                type="button"
-                className="font-plex text-[10px] text-fl-fg4 hover:text-fl-gold cursor-pointer uppercase tracking-widest transition-colors duration-150 bg-transparent border-none"
+              <CtaButton
+                variant="link"
+                size="sm"
+                to="/forgot-password"
+                className="font-plex text-[10px] text-fl-fg4 hover:text-fl-gold uppercase tracking-widest"
               >
                 Forgot password?
-              </button>
+              </CtaButton>
             </div>
+
+            {error && <AuthError message={error} />}
 
             <CtaButton type="submit" className="w-full mt-2" disabled={loading}>
               {loading ? 'AUTHENTICATING…' : 'LOG IN — ADVANCE'}
@@ -79,7 +107,7 @@ export function LoginPage() {
             <div className="flex-1 h-px bg-fl-border-s" />
           </div>
 
-          <GoogleButton />
+          <GoogleButton onClick={handleGoogleSignIn} />
 
           <div className="mt-6 text-center text-sm text-fl-fg4">
             No account?

@@ -7,18 +7,36 @@ import { InputField } from '~/components/ui/input-field'
 import { GoogleButton } from '~/components/ui/google-button'
 import { CornerBrackets } from '../landing/_components/CornerBrackets'
 import { GridBackground } from '~/components/ui/grid-background'
+import { AuthError } from '../login/_components/AuthError'
+import { signIn, signUp } from '~/lib/auth-client'
 
 export function SignupPage() {
   const navigate = useNavigate()
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleEnlist(e: React.SubmitEvent) {
+  async function handleEnlist(e: React.SubmitEvent) {
     e.preventDefault()
+    setError(null)
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      navigate({ to: '/play/local' })
-    }, 900)
+
+    const result = await signUp.email({ email, password, name: username, username })
+
+    setLoading(false)
+
+    if (result.error) {
+      setError(result.error.message ?? 'Sign up failed. Please try again.')
+      return
+    }
+
+    navigate({ to: '/home' })
+  }
+
+  async function handleGoogleSignIn() {
+    await signIn.social({ provider: 'google', callbackURL: '/home' })
   }
 
   return (
@@ -51,19 +69,28 @@ export function SignupPage() {
               label="CALLSIGN"
               placeholder="Your battlefield name"
               autoComplete="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <InputField
               label="EMAIL"
               type="email"
               placeholder="For account recovery"
               autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <InputField
               label="PASSWORD"
               type="password"
               placeholder="Min. 8 characters"
               autoComplete="new-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+
+            {error && <AuthError message={error} />}
+
             <CtaButton type="submit" className="w-full mt-2" disabled={loading}>
               {loading ? 'ENLISTING…' : 'REPORT FOR DUTY →'}
             </CtaButton>
@@ -75,7 +102,7 @@ export function SignupPage() {
             <div className="flex-1 h-px bg-fl-border-s" />
           </div>
 
-          <GoogleButton />
+          <GoogleButton onClick={handleGoogleSignIn} />
 
           <div className="mt-6 text-center text-sm text-fl-fg4">
             Already enlisted?
