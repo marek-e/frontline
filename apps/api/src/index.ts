@@ -18,7 +18,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 function matchOrigin(pattern: string, origin: string): string | null {
   if (pattern.includes('*')) {
     const re = new RegExp(
-      '^' + pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace('\\*', '.+') + '$'
+      '^' + pattern.replace(/[.+*?^${}()|[\]\\]/g, '\\$&').replace('\\*', '.+') + '$'
     )
     return re.test(origin) ? origin : null
   }
