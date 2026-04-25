@@ -1,9 +1,10 @@
-import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
+import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { NotFound } from '../components/NotFound'
 import { ThemeProvider } from '../components/theme-provider'
+import type { RouterContext } from '../router'
 import '../styles/app.css'
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   notFoundComponent: NotFound,
   head: () => ({
     meta: [
