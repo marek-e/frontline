@@ -6,8 +6,17 @@ compatibility_flags = ["nodejs_compat"]
 [observability]
 enabled = true
 
-[env.production]
-name = "frontline-api"
+[vars]
+WEB_ORIGIN = "http://localhost:3000"
 
 [env.staging]
 name = "frontline-api-staging"
+
+[env.staging.vars]
+WEB_ORIGIN = "https://*.frontline-web-1h7.pages.dev"
+
+[env.production]
+name = "frontline-api"
+
+[env.production.vars]
+WEB_ORIGIN = "https://frontline-web-1h7.pages.dev"

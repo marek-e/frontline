@@ -23,6 +23,12 @@ importers:
 
   apps/api:
     dependencies:
+      '@frontline/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@frontline/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       hono:
         specifier: ^4.8.5
         version: 4.12.14

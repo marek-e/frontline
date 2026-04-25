@@ -9,17 +9,20 @@ export interface AuthConfig {
   db: Db
   secret: string
   baseURL: string
+  trustedOrigins: string[]
   resendApiKey: string
   googleClientId: string
   googleClientSecret: string
 }
 
 export function createAuth(config: AuthConfig) {
-  const { db, secret, baseURL, resendApiKey, googleClientId, googleClientSecret } = config
+  const { db, secret, baseURL, trustedOrigins, resendApiKey, googleClientId, googleClientSecret } =
+    config
 
   return betterAuth({
     secret,
     baseURL,
+    trustedOrigins,
 
     database: drizzleAdapter(db, { provider: 'pg' }),
 
