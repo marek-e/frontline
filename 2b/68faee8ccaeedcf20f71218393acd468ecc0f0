@@ -1,0 +1,32 @@
+apps/web/src/lib/require-auth.ts
+  6dc949f447f9ebe0 3
+apps/web/src/router.tsx
+  6dc949f447f9ebe0 3-7,14
+apps/web/src/routes/__root.tsx
+  6dc949f447f9ebe0 1,4,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "2b68faee8ccaeedcf20f71218393acd468ecc0f0",
+  "prompts": {
+    "6dc949f447f9ebe0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4599e88-e99f-49b5-bd9b-eb415beb5502",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
