@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "0b0eca025a95adae78747437aed09b1372efd60f",
+  "prompts": {},
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
