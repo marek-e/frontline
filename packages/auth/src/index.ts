@@ -32,6 +32,12 @@ export function createAuth(config: AuthConfig) {
     secret,
     baseURL,
     trustedOrigins,
+    advanced: {
+      defaultCookieAttributes: {
+        sameSite: 'none',
+        secure: true,
+      },
+    },
 
     database: drizzleAdapter(db, { provider: 'pg' }),
 
