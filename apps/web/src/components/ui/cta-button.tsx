@@ -4,7 +4,7 @@ import { cn } from '~/lib/utils'
 import './cta-button.css'
 
 const ctaButtonVariants = cva(
-  'inline-flex items-center justify-center font-oswald font-semibold transition-all duration-200 cursor-pointer',
+  'inline-flex items-center justify-center font-oswald font-semibold transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none aria-disabled:opacity-40 aria-disabled:cursor-not-allowed aria-disabled:pointer-events-none',
   {
     variants: {
       variant: {
@@ -39,11 +39,15 @@ type CtaButtonProps = AsLink | AsButton
 function CtaButton({ variant, size, className, to, ...props }: CtaButtonProps) {
   const cls = cn(ctaButtonVariants({ variant, size, className }))
   if (to !== undefined) {
+    const { disabled, ...linkProps } = props as React.ComponentProps<typeof Link> & {
+      disabled?: boolean
+    }
     return (
       <Link
         to={to as React.ComponentProps<typeof Link>['to']}
         className={cls}
-        {...(props as Omit<React.ComponentProps<typeof Link>, 'to' | 'className'>)}
+        aria-disabled={disabled || undefined}
+        {...(linkProps as Omit<React.ComponentProps<typeof Link>, 'to' | 'className'>)}
       />
     )
   }
