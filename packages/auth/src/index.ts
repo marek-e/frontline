@@ -9,6 +9,7 @@ export interface AuthConfig {
   db: Db
   secret: string
   baseURL: string
+  webOrigin: string
   trustedOrigins: string[]
   resendApiKey: string
   googleClientId: string
@@ -16,8 +17,16 @@ export interface AuthConfig {
 }
 
 export function createAuth(config: AuthConfig) {
-  const { db, secret, baseURL, trustedOrigins, resendApiKey, googleClientId, googleClientSecret } =
-    config
+  const {
+    db,
+    secret,
+    baseURL,
+    webOrigin,
+    trustedOrigins,
+    resendApiKey,
+    googleClientId,
+    googleClientSecret,
+  } = config
 
   return betterAuth({
     secret,
@@ -42,6 +51,7 @@ export function createAuth(config: AuthConfig) {
     emailVerification: {
       sendOnSignUp: true,
       autoSignInAfterVerification: true,
+      callbackURL: `${webOrigin}/home`,
       async sendVerificationEmail({ user, url }) {
         await sendEmail({
           apiKey: resendApiKey,
