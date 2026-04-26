@@ -1,0 +1,28 @@
+apps/web/src/components/ui/cta-button.tsx
+  0f1df5db0ed268c9 7,42-44,49-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "01020be04ba3ba980d193439d5a410af9560b104",
+  "prompts": {
+    "0f1df5db0ed268c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a591b0f8-596c-4a97-991e-84138f3b27bf",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 6,
+      "total_deletions": 2,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
