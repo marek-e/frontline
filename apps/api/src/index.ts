@@ -34,17 +34,21 @@ app.use('*', (c, next) => {
   })(c, next)
 })
 
+let auth: ReturnType<typeof createAuth> | null = null
+
 app.all('/api/auth/*', (c) => {
-  const auth = createAuth({
-    db: createDb(c.env.DATABASE_URL),
-    secret: c.env.AUTH_SECRET,
-    baseURL: c.env.AUTH_BASE_URL,
-    webOrigin: c.env.WEB_ORIGIN,
-    trustedOrigins: [c.env.WEB_ORIGIN],
-    resendApiKey: c.env.RESEND_API_KEY,
-    googleClientId: c.env.GOOGLE_CLIENT_ID,
-    googleClientSecret: c.env.GOOGLE_CLIENT_SECRET,
-  })
+  if (!auth) {
+    auth = createAuth({
+      db: createDb(c.env.DATABASE_URL),
+      secret: c.env.AUTH_SECRET,
+      baseURL: c.env.AUTH_BASE_URL,
+      webOrigin: c.env.WEB_ORIGIN,
+      trustedOrigins: [c.env.WEB_ORIGIN],
+      resendApiKey: c.env.RESEND_API_KEY,
+      googleClientId: c.env.GOOGLE_CLIENT_ID,
+      googleClientSecret: c.env.GOOGLE_CLIENT_SECRET,
+    })
+  }
   return auth.handler(c.req.raw)
 })
 
