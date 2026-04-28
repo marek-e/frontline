@@ -4,6 +4,7 @@ import { username } from 'better-auth/plugins'
 import type { Db } from '@frontline/db'
 import { sendEmail } from './email'
 import { verificationEmail, resetPasswordEmail } from './email-templates'
+import { hashPassword, verifyPassword } from './password'
 
 export interface AuthConfig {
   db: Db
@@ -44,6 +45,11 @@ export function createAuth(config: AuthConfig) {
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: true,
+      password: {
+        // temporary fix for cloudflare workers CPU limit on free tier
+        hash: hashPassword,
+        verify: ({ hash, password }) => verifyPassword(hash, password),
+      },
       async sendResetPassword({ user, url }) {
         await sendEmail({
           apiKey: resendApiKey,
