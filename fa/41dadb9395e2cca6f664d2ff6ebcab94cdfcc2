@@ -1,0 +1,44 @@
+packages/auth/src/index.ts
+  h_b7c268b0e33ac7 49
+  0f1df5db0ed268c9 7,48,50-52
+packages/auth/src/password.ts
+  0f1df5db0ed268c9 1-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "fa41dadb9395e2cca6f664d2ff6ebcab94cdfcc2",
+  "prompts": {
+    "0f1df5db0ed268c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a591b0f8-596c-4a97-991e-84138f3b27bf",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 57,
+      "total_deletions": 6,
+      "accepted_lines": 51,
+      "overriden_lines": 0
+    },
+    "6d297649495dab7e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dacb9d8a-10e9-4c77-89a0-53a1bfc19491",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 348,
+      "total_deletions": 0,
+      "accepted_lines": 348,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
